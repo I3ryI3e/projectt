@@ -2,9 +2,9 @@
 #define COMUNIDADE_H
 
 #include <vector>
-
-#include "Formiga.h"
+using namespace std;
 #include "Ninho.h"
+class Formiga;
 
 class Comunidade {
     Ninho ninho;

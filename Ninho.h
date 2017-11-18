@@ -5,7 +5,7 @@
 
 class Ninho {
     Ponto local_n;
-    int energ_iter, p_novaformiga, energia_n, id_n;
+    int energ_iter, p_novaformiga,energia_n, id_n;
     static int n_ninhos;
 public:
     Ninho();
