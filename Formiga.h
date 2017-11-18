@@ -15,6 +15,9 @@
 #define FORMIGA_H
 
 class Formiga {
+    Ponto local_f;
+    int energia_f, id_f;
+    Ninho* ninho_f;
 public:
     Formiga();
     Formiga(const Formiga& orig);

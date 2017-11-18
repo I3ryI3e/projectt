@@ -6,7 +6,10 @@
                    projectFiles="true">
       <itemPath>Comunidade.h</itemPath>
       <itemPath>Formiga.h</itemPath>
+      <itemPath>Jogo.h</itemPath>
+      <itemPath>Migalha.h</itemPath>
       <itemPath>Ninho.h</itemPath>
+      <itemPath>Ponto.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -17,7 +20,10 @@
                    projectFiles="true">
       <itemPath>Comunidade.cpp</itemPath>
       <itemPath>Formiga.cpp</itemPath>
+      <itemPath>Jogo.cpp</itemPath>
+      <itemPath>Migalha.cpp</itemPath>
       <itemPath>Ninho.cpp</itemPath>
+      <itemPath>Ponto.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -53,9 +59,21 @@
       </item>
       <item path="Formiga.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Jogo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Jogo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Migalha.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Migalha.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Ninho.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Ninho.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Ponto.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Ponto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -89,9 +107,21 @@
       </item>
       <item path="Formiga.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Jogo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Jogo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Migalha.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Migalha.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Ninho.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Ninho.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Ponto.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Ponto.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -37,7 +37,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Comunidade.o \
 	${OBJECTDIR}/Formiga.o \
+	${OBJECTDIR}/Jogo.o \
+	${OBJECTDIR}/Migalha.o \
 	${OBJECTDIR}/Ninho.o \
+	${OBJECTDIR}/Ponto.o \
 	${OBJECTDIR}/main.o
 
 
@@ -75,10 +78,25 @@ ${OBJECTDIR}/Formiga.o: Formiga.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Formiga.o Formiga.cpp
 
+${OBJECTDIR}/Jogo.o: Jogo.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Jogo.o Jogo.cpp
+
+${OBJECTDIR}/Migalha.o: Migalha.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Migalha.o Migalha.cpp
+
 ${OBJECTDIR}/Ninho.o: Ninho.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Ninho.o Ninho.cpp
+
+${OBJECTDIR}/Ponto.o: Ponto.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Ponto.o Ponto.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

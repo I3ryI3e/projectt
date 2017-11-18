@@ -15,6 +15,8 @@
 #define COMUNIDADE_H
 
 class Comunidade {
+    Ninho ninho;
+    vector<Formigas*> formigueiro;
 public:
     Comunidade();
     Comunidade(const Comunidade& orig);
