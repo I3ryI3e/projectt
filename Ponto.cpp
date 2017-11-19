@@ -1,4 +1,5 @@
 #include "Ponto.h"
+#include <sstream>
 
 Ponto::Ponto() {
 }
