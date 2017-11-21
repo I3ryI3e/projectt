@@ -8,13 +8,21 @@ Jogo::Jogo():limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_ite
 }
 
 void Jogo::configuracao(){
-    string linha;
+    string linha,aux;
+    bool flag;
     do{
         do{
         getline(cin,linha);
-        tratacmd(linha, 0);
-        }while(linha.compare("inicio"));
-    }while(!checkconfig());
+        istringstream iss(linha);
+        iss >> aux;
+        if(aux.compare("executa") !=0 && aux.compare("inicio")!=0)
+            tratacmd(linha, 0);
+        }while(linha.compare("inicio") != 0 && aux.compare("executa") != 0);
+        if(linha.compare("inicio") == 0){
+            flag=checkconfig();
+        }else
+            flag=true;
+    }while(!flag);
 }
 void Jogo::tratacmd(string linha,int estado){
     istringstream iss(linha);
@@ -83,12 +91,6 @@ void Jogo::tratacmd(string linha,int estado){
             migalhas_iter=nnm;
         else
             cout << "Comando nao executado. Numero maximo de migalhas criadas por iteracao tem que estar entre 0 e 500." << endl;
-        return;
-    }
-    if(!aux.compare("executa")){
-        string nomefich;
-        iss >> nomefich;
-        trataficheiro(nomefich);
         return;
     }
 }
