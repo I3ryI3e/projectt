@@ -13,9 +13,8 @@ class Jogo {
 public:
     Jogo();
     void configuracao();
-    void tratacmd(string linha, int estado);
+    int tratacmd(string linha, int estado);
     bool checkconfig()const;
-    void trataficheiro(string ficheiro, int estado);
     Jogo(const Jogo& orig);
     virtual ~Jogo();
 private:

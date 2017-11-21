@@ -1,0 +1,7 @@
+defmundo 10
+defen 100
+defpc 50
+defvt 1
+defmi 50
+defme 100
+defnm 50

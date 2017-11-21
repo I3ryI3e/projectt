@@ -9,104 +9,118 @@ Jogo::Jogo():limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_ite
 
 void Jogo::configuracao(){
     string linha,aux;
+    fstream file;
+    int estado=0;
     bool flag;
     do{
-        do{
-        getline(cin,linha);
-        istringstream iss(linha);
-        iss >> aux;
-        if(aux.compare("executa") !=0 && aux.compare("inicio")!=0)
-            tratacmd(linha, 0);
-        }while(linha.compare("inicio") != 0 && aux.compare("executa") != 0);
-        if(linha.compare("inicio") == 0){
-            flag=checkconfig();
-        }else
-            flag=true;
-    }while(!flag);
+        if(estado == 1 || estado == 3){
+          //update mapa
+            cout << "SIMULACAO" << endl;
+        }
+        if(estado == 0 || estado == 1){
+            getline(cin, linha);
+        }else if(file.is_open()){
+                getline(file,linha);
+                if(file.eof()){
+                    file.close();
+                    estado-=2;
+                }
+            }else{
+                istringstream iss(linha);
+                iss >> aux >> aux;
+                file.open(aux);
+                if(file.fail()){
+                    cout << "Erro a abrir o ficheiro." << endl;
+                    estado-=2;
+                    continue;
+                }
+                getline(file,linha);
+            }
+        if(linha.compare("sair")!= 0)
+            estado=tratacmd(linha,estado);       
+        
+    }while(linha.compare("sair")!= 0);
 }
-void Jogo::tratacmd(string linha,int estado){
+
+int Jogo::tratacmd(string linha,int estado){
     istringstream iss(linha);
     string aux;
-    if(!linha.compare("inicio"))
-        return;
+    if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
+        if(checkconfig() == false){
+            estado +=1;
+        }
+        return estado;
+    }
+       
     iss >> aux;
-    if(!aux.compare("defmundo")){
+    if(aux.compare("defmundo") == 0 && (estado == 0 || estado == 2)){
         int nlim;
         iss >> nlim;
         if(nlim >= 10 && nlim <50)
             limite=nlim;
         else
             cout << "Comando nao executado. Limite tem que estar entre 10 e 50." << endl;
-        return;
+        return estado;
     }
-    if(!aux.compare("defen")){
+    if(aux.compare("defen") == 0){
         int nen;
         iss >> nen;
         if(nen > 0 && nen <= 500)
             energ_init_ninho=nen;
         else
             cout << "Comando nao executado. Energia inicial do ninho tem que estar entre 1 e 500." << endl;
-        return;
+        return estado;
     }
-    if(!aux.compare("defpc")){
+    if(aux.compare("defpc") == 0){
         int npc;
         iss >> npc;
         if(npc >= 0 && npc <= 100)
             def_p_novaformiga=npc;
         else
             cout << "Comando nao executado. Percentagem de energia inicial necessaria para criar uma formiga tem que estar entre 0 e 100." << endl;
-        return;
+        return estado;
     }
-    if(!aux.compare("defvt")){
+    if(aux.compare("defvt") == 0){
         int nvt;
         iss >> nvt;
         if(nvt > 0 && nvt <= 100)
             def_energ_iter=nvt;
         else
             cout << "Comando nao executado. Energia tranferida por iteracao tem que estar entre 1 e 100." << endl;
-        return;
+        return estado;
     }
-    if(!aux.compare("defmi")){
+    if(aux.compare("defmi") == 0){
         int nmi;
         iss >> nmi;
         if(nmi >= 0 && nmi <= 100)
             p_init_migalhas=nmi;
         else
             cout << "Comando nao executado. Percentagem inicial de posicoes vazias que vao ter migalhas tem que estar entre 0 e 100." << endl;
-        return;
+        return estado;
     }
-    if(!aux.compare("defme")){
+    if(aux.compare("defme") == 0){
         int nme;
         iss >> nme;
         if(nme > 0 && nme <= 250)
             energ_init_migalhas=nme;
         else
             cout << "Comando nao executado. Energia inicial das migalhas tem que estar entre 1 e 250." << endl;
-        return;
+        return estado;
     }
-    if(!aux.compare("defnm")){
+    if(aux.compare("defnm") == 0){
         int nnm;
         iss >> nnm;
         if(nnm >= 0 && nnm <= 500)
             migalhas_iter=nnm;
         else
             cout << "Comando nao executado. Numero maximo de migalhas criadas por iteracao tem que estar entre 0 e 500." << endl;
-        return;
+        return estado;
     }
-}
-
-void Jogo::trataficheiro(string ficheiro, int estado){
-    ifstream file;
-    string linha;
-    file.open(ficheiro);
-    if(file.fail()){
-        cout << "Erro a abrir o ficheiro." << endl;
-        return;
+    if(aux.compare("executa") == 0 && (estado == 0 || estado == 1) ){
+        return estado+=2;
     }
-    while(getline(file,linha)){
-        //??tratacmd(linha,2+estado);
-    }
-    
+    cout << "Ai" << endl;
+    return estado;
 }
 
 bool Jogo::checkconfig() const{
@@ -125,11 +139,11 @@ bool Jogo::checkconfig() const{
     if(migalhas_iter == -1)
         oss << "defnm, ";
     if(!oss.str().compare("Os comandos: "))
-       return true;
+       return false;
     else{
         oss << "nao foram corretamente inicializados.";
         cout << oss.str() << endl;
-        return false;
+        return true;
     }
 }
 Jogo::Jogo(const Jogo& orig) {
