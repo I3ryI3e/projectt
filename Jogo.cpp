@@ -11,7 +11,6 @@ void Jogo::configuracao(){
     string linha,aux;
     fstream file;
     int estado=0;
-    bool flag;
     do{
         if(estado == 1 || estado == 3){
           //update mapa
@@ -119,7 +118,6 @@ int Jogo::tratacmd(string linha,int estado){
     if(aux.compare("executa") == 0 && (estado == 0 || estado == 1) ){
         return estado+=2;
     }
-    cout << "Ai" << endl;
     return estado;
 }
 
