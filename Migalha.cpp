@@ -1,10 +1,9 @@
 #include "Migalha.h"
 
-Migalha::Migalha() {
+Migalha::Migalha(int linha, int coluna): local_m(linha, coluna){
 }
 
-Migalha::Migalha(const Migalha& orig) {
-}
+Ponto Migalha::getPonto() const{return local_m;}
 
 Migalha::~Migalha() {
 }

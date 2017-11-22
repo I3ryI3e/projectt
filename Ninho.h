@@ -5,11 +5,11 @@
 
 class Ninho {
     Ponto local_n;
-    int energ_iter, p_novaformiga,energia_n, id_n;
+    int energia_n, p_novaformiga, energ_iter, id_n;
     static int n_ninhos;
 public:
-    Ninho();
-    Ninho(const Ninho& orig);
+    Ninho(int linha, int coluna, int energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
+    Ponto getPonto() const;
     virtual ~Ninho();
 private:
 

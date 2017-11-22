@@ -22,7 +22,7 @@ void Jogo::configuracao(){
                 getline(file,linha);
                 if(file.eof()){
                     file.close();
-                    estado-=2;
+                    estado -= 2;
                 }
             }else{
                 istringstream iss(linha);
@@ -30,23 +30,23 @@ void Jogo::configuracao(){
                 file.open(aux);
                 if(file.fail()){
                     cout << "Erro a abrir o ficheiro." << endl;
-                    estado-=2;
+                    estado -= 2;
                     continue;
                 }
                 getline(file,linha);
             }
-        if(linha.compare("sair")!= 0)
+        if(linha.compare("sair") != 0)
             estado=tratacmd(linha,estado);       
         
-    }while(linha.compare("sair")!= 0);
+    }while(linha.compare("sair") != 0);
 }
 
 int Jogo::tratacmd(string linha,int estado){
     istringstream iss(linha);
     string aux;
     if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
-        if(checkconfig() == false){
-            estado +=1;
+        if(ckif_notconfig() == false){
+            estado += 1;
         }
         return estado;
     }
@@ -55,7 +55,7 @@ int Jogo::tratacmd(string linha,int estado){
     if(aux.compare("defmundo") == 0 && (estado == 0 || estado == 2)){
         int nlim;
         iss >> nlim;
-        if(nlim >= 10 && nlim <50)
+        if(nlim >= 10 && nlim < 50)
             limite=nlim;
         else
             cout << "Comando nao executado. Limite tem que estar entre 10 e 50." << endl;
@@ -116,12 +116,46 @@ int Jogo::tratacmd(string linha,int estado){
         return estado;
     }
     if(aux.compare("executa") == 0 && (estado == 0 || estado == 1) ){
-        return estado+=2;
+        return estado += 2;
+    }
+    if(aux.compare("ninho") == 0 && (estado == 1 || estado == 3)){
+        int lin, col;
+        iss >> lin >> col;
+        crianinho(lin, col);
+        return estado;
     }
     return estado;
 }
 
-bool Jogo::checkconfig() const{
+void Jogo::crianinho(int linha, int coluna){
+    if(linha < 0 || linha >= limite || coluna < 0 || coluna >= limite){
+        return;
+    }
+    if(jckif_space_isempty(linha, coluna) == false){
+        return;
+    }
+    Comunidade novac(linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
+    comunidades.push_back(novac);
+}
+
+bool Jogo::jckif_space_isempty(int linha, int coluna) const{
+    Ponto aux(linha, coluna);
+    auto it = comunidades.cbegin();
+    while(it != comunidades.cend()){
+        if(it->cckif_space_isempty(linha, coluna) == false)
+            return false;
+        ++it;
+    }
+    auto iter = migalhas.cbegin();
+    while(iter != migalhas.cend()){
+        if(aux == iter->getPonto())
+            return false;
+        ++iter;
+    }
+    return true;
+}
+
+bool Jogo::ckif_notconfig() const{
     ostringstream oss;
     oss << "Os comandos: ";
     if(limite == -1)

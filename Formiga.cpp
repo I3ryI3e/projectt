@@ -1,10 +1,9 @@
 #include "Formiga.h"
 
-Formiga::Formiga() {
+Formiga::Formiga(int linha, int coluna): local_f(linha, coluna){    //ACABAR
 }
 
-Formiga::Formiga(const Formiga& orig) {
-}
+Ponto Formiga::getPonto() const{return local_f;}
 
 Formiga::~Formiga() {
 }

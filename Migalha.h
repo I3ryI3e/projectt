@@ -7,8 +7,8 @@ class Migalha {
     Ponto local_m;
     int energia_m;
 public:
-    Migalha();
-    Migalha(const Migalha& orig);
+    Migalha(int linha, int coluna);
+    Ponto getPonto() const;
     virtual ~Migalha();
 private:
 

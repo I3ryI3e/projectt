@@ -14,7 +14,9 @@ public:
     Jogo();
     void configuracao();
     int tratacmd(string linha, int estado);
-    bool checkconfig()const;
+    void crianinho(int linha, int coluna);
+    bool jckif_space_isempty(int linha, int coluna)const;
+    bool ckif_notconfig()const;
     Jogo(const Jogo& orig);
     virtual ~Jogo();
 private:

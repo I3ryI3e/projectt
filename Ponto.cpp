@@ -1,8 +1,7 @@
 #include "Ponto.h"
 #include <sstream>
 
-Ponto::Ponto() {
-}
+Ponto::Ponto(int linha, int coluna): x(linha), y(coluna){}
 int Ponto::getX() const{return x;}
 int Ponto::getY() const{return y;}
 void Ponto::setX(int novox){x = novox;}
@@ -12,9 +11,12 @@ string Ponto::obtemXY() const{
     aux << "Ponto (" << x << "," << y << ")";
     return aux.str();
 }
-Ponto::Ponto(const Ponto& orig) {
+bool Ponto::operator ==(const Ponto p) const{
+    if(x == p.getX() && y == p.getY())
+        return true;
+    else
+        return false;
 }
-
 Ponto::~Ponto() {
 }
 
