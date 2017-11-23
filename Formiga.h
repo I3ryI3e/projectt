@@ -9,8 +9,9 @@ class Formiga {
     int energia_f, id_f;
     Ninho* ninho_f;
 public:
-    Formiga(int linha, int coluna);
+    Formiga(int linha, int coluna, int id);
     Ponto getPonto() const;
+    string getInfo()const;
     virtual ~Formiga();
 private:
 

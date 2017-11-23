@@ -5,3 +5,9 @@ defvt 1
 defmi 50
 defme 100
 defnm 50
+inicio
+ninho 5 5
+ninho 4 4
+ninho 6 6
+criaf 2 E 1
+criaf 3 E 3

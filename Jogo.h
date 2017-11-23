@@ -13,10 +13,12 @@ class Jogo {
 public:
     Jogo();
     void configuracao();
+    int getLimite()const;
     int tratacmd(string linha, int estado);
     void crianinho(int linha, int coluna);
     bool jckif_space_isempty(int linha, int coluna)const;
     bool ckif_notconfig()const;
+    bool criaformigas(int quantas, char tipo, int id_n);
     Jogo(const Jogo& orig);
     virtual ~Jogo();
 private:

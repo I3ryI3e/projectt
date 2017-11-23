@@ -124,6 +124,25 @@ int Jogo::tratacmd(string linha,int estado){
         crianinho(lin, col);
         return estado;
     }
+    if(aux.compare("lista") == 0 && (estado == 1 || estado == 3)){  ///// Não é um comando que é para fazer depois tem que se mudar
+        auto it = comunidades.cbegin();
+        while(it != comunidades.cend()){
+            cout << it->getInfo() << endl;
+            it++;
+        }
+    }
+    if(aux.compare("criaf") == 0 && (estado == 1 || estado == 3)){
+        int num,id_n;
+        char tipo;
+        bool teste;
+        iss >> num >> tipo >> id_n;
+        teste=criaformigas(num, tipo, id_n);
+        if(teste == false){
+            cout << "Erro na criacao das formigas!" << endl;
+        }
+            
+        
+    }
     return estado;
 }
 
@@ -134,7 +153,7 @@ void Jogo::crianinho(int linha, int coluna){
     if(jckif_space_isempty(linha, coluna) == false){
         return;
     }
-    Comunidade novac(linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
+    Comunidade novac(this ,linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
     comunidades.push_back(novac);
 }
 
@@ -177,6 +196,23 @@ bool Jogo::ckif_notconfig() const{
         cout << oss.str() << endl;
         return true;
     }
+}
+
+bool Jogo::criaformigas(int quantas, char tipo, int id_n){
+    auto it = comunidades.begin();
+    bool teste;
+    while(it != comunidades.end()){
+        if(it->getNinhoId() == id_n){
+            teste=it->criaFormigas(quantas,tipo);
+            return teste;
+        }
+        it++;
+    }
+    return false;
+}
+
+int Jogo::getLimite() const{
+    return limite;
 }
 Jogo::Jogo(const Jogo& orig) {
 }

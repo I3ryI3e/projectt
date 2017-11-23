@@ -10,6 +10,8 @@ class Ninho {
 public:
     Ninho(int linha, int coluna, int energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
     Ponto getPonto() const;
+    string getInfo()const;
+    int getId()const;
     virtual ~Ninho();
 private:
 
