@@ -12,6 +12,7 @@ public:
     Ponto getPonto() const;
     string getInfo()const;
     int getId()const;
+    void setenergia_n(int addenerg);
     virtual ~Ninho();
 private:
 

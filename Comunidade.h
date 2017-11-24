@@ -17,6 +17,7 @@ public:
     bool cckif_space_isempty(int linha, int coluna) const;
     string getInfo()const;
     int getNinhoId()const;
+    void setNinhoenerg(int addenerg);
     bool criaFormigas(int quantas, char tipo);
     virtual ~Comunidade();
 private:

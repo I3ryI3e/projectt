@@ -128,8 +128,9 @@ int Jogo::tratacmd(string linha,int estado){
         auto it = comunidades.cbegin();
         while(it != comunidades.cend()){
             cout << it->getInfo() << endl;
-            it++;
+            ++it;
         }
+        return estado;
     }
     if(aux.compare("criaf") == 0 && (estado == 1 || estado == 3)){
         int num,id_n;
@@ -140,8 +141,20 @@ int Jogo::tratacmd(string linha,int estado){
         if(teste == false){
             cout << "Erro na criacao das formigas!" << endl;
         }
-            
-        
+        return estado;
+    }
+    if(aux.compare("energninho") == 0 && (estado == 1 || estado == 3)){
+        int addenerg, numninho;
+        iss >> numninho >> addenerg;
+        auto it = comunidades.begin();
+        while(it != comunidades.end()){
+            if(it->getNinhoId() == numninho){
+                it->setNinhoenerg(addenerg);
+                return estado;
+            }
+            ++it;
+        }
+        return estado;
     }
     return estado;
 }
@@ -214,6 +227,7 @@ bool Jogo::criaformigas(int quantas, char tipo, int id_n){
 int Jogo::getLimite() const{
     return limite;
 }
+
 Jogo::Jogo(const Jogo& orig) {
 }
 

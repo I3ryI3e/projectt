@@ -37,7 +37,9 @@ string Comunidade::getInfo() const{
 int Comunidade::getNinhoId() const{
     return ninho.getId();
 }
-
+void Comunidade::setNinhoenerg(int addenerg){
+    ninho.setenergia_n(addenerg);
+}
 bool Comunidade::criaFormigas(int quantas, char tipo){
     srand (time(NULL));
     if(tipo == 'E'){
