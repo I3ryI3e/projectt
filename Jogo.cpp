@@ -130,6 +130,12 @@ int Jogo::tratacmd(string linha,int estado){
             cout << it->getInfo() << endl;
             ++it;
         }
+        auto iter = migalhas.cbegin();
+        cout << "Migalhas:" << endl;
+        while(iter != migalhas.cend()){
+            cout << iter->getInfo() << endl;
+            ++iter;
+        }
         return estado;
     }
     if(aux.compare("criaf") == 0 && (estado == 1 || estado == 3)){
@@ -156,7 +162,24 @@ int Jogo::tratacmd(string linha,int estado){
         }
         return estado;
     }
+    if(aux.compare("migalha") == 0 && (estado == 1 || estado == 3)){
+        int lin, col;
+        iss >> lin >> col;
+        criamigalha(lin, col);
+        return estado;
+    }
     return estado;
+}
+
+void Jogo::criamigalha(int linha, int coluna){
+    if(linha < 0 || linha >= limite || coluna < 0 || coluna >= limite){
+        return;
+    }
+    if(jckif_space_isempty(linha, coluna) == false){
+        return;
+    }
+    Migalha novam(linha, coluna, energ_init_migalhas);
+    migalhas.push_back(novam);
 }
 
 void Jogo::crianinho(int linha, int coluna){
@@ -166,7 +189,7 @@ void Jogo::crianinho(int linha, int coluna){
     if(jckif_space_isempty(linha, coluna) == false){
         return;
     }
-    Comunidade novac(this ,linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
+    Comunidade novac(this, linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
     comunidades.push_back(novac);
 }
 

@@ -33,7 +33,6 @@ string Comunidade::getInfo() const{
     }
     return oss.str();
 }
-
 int Comunidade::getNinhoId() const{
     return ninho.getId();
 }
