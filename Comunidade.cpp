@@ -48,11 +48,20 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                 r_linha= rand() % p_jogo->getLimite();
                 r_coluna= rand() % p_jogo->getLimite();
             }while(p_jogo->jckif_space_isempty(r_linha,r_coluna) == false);
-                formigueiro.push_back(new Formiga(r_linha,r_coluna,++n_formigas));
+                formigueiro.push_back(new Formiga(r_linha,r_coluna,++n_formigas,&ninho));
         }
         return true;
     }
     return false;
+}
+
+void Comunidade::iteracao(){
+    auto it= formigueiro.begin();
+    ninho.iteracao(this);
+    while(it != formigueiro.end()){
+        (*it)->iteracao(p_jogo);
+        ++it;
+    }
 }
 
 Comunidade::~Comunidade() {

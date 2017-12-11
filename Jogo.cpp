@@ -168,6 +168,38 @@ int Jogo::tratacmd(string linha,int estado){
         criamigalha(lin, col);
         return estado;
     }
+    if(aux.compare("tempo") == 0 && (estado == 1 || estado == 3)){
+        if(iss.eof()){
+            auto it=comunidades.begin();
+            while(it != comunidades.end()){
+                it->iteracao();
+                ++it;
+            }
+            auto iter=migalhas.begin();
+            while(iter != migalhas.end()){
+                iter->iteracao();
+                ++iter;
+            }
+        }else{
+            int i;
+            vector<Comunidade>::iterator it;
+            vector<Migalha>::iterator iter;
+            iss >> i;
+            for(;i>0;i--){
+                it=comunidades.begin();
+                while(it != comunidades.end()){
+                    it->iteracao();
+                    ++it;
+                }
+                iter=migalhas.begin();
+                while(iter != migalhas.end()){
+                    iter->iteracao();
+                    ++iter;
+                }
+            }
+        }
+        return estado;
+    }
     return estado;
 }
 
@@ -194,6 +226,8 @@ void Jogo::crianinho(int linha, int coluna){
 }
 
 bool Jogo::jckif_space_isempty(int linha, int coluna) const{
+    if(linha < 0 || linha >=limite || coluna < 0 || coluna >=limite)
+        return false;
     Ponto aux(linha, coluna);
     auto it = comunidades.cbegin();
     while(it != comunidades.cend()){

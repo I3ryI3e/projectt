@@ -19,6 +19,7 @@ public:
     int getNinhoId()const;
     void setNinhoenerg(int addenerg);
     bool criaFormigas(int quantas, char tipo);
+    void iteracao();
     virtual ~Comunidade();
 private:
 

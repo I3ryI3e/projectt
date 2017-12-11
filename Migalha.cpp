@@ -11,6 +11,10 @@ string Migalha::getInfo() const{
     return oss.str();
 }
 
+void Migalha::iteracao(){
+    
+}
+
 Migalha::~Migalha() {
 }
 
