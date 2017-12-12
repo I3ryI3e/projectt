@@ -7,7 +7,7 @@ Migalha::Migalha(int linha, int coluna, int energini): local_m(linha, coluna), e
 Ponto Migalha::getPonto() const{return local_m;}
 string Migalha::getInfo() const{
     ostringstream oss;
-    oss << "Local: " << local_m.obtemXY() << endl << "Energia: " << energia_m;
+    oss << "Local: " << local_m.obtemXY() << "\tEnergia: " << energia_m;
     return oss.str();
 }
 

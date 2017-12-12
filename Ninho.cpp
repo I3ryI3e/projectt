@@ -11,7 +11,7 @@ Ponto Ninho::getPonto() const{return local_n;}
 
 string Ninho::getInfo() const{
     ostringstream oss;
-    oss << "Ninho " << id_n << ":" << endl << "Local: " << local_n.obtemXY() << endl << "Energia: " << energia_n;
+    oss << "Ninho " << id_n << "->\t" << "Local: " << local_n.obtemXY() << "\tEnergia: " << energia_n << endl;
     return oss.str();
 }
 int Ninho::getId() const{

@@ -124,10 +124,10 @@ int Jogo::tratacmd(string linha,int estado){
         crianinho(lin, col);
         return estado;
     }
-    if(aux.compare("lista") == 0 && (estado == 1 || estado == 3)){  ///// Não é um comando que é para fazer depois tem que se mudar
+    if(aux.compare("listamundo") == 0 && (estado == 1 || estado == 3)){  
         auto it = comunidades.cbegin();
         while(it != comunidades.cend()){
-            cout << it->getInfo() << endl;
+            cout << it->getInfoGeral() << endl;
             ++it;
         }
         auto iter = migalhas.cbegin();
@@ -137,6 +137,36 @@ int Jogo::tratacmd(string linha,int estado){
             ++iter;
         }
         return estado;
+    }
+    if(aux.compare("listaninho") == 0 && (estado == 1 || estado == 3)){
+        int nninho;
+        iss >> nninho;
+        auto it = comunidades.cbegin();
+        while(it != comunidades.cend()){
+            if(nninho == it->getNinhoId()){
+                cout << it->getInfoNinho() << endl;
+                return estado;
+            }
+            ++it;
+        }
+        return estado;
+    }
+    if(aux.compare("listaposicao") == 0 && (estado == 1 || estado == 3)){
+        int lin, col;
+        iss >> lin >> col;
+        Ponto auxP(lin,col);
+        auto it = comunidades.cbegin();
+        while(it != comunidades.cend()){
+            cout << it->ckwhoisthere(auxP);
+            ++it;
+        }
+        auto iter = migalhas.cbegin();
+        while(iter != migalhas.cend()){
+            if(iter->getPonto() == auxP)
+                cout << iter->getInfo();
+            ++iter;
+        }
+        
     }
     if(aux.compare("criaf") == 0 && (estado == 1 || estado == 3)){
         int num,id_n;

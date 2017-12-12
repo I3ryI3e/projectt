@@ -23,18 +23,40 @@ bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
     }
     return true;
 }
-string Comunidade::getInfo() const{
+string Comunidade::getInfoGeral() const{
     ostringstream oss;
-    oss << "Comunidade" << endl << ninho.getInfo()<< endl;
-    auto it=formigueiro.cbegin();
+    oss << "Comunidade" << endl << ninho.getInfo()<< "Numero de Formigas:" << formigueiro.size() << endl;
+    return oss.str();
+}
+string Comunidade::getInfoNinho() const{
+    ostringstream oss;
+    oss << ninho.getInfo() << endl;
+    auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
         oss << (*it)->getInfo() << endl;
-        it++;
+        ++it;
     }
     return oss.str();
 }
+string Comunidade::ckwhoisthere(const Ponto& aux) const{
+    ostringstream oss;
+    if(aux == ninho.getPonto())
+        oss << ninho.getInfo()<< endl;
+    auto it = formigueiro.cbegin();
+    while(it != formigueiro.cend()){
+        if((*it)->getPonto()== aux){
+            oss << (*it)->getInfo() << endl;
+        }
+        ++it;
+    }
+    return oss.str();
+}
+
 int Comunidade::getNinhoId() const{
     return ninho.getId();
+}
+Ponto Comunidade::getNinhoPonto() const{
+    return ninho.getPonto();
 }
 void Comunidade::setNinhoenerg(int addenerg){
     ninho.setenergia_n(addenerg);

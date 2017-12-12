@@ -7,7 +7,7 @@ Formiga::Formiga(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): lo
 
 string Formiga::getInfo() const{
     ostringstream oss;
-    oss << "Formiga " << id_f << ":" << endl << "Local: " << local_f.obtemXY() << endl << "Energia: " << energia_f;
+    oss << "Formiga " << id_f << "->" << "\tLocal: " << local_f.obtemXY() << "\tEnergia: " << energia_f;
     return oss.str();
 }
 
@@ -71,6 +71,8 @@ void Formiga::iteracao(Jogo* jogo_atual){
                     y=local_f.getY()-auxy;
                     break;
                 }
+            if(ninho_f->getPonto().getX() == x && ninho_f->getPonto().getY()==y)
+                break;
         }while(!jogo_atual->jckif_space_isempty(x,y));
         consomeEnergia(auxx+auxy);
         local_f.setX(x);
