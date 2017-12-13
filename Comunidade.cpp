@@ -76,14 +76,19 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
     return false;
 }
 void Comunidade::iteracao(){
-    auto it= formigueiro.begin();
     ninho.iteracao(this);
+    auto it= formigueiro.begin();
     while(it != formigueiro.end()){
         (*it)->iteracao(p_jogo);
         ++it;
     }
 }
-
+int Comunidade::getNFormigas() const{
+    return n_formigas;
+}
+Ponto Comunidade::getPontoFormiga(int num) const{
+    return formigueiro.at(num)->getPonto();
+}
 Comunidade::~Comunidade() {
 }
 

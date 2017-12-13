@@ -1,4 +1,4 @@
-defmundo 10
+defmundo 25
 defen 100
 defpc 50
 defvt 1
@@ -11,5 +11,3 @@ ninho 4 4
 ninho 6 6
 criaf 2 E 1
 criaf 3 E 3
-migalha 3 7
-migalha 5 6

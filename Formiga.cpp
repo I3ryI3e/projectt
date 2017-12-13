@@ -74,7 +74,7 @@ void Formiga::iteracao(Jogo* jogo_atual){
             if(ninho_f->getPonto().getX() == x && ninho_f->getPonto().getY()==y)
                 break;
         }while(!jogo_atual->jckif_space_isempty(x,y));
-        consomeEnergia(auxx+auxy);
+        consomeEnergia(auxx+auxy+1);
         local_f.setX(x);
         local_f.setY(y);
     }

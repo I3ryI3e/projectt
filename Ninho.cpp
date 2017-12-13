@@ -29,7 +29,7 @@ int Ninho::getEnerg_Iter() const{
 }
 
 void Ninho::iteracao(Comunidade* sua_Comunidade){
-    if(energia_n >= energia_inicial+(energia_inicial*(p_novaformiga/100))){
+    if(energia_n >= energia_inicial+(energia_inicial*((float)p_novaformiga/100))){
         sua_Comunidade->criaFormigas(1,'E');                                     // TEM QUE SER MUDADO   
     }
 }

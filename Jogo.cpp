@@ -15,11 +15,14 @@ void Jogo::configuracao(){
     do{
         if(estado == 1 || estado == 3){
             updatemap();
+            Consola::gotoxy(0,0);
         }else{
             setconfig_screen();             //AS MENSAGENS DE ERRO TAO MAL AGORA
         }
         if(estado == 0 || estado == 1){
-            getline(cin, linha);
+            getline(cin, linha);            
+            Consola::clrscr();              //REVER ESTA LINHA
+            Consola::gotoxy(0, 1);          //REVER ESTA LINHA
         }else if(file.is_open()){
                 getline(file,linha);
                 if(file.eof()){
@@ -49,6 +52,7 @@ int Jogo::tratacmd(string linha,int estado){
     if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
         if(ckif_notconfig() == false){
             estado += 1;
+            Consola::clrscr();
         }
         return estado;
     }
@@ -126,7 +130,7 @@ int Jogo::tratacmd(string linha,int estado){
         crianinho(lin, col);
         return estado;
     }
-    if(aux.compare("listamundo") == 0 && (estado == 1 || estado == 3)){  
+    if(aux.compare("listamundo") == 0 && (estado == 1 || estado == 3)){
         auto it = comunidades.cbegin();
         while(it != comunidades.cend()){
             cout << it->getInfoGeral() << endl;
@@ -319,32 +323,32 @@ int Jogo::getLimite() const{
 
 void Jogo::updatemap(){
     int i, j;
-    Consola::clrscr();
-    Consola::gotoxy(1, 0);
+    Ponto aux(0,0);
     for(i=-1;i<=getLimite();i++){
-        for(j=-1;j<=getLimite();j++){
+        for(j=118;j>=(117-getLimite());j--){
             Consola::setTextColor(Consola::BRANCO_CLARO);
-            if(i==-1 && j==-1){
-                cout << (char)201;
-                continue;
-            }
-            if(i==getLimite() && j==-1){
-                cout << (char)200;
-                continue;
-            }
-            if(i==-1 && j==getLimite()){
+            Consola::gotoxy(j, 0+i+1);
+            if(i==-1 && j==118){
                 cout << (char)187;
                 continue;
             }
-            if(i==getLimite() && j==getLimite()){
+            if(i==getLimite() && j==118){
                 cout << (char)188;
+                continue;
+            }
+            if(i==-1 && j==(117-getLimite())){
+                cout << (char)201;
+                continue;
+            }
+            if(i==getLimite() && j==(117-getLimite())){
+                cout << (char)200;
                 continue;
             }
             if(i==-1){
                 cout << (char)205;
                 continue;
             }
-            if(j==-1){
+            if(j==118){
                 cout << (char)186;
                 continue;
             }
@@ -352,29 +356,30 @@ void Jogo::updatemap(){
                 cout << (char)205;
                 continue;
             }
-            if(j==getLimite()){
+            if(j==(117-getLimite())){
                 cout << (char)186;
                 continue;
             }
             cout << (char)255;
         }
         cout << endl;
-        Consola::gotoxy(1, i+2);
+//        Consola::gotoxy(129, i+2);
     }
     for(i=0;i<comunidades.size();i++){
-        Consola::setTextColor(Consola::AZUL+i);
-        Consola::gotoxy(comunidades[i].getNinhoPonto().getX()+1, comunidades[i].getNinhoPonto().getY());
+        Consola::setTextColor(Consola::VERDE+i);
+        Consola::gotoxy(comunidades[i].getNinhoPonto().getX()+(118-getLimite()), comunidades[i].getNinhoPonto().getY()+1);
         cout << (char)78;
-        //FAZER AS FORMIGAS AQUI == (char)157;
+        for(j=0;j<comunidades[i].getNFormigas();j++){
+            aux=comunidades[i].getPontoFormiga(j);
+            Consola::gotoxy(aux.getX()+(118-getLimite()),aux.getY()+1);
+            cout << (char)190;
+        }
     }
     Consola::setTextColor(Consola::COR_DE_ROSA);
     for(i=0;i<migalhas.size();i++){
-        Consola::gotoxy(migalhas[i].getPonto().getX()+1, migalhas[i].getPonto().getY());
-        cout << (char)233;
+        Consola::gotoxy(migalhas[i].getPonto().getX()+(118-getLimite()), migalhas[i].getPonto().getY()+1);
+        cout << (char)254;
     }
-    Consola::gotoxy(60, 10);
-    Consola::setTextColor(Consola::VERDE_CLARO);
-    cout << "Comando: ";
 }
 
 void Jogo::setconfig_screen(){

@@ -23,6 +23,8 @@ public:
     void setNinhoenerg(int addenerg);
     bool criaFormigas(int quantas, char tipo);
     void iteracao();
+    int getNFormigas()const;
+    Ponto getPontoFormiga(int num) const;
     virtual ~Comunidade();
 private:
 
