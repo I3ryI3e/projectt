@@ -1,4 +1,5 @@
 #include "Jogo.h"
+#include "Consola.h"
 #include <sstream>
 #include <iostream>
 #include <fstream>
@@ -13,8 +14,9 @@ void Jogo::configuracao(){
     int estado=0;
     do{
         if(estado == 1 || estado == 3){
-          //update mapa
-            cout << "SIMULACAO" << endl;
+            updatemap();
+        }else{
+            setconfig_screen();             //AS MENSAGENS DE ERRO TAO MAL AGORA
         }
         if(estado == 0 || estado == 1){
             getline(cin, linha);
@@ -313,6 +315,78 @@ bool Jogo::criaformigas(int quantas, char tipo, int id_n){
 
 int Jogo::getLimite() const{
     return limite;
+}
+
+void Jogo::updatemap(){
+    int i, j;
+    Consola::clrscr();
+    Consola::gotoxy(1, 0);
+    for(i=-1;i<=getLimite();i++){
+        for(j=-1;j<=getLimite();j++){
+            Consola::setTextColor(Consola::BRANCO_CLARO);
+            if(i==-1 && j==-1){
+                cout << (char)201;
+                continue;
+            }
+            if(i==getLimite() && j==-1){
+                cout << (char)200;
+                continue;
+            }
+            if(i==-1 && j==getLimite()){
+                cout << (char)187;
+                continue;
+            }
+            if(i==getLimite() && j==getLimite()){
+                cout << (char)188;
+                continue;
+            }
+            if(i==-1){
+                cout << (char)205;
+                continue;
+            }
+            if(j==-1){
+                cout << (char)186;
+                continue;
+            }
+            if(i==getLimite()){
+                cout << (char)205;
+                continue;
+            }
+            if(j==getLimite()){
+                cout << (char)186;
+                continue;
+            }
+            cout << (char)255;
+        }
+        cout << endl;
+        Consola::gotoxy(1, i+2);
+    }
+    for(i=0;i<comunidades.size();i++){
+        Consola::setTextColor(Consola::AZUL+i);
+        Consola::gotoxy(comunidades[i].getNinhoPonto().getX()+1, comunidades[i].getNinhoPonto().getY());
+        cout << (char)78;
+        //FAZER AS FORMIGAS AQUI == (char)157;
+    }
+    Consola::setTextColor(Consola::COR_DE_ROSA);
+    for(i=0;i<migalhas.size();i++){
+        Consola::gotoxy(migalhas[i].getPonto().getX()+1, migalhas[i].getPonto().getY());
+        cout << (char)233;
+    }
+    Consola::gotoxy(60, 10);
+    Consola::setTextColor(Consola::VERDE_CLARO);
+    cout << "Comando: ";
+}
+
+void Jogo::setconfig_screen(){
+    Consola::setTextColor(Consola::VERDE_CLARO);
+    Consola::clrscr();
+    Consola::setScreenSize(30, 120);
+    Consola::gotoxy(20, 14);
+    cout << "Bem vindo ao programa de simulacao de populacoes de formigas" << endl;
+    Consola::gotoxy(20, 15);
+    cout << "Trabalho pratico de POO 2017/2018" << endl;
+    Consola::gotoxy(20, 16);
+    cout << "Comando: ";
 }
 
 Jogo::Jogo(const Jogo& orig) {

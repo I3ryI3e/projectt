@@ -51,7 +51,6 @@ string Comunidade::ckwhoisthere(const Ponto& aux) const{
     }
     return oss.str();
 }
-
 int Comunidade::getNinhoId() const{
     return ninho.getId();
 }
@@ -76,7 +75,6 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
     }
     return false;
 }
-
 void Comunidade::iteracao(){
     auto it= formigueiro.begin();
     ninho.iteracao(this);
