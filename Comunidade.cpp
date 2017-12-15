@@ -90,5 +90,10 @@ Ponto Comunidade::getPontoFormiga(int num) const{
     return formigueiro.at(num)->getPonto();
 }
 Comunidade::~Comunidade() {
+    auto it= formigueiro.begin();
+    while(it != formigueiro.end()){
+        delete (*it);
+        it=formigueiro.erase(it);
+    }
 }
 
