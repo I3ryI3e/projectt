@@ -19,7 +19,7 @@ void Formiga::iteracao(Jogo* jogo_atual){
     if(ninho_f->getPonto() == local_f){
         if(energia_f>energia_inicial){
             energia_f -= ninho_f->getEnerg_Iter();
-            ninho_f->setenergia_n(ninho_f->getEnerg_Iter());
+            ninho_f->setenergia_n(ninho_f->getEnerg_Iter());                        // REVER TENDO EM CONTA CONCEITO DE ENCAPSULAMENTO
             return;
         }
         if(energia_f < (energia_inicial*0.5)){
