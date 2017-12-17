@@ -24,6 +24,7 @@ public:
     bool criaFormigas(int quantas, char tipo);
     void iteracao();
     int getNFormigas()const;
+    void addenergFormiga(int linha, int coluna, int energ);
     Ponto getPontoFormiga(int num) const;
     virtual ~Comunidade();
 private:

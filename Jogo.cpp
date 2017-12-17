@@ -56,7 +56,6 @@ int Jogo::tratacmd(string linha,int estado){
         }
         return estado;
     }
-       
     iss >> aux;
     if(aux.compare("defmundo") == 0 && (estado == 0 || estado == 2)){
         int nlim;
@@ -233,6 +232,16 @@ int Jogo::tratacmd(string linha,int estado){
                     ++iter;
                 }
             }
+        }
+        return estado;
+    }
+    if(aux.compare("energformiga") == 0 && (estado == 1 || estado == 3)){
+        int lin, col, addenerg;
+        iss >> lin >> col >> addenerg;
+        auto it = comunidades.begin();
+        while(it != comunidades.end()){
+            it->addenergFormiga(lin, col, addenerg);
+            ++it;
         }
         return estado;
     }

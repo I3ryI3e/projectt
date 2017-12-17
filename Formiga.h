@@ -15,6 +15,7 @@ public:
     string getInfo()const;
     void iteracao(Jogo* jogo_atual);
     void consomeEnergia(int energia);
+    void addenergia(int energia);
     virtual ~Formiga();
 private:
 

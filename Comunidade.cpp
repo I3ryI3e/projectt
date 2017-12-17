@@ -86,6 +86,17 @@ void Comunidade::iteracao(){
 int Comunidade::getNFormigas() const{
     return n_formigas;
 }
+void Comunidade::addenergFormiga(int linha, int coluna, int energ){
+    Ponto aux(linha, coluna);
+    auto it = formigueiro.begin();
+    while(it != formigueiro.end()){
+        if(aux == (*it)->getPonto()){
+            (*it)->addenergia(energ);
+            return;
+        }
+        ++it;
+    }
+}
 Ponto Comunidade::getPontoFormiga(int num) const{
     return formigueiro.at(num)->getPonto();
 }

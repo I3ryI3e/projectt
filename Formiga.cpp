@@ -85,7 +85,9 @@ void Formiga::consomeEnergia(int energia){
     else
         energia_f-=energia;
 }
-
+void Formiga::addenergia(int energia){
+    energia_f += energia;
+}
 Formiga::~Formiga() {
 }
 
