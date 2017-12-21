@@ -1,12 +1,12 @@
 #include "Comunidade.h"
 #include "Ponto.h"
 #include "Formiga.h"
-#include "Jogo.h"
+#include "Mundo.h"
 #include <sstream>
 #include <random>
 #include <ctime>
 
-Comunidade::Comunidade(Jogo* principal, int linha, int coluna, int energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_jogo(principal),ninho(linha, coluna,
+Comunidade::Comunidade(Mundo* principal, int linha, int coluna, int energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal),ninho(linha, coluna,
         energ_init_ninho, def_p_novaformiga, def_energ_iter),n_formigas(0){}
 
 bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
@@ -66,9 +66,9 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
         for(int i=0;i<quantas;i++){
             int r_linha, r_coluna;
             do{
-                r_linha= rand() % p_jogo->getLimite();
-                r_coluna= rand() % p_jogo->getLimite();
-            }while(p_jogo->jckif_space_isempty(r_linha,r_coluna) == false);
+                r_linha= rand() % p_mundo->getLimite();
+                r_coluna= rand() % p_mundo->getLimite();
+            }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
                 formigueiro.push_back(new Formiga(r_linha,r_coluna,++n_formigas,&ninho));
         }
         return true;
@@ -79,7 +79,7 @@ void Comunidade::iteracao(){
     ninho.iteracao(this);
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){
-        (*it)->iteracao(p_jogo);
+        (*it)->iteracao(p_mundo);
         ++it;
     }
 }

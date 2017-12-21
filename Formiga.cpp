@@ -1,5 +1,5 @@
 #include "Formiga.h"
-#include "Jogo.h"
+#include "Mundo.h"
 #include <sstream>
 #include <ctime>
 Formiga::Formiga(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(200), id_f(id), energia_inicial(200), ninho_f(ninho_a_que_pertence){    //ACABAR
@@ -13,7 +13,7 @@ string Formiga::getInfo() const{
 
 Ponto Formiga::getPonto() const{return local_f;}
 
-void Formiga::iteracao(Jogo* jogo_atual){
+void Formiga::iteracao(Mundo* mundo_atual){
     srand (time(NULL));
     int mov,x=local_f.getX(),y=local_f.getY(),auxx,auxy;
     if(ninho_f->getPonto() == local_f){
@@ -44,7 +44,7 @@ void Formiga::iteracao(Jogo* jogo_atual){
                     x=local_f.getX()+1;
                     break;
                 }
-            }while(!jogo_atual->jckif_space_isempty(x,y));
+            }while(!mundo_atual->mckif_space_isempty(x,y));
             local_f.setX(x);
             local_f.setY(y);
             return;
@@ -73,7 +73,7 @@ void Formiga::iteracao(Jogo* jogo_atual){
                 }
             if(ninho_f->getPonto().getX() == x && ninho_f->getPonto().getY()==y)
                 break;
-        }while(!jogo_atual->jckif_space_isempty(x,y));
+        }while(!mundo_atual->mckif_space_isempty(x,y));
         consomeEnergia(auxx+auxy+1);
         local_f.setX(x);
         local_f.setY(y);

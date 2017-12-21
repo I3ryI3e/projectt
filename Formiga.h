@@ -3,7 +3,7 @@
 
 #include "Ponto.h"
 #include "Ninho.h"
-class Jogo;
+class Mundo;
 
 class Formiga {
     Ponto local_f;
@@ -13,7 +13,7 @@ public:
     Formiga(int linha, int coluna, int id,Ninho* ninho_a_que_pertence);
     Ponto getPonto() const;
     string getInfo()const;
-    void iteracao(Jogo* jogo_atual);
+    void iteracao(Mundo* mundo_atual);
     void consomeEnergia(int energia);
     void addenergia(int energia);
     virtual ~Formiga();

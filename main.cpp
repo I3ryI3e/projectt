@@ -1,12 +1,12 @@
 #include <cstdlib>
-#include "Jogo.h"
+#include "Mundo.h"
 
 using namespace std;
 
 
 int main() {
 
-    Jogo a;
+    Mundo a;
     a.configuracao();
     return 0;
 }

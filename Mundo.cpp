@@ -1,14 +1,13 @@
-#include "Jogo.h"
-#include "Consola.h"
+#include "Mundo.h"
 #include <sstream>
 #include <iostream>
 #include <fstream>
 
-Jogo::Jogo():limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
+Mundo::Mundo():limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
             p_init_migalhas(-1),energ_init_migalhas(-1),migalhas_iter(-1){
 }
 
-void Jogo::configuracao(){
+void Mundo::configuracao(){
     string linha,aux;
     fstream file;
     int estado=0;
@@ -17,7 +16,8 @@ void Jogo::configuracao(){
             updatemap();
             Consola::gotoxy(0,0);
         }else{
-            setconfig_screen();             //AS MENSAGENS DE ERRO TAO MAL AGORA
+            ecran.setconfig_screen();
+            //setconfig_screen();             //AS MENSAGENS DE ERRO TAO MAL AGORA
         }
         if(estado == 0 || estado == 1){
             getline(cin, linha);            
@@ -46,7 +46,7 @@ void Jogo::configuracao(){
     }while(linha.compare("sair") != 0);
 }
 
-int Jogo::tratacmd(string linha,int estado){
+int Mundo::tratacmd(string linha,int estado){
     istringstream iss(linha);
     string aux;
     if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
@@ -248,29 +248,29 @@ int Jogo::tratacmd(string linha,int estado){
     return estado;
 }
 
-void Jogo::criamigalha(int linha, int coluna){
+void Mundo::criamigalha(int linha, int coluna){
     if(linha < 0 || linha >= limite || coluna < 0 || coluna >= limite){
         return;
     }
-    if(jckif_space_isempty(linha, coluna) == false){
+    if(mckif_space_isempty(linha, coluna) == false){
         return;
     }
     Migalha novam(linha, coluna, energ_init_migalhas);
     migalhas.push_back(novam);
 }
 
-void Jogo::crianinho(int linha, int coluna){
+void Mundo::crianinho(int linha, int coluna){
     if(linha < 0 || linha >= limite || coluna < 0 || coluna >= limite){
         return;
     }
-    if(jckif_space_isempty(linha, coluna) == false){
+    if(mckif_space_isempty(linha, coluna) == false){
         return;
     }
     Comunidade novac(this, linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
     comunidades.push_back(novac);
 }
 
-bool Jogo::jckif_space_isempty(int linha, int coluna) const{
+bool Mundo::mckif_space_isempty(int linha, int coluna) const{
     if(linha < 0 || linha >=limite || coluna < 0 || coluna >=limite)
         return false;
     Ponto aux(linha, coluna);
@@ -289,7 +289,7 @@ bool Jogo::jckif_space_isempty(int linha, int coluna) const{
     return true;
 }
 
-bool Jogo::ckif_notconfig() const{
+bool Mundo::ckif_notconfig() const{
     ostringstream oss;
     oss << "Os comandos: ";
     if(limite == -1)
@@ -313,7 +313,7 @@ bool Jogo::ckif_notconfig() const{
     }
 }
 
-bool Jogo::criaformigas(int quantas, char tipo, int id_n){
+bool Mundo::criaformigas(int quantas, char tipo, int id_n){
     auto it = comunidades.begin();
     bool teste;
     while(it != comunidades.end()){
@@ -326,11 +326,11 @@ bool Jogo::criaformigas(int quantas, char tipo, int id_n){
     return false;
 }
 
-int Jogo::getLimite() const{
+int Mundo::getLimite() const{
     return limite;
 }
 
-void Jogo::updatemap(){
+void Mundo::updatemap(){
     int i, j;
     Ponto aux(0,0);
     for(i=-1;i<=getLimite();i++){
@@ -372,7 +372,6 @@ void Jogo::updatemap(){
             cout << (char)255;
         }
         cout << endl;
-//        Consola::gotoxy(129, i+2);
     }
     for(i=0;i<comunidades.size();i++){
         Consola::setTextColor(Consola::VERDE+i);
@@ -391,21 +390,21 @@ void Jogo::updatemap(){
     }
 }
 
-void Jogo::setconfig_screen(){
-    Consola::setTextColor(Consola::VERDE_CLARO);
-    Consola::clrscr();
-    Consola::setScreenSize(30, 120);
-    Consola::gotoxy(20, 14);
-    cout << "Bem vindo ao programa de simulacao de populacoes de formigas" << endl;
-    Consola::gotoxy(20, 15);
-    cout << "Trabalho pratico de POO 2017/2018" << endl;
-    Consola::gotoxy(20, 16);
-    cout << "Comando: ";
+//void Mundo::setconfig_screen(){
+//    Consola::setTextColor(Consola::VERDE_CLARO);
+//    Consola::clrscr();
+//    Consola::setScreenSize(30, 120);
+//    Consola::gotoxy(20, 14);
+//    cout << "Bem vindo ao programa de simulacao de populacoes de formigas" << endl;
+//    Consola::gotoxy(20, 15);
+//    cout << "Trabalho pratico de POO 2017/2018" << endl;
+//    Consola::gotoxy(20, 16);
+//    cout << "Comando: ";
+//}
+
+Mundo::Mundo(const Mundo& orig) {
 }
 
-Jogo::Jogo(const Jogo& orig) {
-}
-
-Jogo::~Jogo() {
+Mundo::~Mundo() {
 }
 
