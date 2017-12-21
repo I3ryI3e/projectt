@@ -2,7 +2,7 @@
 #include "Mundo.h"
 #include <sstream>
 #include <ctime>
-Formiga::Formiga(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(200), id_f(id), energia_inicial(200), ninho_f(ninho_a_que_pertence){    //ACABAR
+Formiga::Formiga(int linha, int coluna, int energ, int id, int energ_init, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), energia_inicial(energ_init), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence){    
 }
 
 string Formiga::getInfo() const{
