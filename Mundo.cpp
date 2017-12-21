@@ -14,15 +14,11 @@ void Mundo::configuracao(){
     do{
         if(estado == 1 || estado == 3){
             updatemap();
-            Consola::gotoxy(0,0);
         }else{
-            ecran.setconfig_screen();
-            //setconfig_screen();             //AS MENSAGENS DE ERRO TAO MAL AGORA
+            Interface::setconfig_screen();        //AS MENSAGENS DE ERRO TAO MAL AGORA
         }
         if(estado == 0 || estado == 1){
-            getline(cin, linha);            
-            Consola::clrscr();              //REVER ESTA LINHA
-            Consola::gotoxy(0, 1);          //REVER ESTA LINHA
+            linha = Interface::getlinha();
         }else if(file.is_open()){
                 getline(file,linha);
                 if(file.eof()){
@@ -52,7 +48,7 @@ int Mundo::tratacmd(string linha,int estado){
     if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
         if(ckif_notconfig() == false){
             estado += 1;
-            Consola::clrscr();
+            Consola::clrscr();      //MUDAR ISTO
         }
         return estado;
     }
@@ -333,74 +329,20 @@ int Mundo::getLimite() const{
 void Mundo::updatemap(){
     int i, j;
     Ponto aux(0,0);
-    for(i=-1;i<=getLimite();i++){
-        for(j=118;j>=(117-getLimite());j--){
-            Consola::setTextColor(Consola::BRANCO_CLARO);
-            Consola::gotoxy(j, 0+i+1);
-            if(i==-1 && j==118){
-                cout << (char)187;
-                continue;
-            }
-            if(i==getLimite() && j==118){
-                cout << (char)188;
-                continue;
-            }
-            if(i==-1 && j==(117-getLimite())){
-                cout << (char)201;
-                continue;
-            }
-            if(i==getLimite() && j==(117-getLimite())){
-                cout << (char)200;
-                continue;
-            }
-            if(i==-1){
-                cout << (char)205;
-                continue;
-            }
-            if(j==118){
-                cout << (char)186;
-                continue;
-            }
-            if(i==getLimite()){
-                cout << (char)205;
-                continue;
-            }
-            if(j==(117-getLimite())){
-                cout << (char)186;
-                continue;
-            }
-            cout << (char)255;
-        }
-        cout << endl;
-    }
+    Interface::printborders(limite);
     for(i=0;i<comunidades.size();i++){
-        Consola::setTextColor(Consola::VERDE+i);
-        Consola::gotoxy(comunidades[i].getNinhoPonto().getX()+(118-getLimite()), comunidades[i].getNinhoPonto().getY()+1);
-        cout << (char)78;
+        aux = comunidades[i].getNinhoPonto();
+        Interface::printcaracter(aux, i, 78, limite);
         for(j=0;j<comunidades[i].getNFormigas();j++){
             aux=comunidades[i].getPontoFormiga(j);
-            Consola::gotoxy(aux.getX()+(118-getLimite()),aux.getY()+1);
-            cout << (char)190;
+            Interface::printcaracter(aux, i, 190, limite);
         }
     }
-    Consola::setTextColor(Consola::COR_DE_ROSA);
     for(i=0;i<migalhas.size();i++){
-        Consola::gotoxy(migalhas[i].getPonto().getX()+(118-getLimite()), migalhas[i].getPonto().getY()+1);
-        cout << (char)254;
+        aux = migalhas[i].getPonto();
+        Interface::printcaracter(aux, 11, 254, limite);
     }
 }
-
-//void Mundo::setconfig_screen(){
-//    Consola::setTextColor(Consola::VERDE_CLARO);
-//    Consola::clrscr();
-//    Consola::setScreenSize(30, 120);
-//    Consola::gotoxy(20, 14);
-//    cout << "Bem vindo ao programa de simulacao de populacoes de formigas" << endl;
-//    Consola::gotoxy(20, 15);
-//    cout << "Trabalho pratico de POO 2017/2018" << endl;
-//    Consola::gotoxy(20, 16);
-//    cout << "Comando: ";
-//}
 
 Mundo::Mundo(const Mundo& orig) {
 }

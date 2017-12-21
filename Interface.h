@@ -2,15 +2,17 @@
 #define INTERFACE_H
 
 #include "Consola.h"
+#include "Ponto.h"
 
 using namespace std;
 
 class Interface {
 public:
-    Interface();
-    void setconfig_screen();
-    Interface(const Interface& orig);
-    virtual ~Interface();
+    Interface() = delete;
+    static void setconfig_screen();
+    static void printborders(int lim);
+    static void printcaracter(Ponto aux, int i, int car, int lim);
+    static string getlinha();
 private:
 
 };
