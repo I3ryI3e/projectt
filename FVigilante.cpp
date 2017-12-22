@@ -16,9 +16,4 @@
 FVigilante::FVigilante(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): Formiga(linha,coluna,150,id,150,7,5,ninho_a_que_pertence) {
 }
 
-FVigilante::FVigilante(const FVigilante& orig) {
-}
-
-FVigilante::~FVigilante() {
-}
 

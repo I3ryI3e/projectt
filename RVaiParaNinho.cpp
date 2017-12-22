@@ -5,21 +5,24 @@
  */
 
 /* 
- * File:   Regra.cpp
+ * File:   RVaiParaNinho.cpp
  * Author: I3ryI3e
  * 
- * Created on 21 de Dezembro de 2017, 18:08
+ * Created on 22 de Dezembro de 2017, 18:03
  */
 
-#include "Regra.h"
+#include "RVaiParaNinho.h"
 
-Regra::Regra() {
+RVaiParaNinho::RVaiParaNinho() {
 }
 
-bool Regra::condicao(){
-    return true;
+bool RVaiParaNinho::condicao() {
+
 }
 
-Regra::~Regra() {
+void RVaiParaNinho::accao(Formiga* formiga) {
+
 }
+
+
 

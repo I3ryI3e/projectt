@@ -5,21 +5,25 @@
  */
 
 /* 
- * File:   Regra.cpp
+ * File:   RAssalta.cpp
  * Author: I3ryI3e
  * 
- * Created on 21 de Dezembro de 2017, 18:08
+ * Created on 22 de Dezembro de 2017, 18:02
  */
 
-#include "Regra.h"
+#include "RAssalta.h"
 
-Regra::Regra() {
+RAssalta::RAssalta() {
 }
 
-bool Regra::condicao(){
-    return true;
+bool RAssalta::condicao() {
+
 }
 
-Regra::~Regra() {
+void RAssalta::accao(Formiga* formiga) {
+
 }
+
+
+
 

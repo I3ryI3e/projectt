@@ -13,11 +13,13 @@
 
 #ifndef REGRA_H
 #define REGRA_H
+class Formiga;
 
 class Regra {
 public:
     Regra();
-    Regra(const Regra& orig);
+    virtual bool condicao();
+    virtual void accao(Formiga* formiga) = 0;
     virtual ~Regra();
 private:
 

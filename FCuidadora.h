@@ -18,8 +18,8 @@
 class FCuidadora : public Formiga {
 public:
     FCuidadora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence);
-    FCuidadora(const FCuidadora& orig);
-    virtual ~FCuidadora();
+    void iteracao(Mundo* mundo_atual) override;
+
 private:
 
 };

@@ -5,21 +5,23 @@
  */
 
 /* 
- * File:   Regra.cpp
+ * File:   RPersegue.cpp
  * Author: I3ryI3e
  * 
- * Created on 21 de Dezembro de 2017, 18:08
+ * Created on 22 de Dezembro de 2017, 18:02
  */
 
-#include "Regra.h"
+#include "RPersegue.h"
 
-Regra::Regra() {
+RPersegue::RPersegue() {
 }
 
-bool Regra::condicao(){
-    return true;
+bool RPersegue::condicao() {
+
 }
 
-Regra::~Regra() {
+void RPersegue::accao(Formiga* formiga) {
+
 }
+
 

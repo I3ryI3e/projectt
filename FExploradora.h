@@ -18,8 +18,8 @@
 class FExploradora : public Formiga{
 public:
     FExploradora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence);
-    FExploradora(const FExploradora& orig);
-    virtual ~FExploradora();
+    void iteracao(Mundo* mundo_atual) override;
+
 private:
 
 };

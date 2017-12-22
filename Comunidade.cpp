@@ -2,6 +2,7 @@
 #include "Ponto.h"
 #include "Formiga.h"
 #include "Mundo.h"
+#include "FExploradora.h"
 #include <sstream>
 #include <random>
 #include <ctime>
@@ -69,7 +70,7 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                 r_linha= rand() % p_mundo->getLimite();
                 r_coluna= rand() % p_mundo->getLimite();
             }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
-                formigueiro.push_back(new Formiga(r_linha,r_coluna,++n_formigas,&ninho));
+                formigueiro.push_back(new FExploradora(r_linha,r_coluna,++n_formigas,&ninho));
         }
         return true;
     }

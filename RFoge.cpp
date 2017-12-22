@@ -5,21 +5,21 @@
  */
 
 /* 
- * File:   Regra.cpp
+ * File:   RFoge.cpp
  * Author: I3ryI3e
  * 
- * Created on 21 de Dezembro de 2017, 18:08
+ * Created on 22 de Dezembro de 2017, 18:02
  */
 
-#include "Regra.h"
+#include "RFoge.h"
 
-Regra::Regra() {
+RFoge::RFoge() {
 }
 
-bool Regra::condicao(){
-    return true;
+bool RFoge::condicao() {
+
 }
 
-Regra::~Regra() {
-}
+void RFoge::accao(Formiga* formiga) {
 
+}

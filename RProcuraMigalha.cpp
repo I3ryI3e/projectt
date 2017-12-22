@@ -5,21 +5,23 @@
  */
 
 /* 
- * File:   Regra.cpp
+ * File:   RProcuraMigalha.cpp
  * Author: I3ryI3e
  * 
- * Created on 21 de Dezembro de 2017, 18:08
+ * Created on 22 de Dezembro de 2017, 18:03
  */
 
-#include "Regra.h"
+#include "RProcuraMigalha.h"
 
-Regra::Regra() {
+RProcuraMigalha::RProcuraMigalha() {
 }
 
-bool Regra::condicao(){
-    return true;
+bool RProcuraMigalha::condicao() {
+
 }
 
-Regra::~Regra() {
+void RProcuraMigalha::accao(Formiga* formiga) {
+
 }
+
 

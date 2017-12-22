@@ -18,8 +18,8 @@
 class FVigilante : public Formiga {
 public:
     FVigilante(int linha, int coluna, int id, Ninho* ninho_a_que_pertence);
-    FVigilante(const FVigilante& orig);
-    virtual ~FVigilante();
+    void iteracao(Mundo* mundo_atual) override;
+
 private:
 
 };
