@@ -11,11 +11,12 @@ void Mundo::configuracao(){
     string linha,aux;
     fstream file;
     int estado=0;
+    Interface::initial_screen();
     do{
         if(estado == 1 || estado == 3){
             updatemap();
         }else{
-            Interface::setconfig_screen();        //AS MENSAGENS DE ERRO TAO MAL AGORA
+            Interface::screen_config_stage();        //AS MENSAGENS DE ERRO TAO MAL AGORA
         }
         if(estado == 0 || estado == 1){
             linha = Interface::getlinha();
@@ -44,11 +45,12 @@ void Mundo::configuracao(){
 
 int Mundo::tratacmd(string linha,int estado){
     istringstream iss(linha);
+    ostringstream oss;
     string aux;
     if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
         if(ckif_notconfig() == false){
             estado += 1;
-            Consola::clrscr();      //MUDAR ISTO
+            Interface::clrscreen();
         }
         return estado;
     }
@@ -58,8 +60,6 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> nlim;
         if(nlim >= 10 && nlim < 50)
             limite=nlim;
-        else
-            cout << "Comando nao executado. Limite tem que estar entre 10 e 50." << endl;
         return estado;
     }
     if(aux.compare("defen") == 0){
@@ -67,8 +67,6 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> nen;
         if(nen > 0 && nen <= 500)
             energ_init_ninho=nen;
-        else
-            cout << "Comando nao executado. Energia inicial do ninho tem que estar entre 1 e 500." << endl;
         return estado;
     }
     if(aux.compare("defpc") == 0){
@@ -76,8 +74,6 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> npc;
         if(npc >= 0 && npc <= 100)
             def_p_novaformiga=npc;
-        else
-            cout << "Comando nao executado. Percentagem de energia inicial necessaria para criar uma formiga tem que estar entre 0 e 100." << endl;
         return estado;
     }
     if(aux.compare("defvt") == 0){
@@ -85,8 +81,6 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> nvt;
         if(nvt > 0 && nvt <= 100)
             def_energ_iter=nvt;
-        else
-            cout << "Comando nao executado. Energia tranferida por iteracao tem que estar entre 1 e 100." << endl;
         return estado;
     }
     if(aux.compare("defmi") == 0){
@@ -94,8 +88,6 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> nmi;
         if(nmi >= 0 && nmi <= 100)
             p_init_migalhas=nmi;
-        else
-            cout << "Comando nao executado. Percentagem inicial de posicoes vazias que vao ter migalhas tem que estar entre 0 e 100." << endl;
         return estado;
     }
     if(aux.compare("defme") == 0){
@@ -103,8 +95,6 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> nme;
         if(nme > 0 && nme <= 250)
             energ_init_migalhas=nme;
-        else
-            cout << "Comando nao executado. Energia inicial das migalhas tem que estar entre 1 e 250." << endl;
         return estado;
     }
     if(aux.compare("defnm") == 0){
@@ -112,8 +102,6 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> nnm;
         if(nnm >= 0 && nnm <= 500)
             migalhas_iter=nnm;
-        else
-            cout << "Comando nao executado. Numero maximo de migalhas criadas por iteracao tem que estar entre 0 e 500." << endl;
         return estado;
     }
     if(aux.compare("executa") == 0 && (estado == 0 || estado == 1) ){
@@ -128,15 +116,16 @@ int Mundo::tratacmd(string linha,int estado){
     if(aux.compare("listamundo") == 0 && (estado == 1 || estado == 3)){
         auto it = comunidades.cbegin();
         while(it != comunidades.cend()){
-            cout << it->getInfoGeral() << endl;
+            oss << it->getInfoGeral() << endl;
             ++it;
         }
         auto iter = migalhas.cbegin();
-        cout << "Migalhas:" << endl;
+        oss << "Migalhas:" << endl;
         while(iter != migalhas.cend()){
-            cout << iter->getInfo() << endl;
+            oss << iter->getInfo() << endl;
             ++iter;
         }
+        Interface::mostrainfo(oss.str());
         return estado;
     }
     if(aux.compare("listaninho") == 0 && (estado == 1 || estado == 3)){
@@ -145,11 +134,12 @@ int Mundo::tratacmd(string linha,int estado){
         auto it = comunidades.cbegin();
         while(it != comunidades.cend()){
             if(nninho == it->getNinhoId()){
-                cout << it->getInfoNinho() << endl;
+                oss << it->getInfoNinho() << endl;
                 return estado;
             }
             ++it;
         }
+        Interface::mostrainfo(oss.str());
         return estado;
     }
     if(aux.compare("listaposicao") == 0 && (estado == 1 || estado == 3)){
@@ -158,16 +148,17 @@ int Mundo::tratacmd(string linha,int estado){
         Ponto auxP(lin,col);
         auto it = comunidades.cbegin();
         while(it != comunidades.cend()){
-            cout << it->ckwhoisthere(auxP);
+            oss << it->ckwhoisthere(auxP);
             ++it;
         }
         auto iter = migalhas.cbegin();
         while(iter != migalhas.cend()){
             if(iter->getPonto() == auxP)
-                cout << iter->getInfo();
+                oss << iter->getInfo();
             ++iter;
         }
-        
+        Interface::mostrainfo(oss.str());
+        return estado;
     }
     if(aux.compare("criaf") == 0 && (estado == 1 || estado == 3)){
         int num,id_n;
@@ -304,7 +295,7 @@ bool Mundo::ckif_notconfig() const{
        return false;
     else{
         oss << "nao foram corretamente inicializados.";
-        cout << oss.str() << endl;
+        Interface::mostrainfo(oss.str());
         return true;
     }
 }
