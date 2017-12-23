@@ -18,8 +18,8 @@
 class RVaiParaNinho : public Regra{
 public:
     RVaiParaNinho();
-    bool condicao() override;
-    void accao(Formiga* formiga) override;
+    bool condicao(Formiga* formiga, Mundo* mundo) override;
+    void accao(Formiga* formiga, Mundo* mundo) override;
 
 private:
 

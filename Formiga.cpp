@@ -98,7 +98,7 @@ void Formiga::consomeEnergia(int energia){
 int Formiga::getRaioMovimento(){
     return raio_movimento;
 }
-bool Formiga::moveFormiga(int x, int y){
+bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
     
 }
 void Formiga::addenergia(int energia){

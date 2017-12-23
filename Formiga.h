@@ -19,7 +19,7 @@ public:
     virtual void iteracao(Mundo* mundo_atual);
     void consomeEnergia(int energia);
     int getRaioMovimento();
-    bool moveFormiga(int x,int y);
+    bool moveFormiga(int x,int y,Mundo* mundo);
     void addenergia(int energia);
     virtual ~Formiga();
 private:

@@ -18,8 +18,8 @@ class Formiga;
 class Regra {
 public:
     Regra();
-    virtual bool condicao();
-    virtual void accao(Formiga* formiga) = 0;
+    virtual bool condicao(Formiga* formiga, Mundo* mundo);
+    virtual void accao(Formiga* formiga, Mundo* mundo) = 0;
     virtual ~Regra();
 private:
 

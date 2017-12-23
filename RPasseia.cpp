@@ -18,7 +18,7 @@
 RPasseia::RPasseia() {
 }
 
-void RPasseia::accao(Formiga* formiga) {
+void RPasseia::accao(Formiga* formiga, Mundo* mundo) {
     int mov,auxx,auxy,x,y;
     
     do{
@@ -43,6 +43,6 @@ void RPasseia::accao(Formiga* formiga) {
                     y= 0-auxy;
                     break;
             }
-        }while(!formiga->moveFormiga(x,y));
+        }while(!formiga->moveFormiga(x,y,mundo));
 }
 

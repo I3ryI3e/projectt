@@ -16,13 +16,14 @@
 RAssalta::RAssalta() {
 }
 
-bool RAssalta::condicao() {
+bool RAssalta::condicao(Formiga* formiga, Mundo* mundo) {
 
 }
 
-void RAssalta::accao(Formiga* formiga) {
+void RAssalta::accao(Formiga* formiga, Mundo* mundo) {
 
 }
+
 
 
 

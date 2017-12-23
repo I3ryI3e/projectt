@@ -16,10 +16,12 @@
 RFoge::RFoge() {
 }
 
-bool RFoge::condicao() {
+bool RFoge::condicao(Formiga* formiga, Mundo* mundo) {
 
 }
 
-void RFoge::accao(Formiga* formiga) {
+void RFoge::accao(Formiga* formiga, Mundo* mundo) {
 
 }
+
+
