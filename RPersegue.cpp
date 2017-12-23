@@ -16,11 +16,11 @@
 RPersegue::RPersegue() {
 }
 
-bool RPersegue::condicao() {
+bool RPersegue::condicao(Formiga* formiga, Mundo* mundo) {
 
 }
 
-void RPersegue::accao(Formiga* formiga) {
+void RPersegue::accao(Formiga* formiga, Mundo* mundo) {
 
 }
 

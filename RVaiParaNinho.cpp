@@ -16,13 +16,15 @@
 RVaiParaNinho::RVaiParaNinho() {
 }
 
-bool RVaiParaNinho::condicao() {
+bool RVaiParaNinho::condicao(Formiga* formiga, Mundo* mundo) {
 
 }
 
-void RVaiParaNinho::accao(Formiga* formiga) {
+void RVaiParaNinho::accao(Formiga* formiga, Mundo* mundo) {
 
 }
+
+
 
 
 

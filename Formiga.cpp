@@ -15,11 +15,11 @@ Ponto Formiga::getPonto() const{return local_f;}
 
 void Formiga::iteracao(Mundo* mundo_atual){
     
-    auto it =comportamento.cbegin();
-    while(it != comportamento.cend()){
-        if(it->condicao()){
-            it->accao(this);
-            it=comportamento.cend();
+    auto it =comportamento.begin();
+    while(it != comportamento.end()){
+        if((*it)->condicao(this,mundo_atual)){
+            (*it)->accao(this,mundo_atual);
+            it=comportamento.end();
         }else
             it++;
     }

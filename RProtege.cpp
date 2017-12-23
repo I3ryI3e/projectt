@@ -16,13 +16,15 @@
 RProtege::RProtege() {
 }
 
-bool RProtege::condicao() {
+bool RProtege::condicao(Formiga* formiga, Mundo* mundo) {
 
 }
 
-void RProtege::accao(Formiga* formiga) {
+void RProtege::accao(Formiga* formiga, Mundo* mundo) {
 
 }
+
+
 
 
 

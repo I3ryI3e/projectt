@@ -16,11 +16,11 @@
 RProcuraMigalha::RProcuraMigalha() {
 }
 
-bool RProcuraMigalha::condicao() {
+bool RProcuraMigalha::condicao(Formiga* formiga, Mundo* mundo) {
 
 }
 
-void RProcuraMigalha::accao(Formiga* formiga) {
+void RProcuraMigalha::accao(Formiga* formiga, Mundo* mundo) {
 
 }
 

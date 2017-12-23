@@ -19,6 +19,7 @@ class FAssaltante : public Formiga {
 public:
     FAssaltante(int linha, int coluna, int id, Ninho* ninho_a_que_pertence);
     void iteracao(Mundo* mundo_atual) override;
+    virtual ~FAssaltante();
 
 private:
 

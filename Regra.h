@@ -14,6 +14,7 @@
 #ifndef REGRA_H
 #define REGRA_H
 class Formiga;
+class Mundo;
 
 class Regra {
 public:

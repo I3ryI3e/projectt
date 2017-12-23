@@ -16,4 +16,13 @@
 FExploradora::FExploradora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): Formiga(linha,coluna,200,id,200,8,10,ninho_a_que_pertence) {
 }
 
+void FExploradora::iteracao(Mundo* mundo_atual) {
+
+}
+
+FExploradora::~FExploradora() {
+
+}
+
+
 
