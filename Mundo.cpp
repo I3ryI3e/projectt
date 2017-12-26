@@ -279,7 +279,7 @@ bool Mundo::mckif_space_isempty(int linha, int coluna) const{
 bool Mundo::ckif_formigas_no_raio_visao(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga){
     auto it = comunidades.cbegin();
     while(it != comunidades.cend()){
-        if(&(*it) == comunidade){
+        if( it->getNinhoId() == comunidade->getNinhoId()){
             ++it;
         }else{
             if(it->ckif_formigas_num_raio_visao(local_formiga,raio_de_visao))
@@ -336,12 +336,12 @@ void Mundo::updatemap(){
     Ponto aux(0,0);
     Interface::printborders(limite);
     for(i=0;i<comunidades.size();i++){
-        aux = comunidades[i].getNinhoPonto();
-        Interface::printcaracter(aux, i, 78, limite);
         for(j=0;j<comunidades[i].getNFormigas();j++){
             aux=comunidades[i].getPontoFormiga(j);
             Interface::printcaracter(aux, i, 190, limite);
         }
+        aux = comunidades[i].getNinhoPonto();
+        Interface::printcaracter(aux, i, 78, limite);
     }
     for(i=0;i<migalhas.size();i++){
         aux = migalhas[i].getPonto();

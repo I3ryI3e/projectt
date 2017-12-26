@@ -92,7 +92,7 @@ void Comunidade::iteracao(){
     ninho.iteracao(this);
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){
-        (*it)->iteracao(p_mundo, 0);
+        (*it)->iteracao(p_mundo, this);
         ++it;
     }
 }
