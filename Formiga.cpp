@@ -13,11 +13,15 @@ string Formiga::getInfo() const{
 
 Ponto Formiga::getPonto() const{return local_f;}
 
-void Formiga::iteracao(Mundo* mundo_atual){
+int Formiga::getRaioVisao() const{
+    return raio_visao;
+}
+
+void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
     
     auto it =comportamento.begin();
     while(it != comportamento.end()){
-        if((*it)->condicao(this,mundo_atual)){
+        if((*it)->condicao(this, mundo_atual, comunidade)){
             (*it)->accao(this,mundo_atual);
             it=comportamento.end();
         }else
@@ -99,11 +103,32 @@ int Formiga::getRaioMovimento(){
     return raio_movimento;
 }
 bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
-    
+    if(((local_f.getX()+x) == ninho_f->getPonto().getX()) && ((local_f.getY()+y) == ninho_f->getPonto().getY())){
+        local_f.setX(local_f.getX()+x);
+        local_f.setY(local_f.getY()+y);
+        return true;
+    }
+    if(mundo->mckif_space_isempty((local_f.getX()+x),(local_f.getY()+y))){
+        local_f.setX(local_f.getX()+x);
+        local_f.setY(local_f.getY()+y);
+        return true;
+    } else{
+        return false;
+    }
+}
+
+void Formiga::addRegra(Regra* nregra){
+    comportamento.push_back(nregra);
 }
 void Formiga::addenergia(int energia){
     energia_f += energia;
 }
 Formiga::~Formiga() {
+    auto it = comportamento.begin();
+    while(it != comportamento.end()){
+        delete (*it);
+        it++;
+    }
+    comportamento.clear();
 }
 

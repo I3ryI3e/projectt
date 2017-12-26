@@ -16,11 +16,13 @@ public:
     Formiga(int linha, int coluna, int energ, int id, int energ_init, int rvis, int rmov, Ninho* ninho_a_que_pertence);
     Ponto getPonto() const;
     string getInfo()const;
-    virtual void iteracao(Mundo* mundo_atual);
+    int getRaioVisao()const;
+    virtual void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
     void consomeEnergia(int energia);
     int getRaioMovimento();
     bool moveFormiga(int x,int y,Mundo* mundo);
     void addenergia(int energia);
+    void addRegra(Regra* nregra);
     virtual ~Formiga();
 private:
 

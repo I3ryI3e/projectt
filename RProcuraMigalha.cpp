@@ -16,7 +16,7 @@
 RProcuraMigalha::RProcuraMigalha() {
 }
 
-bool RProcuraMigalha::condicao(Formiga* formiga, Mundo* mundo) {
+bool RProcuraMigalha::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 

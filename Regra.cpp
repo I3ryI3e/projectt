@@ -16,7 +16,7 @@
 Regra::Regra() {
 }
 
-bool Regra::condicao(Formiga* formiga, Mundo* mundo) {
+bool Regra::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     return true;
 }
 

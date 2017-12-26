@@ -18,7 +18,7 @@
 class RAssalta : public Regra {
 public:
     RAssalta();
-    bool condicao(Formiga* formiga, Mundo* mundo) override;
+    bool condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) override;
     void accao(Formiga* formiga, Mundo* mundo) override;
 
 private:

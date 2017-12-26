@@ -22,6 +22,7 @@ public:
     bool mckif_space_isempty(int linha, int coluna) const;
     bool ckif_notconfig() const;
     bool criaformigas(int quantas, char tipo, int id_n);
+    bool ckif_formigas_no_raio_visao(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga);
     void updatemap();
     Mundo(const Mundo& orig);
     virtual ~Mundo();

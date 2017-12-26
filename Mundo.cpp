@@ -276,6 +276,20 @@ bool Mundo::mckif_space_isempty(int linha, int coluna) const{
     return true;
 }
 
+bool Mundo::ckif_formigas_no_raio_visao(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga){
+    auto it = comunidades.cbegin();
+    while(it != comunidades.cend()){
+        if(&(*it) == comunidade){
+            ++it;
+        }else{
+            if(it->ckif_formigas_num_raio_visao(local_formiga,raio_de_visao))
+                return true;
+            ++it;
+        }
+    }
+    return false;
+}
+
 bool Mundo::ckif_notconfig() const{
     ostringstream oss;
     oss << "Os comandos: ";

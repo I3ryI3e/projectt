@@ -16,7 +16,7 @@
 RProtege::RProtege() {
 }
 
-bool RProtege::condicao(Formiga* formiga, Mundo* mundo) {
+bool RProtege::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 

@@ -18,6 +18,7 @@ public:
     string getInfoGeral() const;
     string getInfoNinho() const;
     string ckwhoisthere(const Ponto &aux) const;
+    bool ckif_formigas_num_raio_visao(Ponto local_origem,int raio_visao)const;
     int getNinhoId() const;
     Ponto getNinhoPonto() const;
     void setNinhoenerg(int addenerg);

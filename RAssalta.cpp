@@ -16,7 +16,7 @@
 RAssalta::RAssalta() {
 }
 
-bool RAssalta::condicao(Formiga* formiga, Mundo* mundo) {
+bool RAssalta::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 

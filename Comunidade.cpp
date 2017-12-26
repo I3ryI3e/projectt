@@ -6,6 +6,7 @@
 #include <sstream>
 #include <random>
 #include <ctime>
+#include <cstdlib>
 
 Comunidade::Comunidade(Mundo* principal, int linha, int coluna, int energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal),ninho(linha, coluna,
         energ_init_ninho, def_p_novaformiga, def_energ_iter),n_formigas(0){}
@@ -52,6 +53,17 @@ string Comunidade::ckwhoisthere(const Ponto& aux) const{
     }
     return oss.str();
 }
+
+bool Comunidade::ckif_formigas_num_raio_visao(Ponto local_origem, int raio_visao) const {
+    auto it = formigueiro.cbegin();
+    while(it != formigueiro.cend()){
+        if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio_visao) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio_visao) )
+            return true;
+        ++it;
+    }
+    return false;
+}
+
 int Comunidade::getNinhoId() const{
     return ninho.getId();
 }
@@ -80,7 +92,7 @@ void Comunidade::iteracao(){
     ninho.iteracao(this);
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){
-        (*it)->iteracao(p_mundo);
+        (*it)->iteracao(p_mundo, 0);
         ++it;
     }
 }

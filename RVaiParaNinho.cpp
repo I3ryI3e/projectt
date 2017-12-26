@@ -16,7 +16,7 @@
 RVaiParaNinho::RVaiParaNinho() {
 }
 
-bool RVaiParaNinho::condicao(Formiga* formiga, Mundo* mundo) {
+bool RVaiParaNinho::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 

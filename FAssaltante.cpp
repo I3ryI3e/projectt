@@ -17,7 +17,7 @@ FAssaltante::FAssaltante(int linha, int coluna, int id, Ninho* ninho_a_que_perte
 
 }
 
-void FAssaltante::iteracao(Mundo* mundo_atual) {
+void FAssaltante::iteracao(Mundo* mundo_atual, Comunidade* comunidade) {
 
 }
 

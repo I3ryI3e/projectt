@@ -16,7 +16,7 @@
 RPersegue::RPersegue() {
 }
 
-bool RPersegue::condicao(Formiga* formiga, Mundo* mundo) {
+bool RPersegue::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 
