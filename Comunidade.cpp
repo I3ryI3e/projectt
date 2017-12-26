@@ -27,7 +27,7 @@ bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
 }
 string Comunidade::getInfoGeral() const{
     ostringstream oss;
-    oss << "Comunidade" << endl << ninho.getInfo()<< "Numero de Formigas:" << formigueiro.size() << endl;
+    oss << "Comunidade" << endl << ninho.getInfo() << "Numero de Formigas:" << formigueiro.size() << endl;
     return oss.str();
 }
 string Comunidade::getInfoNinho() const{

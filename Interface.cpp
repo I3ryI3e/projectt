@@ -4,7 +4,6 @@
 void Interface::initial_screen(){
     Consola::setScreenSize(30, 120);
     Consola::setTextColor(Consola::VERDE_CLARO);
-    Interface::clrscreen();
 }
 
 void Interface::screen_config_stage(){

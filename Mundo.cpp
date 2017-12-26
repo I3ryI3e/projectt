@@ -8,7 +8,7 @@ Mundo::Mundo():limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_i
 }
 
 void Mundo::configuracao(){
-    string linha,aux;
+    string linha, aux;
     fstream file;
     int estado=0;
     Interface::initial_screen();
@@ -31,7 +31,7 @@ void Mundo::configuracao(){
                 iss >> aux >> aux;
                 file.open(aux);
                 if(file.fail()){
-                    cout << "Erro a abrir o ficheiro." << endl;
+                    Interface::mostrainfo("\n\t\t    Erro a abrir o ficheiro.");  //MUDAR
                     estado -= 2;
                     continue;
                 }
@@ -135,9 +135,9 @@ int Mundo::tratacmd(string linha,int estado){
         while(it != comunidades.cend()){
             if(nninho == it->getNinhoId()){
                 oss << it->getInfoNinho() << endl;
-                return estado;
-            }
-            ++it;
+                it = comunidades.cend();
+            }else
+                ++it;
         }
         Interface::mostrainfo(oss.str());
         return estado;
@@ -167,7 +167,7 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> num >> tipo >> id_n;
         teste=criaformigas(num, tipo, id_n);
         if(teste == false){
-            cout << "Erro na criacao das formigas!" << endl;
+            Interface::mostrainfo("Erro na criacao das formigas!");
         }
         return estado;
     }
