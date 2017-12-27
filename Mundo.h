@@ -22,7 +22,7 @@ public:
     bool mckif_space_isempty(int linha, int coluna) const;
     bool ckif_notconfig() const;
     bool criaformigas(int quantas, char tipo, int id_n);
-    bool ckif_formigas_no_raio_visao(Comunidade* comunidade,       int raio_de_visao, Ponto local_formiga);
+    bool ckif_formigas_no_raio_visao(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga);
     int  best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga);
     void migalhas_iniciais();
     void novas_migalhas_iter();

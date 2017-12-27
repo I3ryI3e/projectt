@@ -320,7 +320,8 @@ int Mundo::best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, 
                         break;         
                 }
             }
-        }
+            ++it;
+        }  
     }
     if(quadrantes_livres[0])
         return 0;

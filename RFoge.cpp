@@ -14,8 +14,8 @@ void RFoge::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     srand (time(NULL));
     mov = mundo->best_quadrante_to_runaway(comunidade,formiga->getRaioVisao(),formiga->getPonto());
     do{
-        auxx= (rand() % formiga->getRaioMovimento())+1;
-        auxy= (rand() % formiga->getRaioMovimento())+1;
+        auxx= (rand() % (formiga->getRaioMovimento())+1);
+        auxy= (rand() % (formiga->getRaioMovimento())+1);
         switch(mov){
             case 0:
                 x= auxx;
