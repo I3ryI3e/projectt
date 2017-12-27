@@ -124,9 +124,10 @@ bool Comunidade::addenergFormiga(int linha, int coluna, int energ){
     Ponto aux(linha, coluna);
     auto it = formigueiro.begin();
     while(it != formigueiro.end()){
-        if(aux == (*it)->getPonto())
-            (*it)->addenergia(energ);
-            return true;
+        if(aux == (*it)->getPonto()){
+            (*it)->modifica_energia(energ);
+            return;
+        }
         ++it;
     }
     return false;

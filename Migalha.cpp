@@ -11,6 +11,9 @@ string Migalha::getInfo() const{
     return oss.str();
 }
 
+int Migalha::getEnergia() const{
+    return energia_m;
+}
 void Migalha::iteracao(){
     if(energia_m > (energia_inicial/10)){
         --energia_m;

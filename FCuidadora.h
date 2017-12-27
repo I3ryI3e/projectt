@@ -5,7 +5,7 @@
 class FCuidadora : public Formiga {
 public:
     FCuidadora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence);
-    void iteracao(Mundo* mundo_atual, Comunidade* comunidade) override;
+    void consomeEnergia(int mov_efetivo) override;
     virtual ~FCuidadora();
 private:
 

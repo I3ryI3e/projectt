@@ -17,11 +17,11 @@ public:
     Ponto getPonto() const;
     string getInfo()const;
     int getRaioVisao()const;
-    virtual void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
-    void consomeEnergia(int energia);
+    void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
+    virtual void consomeEnergia(int mov_efetivo) = 0;
     int getRaioMovimento();
     bool moveFormiga(int x,int y,Mundo* mundo);
-    void addenergia(int energia);
+    void modifica_energia(int energia);
     void addRegra(Regra* nregra);
     virtual ~Formiga();
 private:

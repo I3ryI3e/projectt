@@ -301,17 +301,22 @@ bool Mundo::mckif_space_isempty(int linha, int coluna) const{
     if(linha < 0 || linha >=limite || coluna < 0 || coluna >=limite)
         return false;
     Ponto aux(linha, coluna);
-    auto it = comunidades.cbegin();
-    while(it != comunidades.cend()){
-        if(it->cckif_space_isempty(linha, coluna) == false)
-            return false;
-        ++it;
-    }
+    if(mckif_noants_nonest(linha,coluna) == false)
+        return false;
     auto iter = migalhas.cbegin();
     while(iter != migalhas.cend()){
         if(aux == iter->getPonto())
             return false;
         ++iter;
+    }
+    return true;
+}
+bool Mundo::mckif_noants_nonest(int linha,int coluna)const{
+    auto it = comunidades.cbegin();
+    while(it != comunidades.cend()){
+        if(it->cckif_space_isempty(linha, coluna) == false)
+            return false;
+        ++it;
     }
     return true;
 }
@@ -328,6 +333,36 @@ bool Mundo::ckif_formigas_no_raio_visao(Comunidade* comunidade, int raio_de_visa
         }
     }
     return false;
+}
+
+bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) {
+    auto it = migalhas.cbegin();
+    while(it != migalhas.cend()){
+        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao)){
+            return true;
+        }
+        ++it;
+    }
+    return false;
+}
+
+Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formiga){
+    Ponto aux(0,0);
+    const Migalha* maux=nullptr;
+    int distmin,dist,auxx,auxxy;
+    auto it = migalhas.cbegin();
+    while(it != migalhas.cend()){
+        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao)){
+            if(maux==nullptr)
+                maux= &(*it);
+            else{
+                if(it->getEnergia() > maux->getEnergia())
+                    maux=&(*it);
+            }
+        }
+        ++it;
+    }
+    return maux->getPonto();
 }
 
 int Mundo::best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga) {

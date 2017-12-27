@@ -10,6 +10,7 @@ public:
     Migalha(int linha, int coluna, int energini);
     Ponto getPonto() const;
     string getInfo()const;
+    int getEnergia()const;
     void iteracao();
     virtual ~Migalha();
 private:

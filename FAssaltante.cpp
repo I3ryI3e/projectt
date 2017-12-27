@@ -4,9 +4,10 @@ FAssaltante::FAssaltante(int linha, int coluna, int id, Ninho* ninho_a_que_perte
 
 }
 
-void FAssaltante::iteracao(Mundo* mundo_atual, Comunidade* comunidade) {
-
+void FAssaltante::consomeEnergia(int mov_efetivo) {
+    modifica_energia(-((mov_efetivo*2)+1));
 }
+
 
 FAssaltante::~FAssaltante() {
 

@@ -28,12 +28,12 @@ void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
             it++;
     }
 }
-void Formiga::consomeEnergia(int energia){
-    if(energia_f-energia <= 0)
-        energia_f=0;
-    else
-        energia_f-=energia;
-}
+//void Formiga::consomeEnergia(int energia){
+//    if(energia_f-energia <= 0)
+//        energia_f=0;
+//    else
+//        energia_f-=energia;
+//}
 
 int Formiga::getRaioMovimento(){
     return raio_movimento;
@@ -42,11 +42,13 @@ bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
     if((((local_f.getX()+x) == ninho_f->getPonto().getX()) && ((local_f.getY()+y) == ninho_f->getPonto().getY())) || (x==0 && y==0)){
         local_f.setX(local_f.getX()+x);
         local_f.setY(local_f.getY()+y);
+        consomeEnergia((abs(x)+abs(y)));
         return true;
     }
-    if(mundo->mckif_space_isempty((local_f.getX()+x),(local_f.getY()+y))){
+    if(mundo->mckif_noants_nonest((local_f.getX()+x),(local_f.getY()+y))){
         local_f.setX(local_f.getX()+x);
         local_f.setY(local_f.getY()+y);
+        consomeEnergia((abs(x)+abs(y)));
         return true;
     } else{
         return false;
@@ -56,7 +58,7 @@ bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
 void Formiga::addRegra(Regra* nregra){
     comportamento.push_back(nregra);
 }
-void Formiga::addenergia(int energia){
+void Formiga::modifica_energia(int energia){
     energia_f += energia;
 }
 Formiga::~Formiga() {
