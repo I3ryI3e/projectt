@@ -2,9 +2,9 @@ defmundo 25
 defen 100
 defpc 50
 defvt 1
-defmi 50
+defmi 1
 defme 100
-defnm 50
+defnm 5
 inicio
 ninho 5 5
 ninho 4 4
