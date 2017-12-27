@@ -6,7 +6,7 @@ class RProcuraMigalha : public Regra{
 public:
     RProcuraMigalha();
     bool condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) override;
-    void accao(Formiga* formiga, Mundo* mundo) override;
+    void accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) override;
 
 private:
 

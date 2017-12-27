@@ -22,7 +22,7 @@ void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
     auto it =comportamento.begin();
     while(it != comportamento.end()){
         if((*it)->condicao(this, mundo_atual, comunidade)){
-            (*it)->accao(this,mundo_atual);
+            (*it)->accao(this, mundo_atual, comunidade);
             it=comportamento.end();
         }else
             it++;

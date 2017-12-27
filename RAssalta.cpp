@@ -7,7 +7,7 @@ bool RAssalta::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) 
 
 }
 
-void RAssalta::accao(Formiga* formiga, Mundo* mundo) {
+void RAssalta::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 

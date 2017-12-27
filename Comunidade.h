@@ -19,6 +19,7 @@ public:
     string getInfoNinho() const;
     string ckwhoisthere(const Ponto &aux) const;
     bool ckif_formigas_num_raio_visao(Ponto local_origem,int raio_visao)const;
+    int ckif_formiga_num_raio_visao_quadrante(Ponto local_origem,int raio_visao,int formiga_x)const;
     int getNinhoId() const;
     Ponto getNinhoPonto() const;
     void setNinhoenerg(int addenerg);

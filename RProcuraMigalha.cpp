@@ -7,7 +7,7 @@ bool RProcuraMigalha::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comun
 
 }
 
-void RProcuraMigalha::accao(Formiga* formiga, Mundo* mundo) {
+void RProcuraMigalha::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 

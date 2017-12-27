@@ -1,13 +1,12 @@
 #include "RPasseia.h"
 #include "Formiga.h"
 #include <cstdlib>
-#include <ctime>
 
 
 RPasseia::RPasseia() {
 }
 
-void RPasseia::accao(Formiga* formiga, Mundo* mundo) {
+void RPasseia::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     int mov,auxx,auxy,x,y;
     srand (time(NULL));
     do{
@@ -17,7 +16,7 @@ void RPasseia::accao(Formiga* formiga, Mundo* mundo) {
             switch(mov){
                 case 0:
                     x= auxx;
-                    y= -auxy;
+                    y= auxy;
                     break;
                 case 1:
                     x= -auxx;

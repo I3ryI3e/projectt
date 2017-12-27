@@ -64,6 +64,27 @@ bool Comunidade::ckif_formigas_num_raio_visao(Ponto local_origem, int raio_visao
     return false;
 }
 
+int Comunidade::ckif_formiga_num_raio_visao_quadrante(Ponto local_origem, int raio_visao, int formiga_x) const {
+    int auxx,auxy;
+    if((abs(local_origem.getX()-(formigueiro.at(formiga_x)->getPonto().getX())) <= raio_visao) && (abs(local_origem.getY()-(formigueiro.at(formiga_x)->getPonto().getY()))<=raio_visao)){
+        auxx=local_origem.getX()-formigueiro.at(formiga_x)->getPonto().getX();
+        auxy=local_origem.getY()-formigueiro.at(formiga_x)->getPonto().getY();
+        if(auxx >=0){
+            if(auxy>=0)
+                return 2;
+            else
+                return 1;
+        }else{
+            if(auxy>=0)
+                return 3;
+            else
+                return 0;
+        }
+    } else
+        return -1;
+}
+
+
 int Comunidade::getNinhoId() const{
     return ninho.getId();
 }

@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <ctime>
 
 Mundo::Mundo():limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
             p_init_migalhas(-1),energ_init_migalhas(-1),migalhas_iter(-1){
@@ -288,6 +289,45 @@ bool Mundo::ckif_formigas_no_raio_visao(Comunidade* comunidade, int raio_de_visa
         }
     }
     return false;
+}
+
+int Mundo::best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga) {
+    srand(time(NULL));
+    bool quadrantes_livres[4] = {true,true,true,true};
+    int aux;
+    auto it= comunidades.cbegin();
+    while(it != comunidades.cend()){
+        if( it->getNinhoId() == comunidade->getNinhoId()){
+            ++it;
+        }else{
+            for(int i=0;i<it->getNFormigas();i++){
+                aux=it->ckif_formiga_num_raio_visao_quadrante(local_formiga,raio_de_visao,i);
+                switch(aux){
+                    case 0: 
+                        quadrantes_livres[0]=false;
+                        break;
+                    case 1: 
+                        quadrantes_livres[1]=false;
+                        break;
+                    case 2: 
+                        quadrantes_livres[2]=false;
+                        break;
+                    case 3:
+                        quadrantes_livres[3]=false;
+                        break;         
+                }
+            }
+        }
+    }
+    if(quadrantes_livres[0])
+        return 0;
+    if(quadrantes_livres[1])
+        return 1;
+    if(quadrantes_livres[2])
+        return 2;
+    if(quadrantes_livres[3])
+        return 3;
+    return (rand() % 4);
 }
 
 bool Mundo::ckif_notconfig() const{
