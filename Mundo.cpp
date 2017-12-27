@@ -165,11 +165,22 @@ int Mundo::tratacmd(string linha,int estado){
     if(aux.compare("criaf") == 0 && (estado == 1 || estado == 3)){
         int num,id_n;
         char tipo;
-        bool teste;
+        bool aux;
         iss >> num >> tipo >> id_n;
-        teste=criaformigas(num, tipo, id_n);
-        if(teste == false){
+        aux=criaformigas(num, tipo, id_n);
+        if(aux == false){
             Interface::mostrainfo("Erro na criacao das formigas!");
+        }
+        return estado;
+    }
+    if(aux.compare("cria1") == 0 && (estado == 1 || estado == 3)){
+        int id_n, lin, col;
+        char tipo;
+        bool aux;
+        iss >> tipo >> id_n >> lin >> col;
+        aux=cria1formiga(tipo, id_n, lin, col);
+        if(aux == false){
+            Interface::mostrainfo("Erro na criacao da formiga!");
         }
         return estado;
     }
@@ -231,11 +242,36 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> lin >> col >> addenerg;
         auto it = comunidades.begin();
         while(it != comunidades.end()){
-            it->addenergFormiga(lin, col, addenerg);
+            if(it->addenergFormiga(lin, col, addenerg))
+                return estado;
             ++it;
         }
         return estado;
     }
+//    if(aux.compare("mata") == 0 && (estado == 1 || estado == 3)){
+//        int lin, col;
+//        iss >> lin >> col;
+//        auto it = comunidades.begin();
+//        while(it != comunidades.end()){
+//            if(it->mataformiga(lin, col))
+//                return estado;
+//            ++it;
+//        }
+//        return estado;
+//    }
+//    if(aux.compare("inseticida") == 0 && (estado == 1 || estado == 3)){
+//        int idn;
+//        iss >> idn;
+//        auto it = comunidades.begin();
+//        while(it != comunidades.end()){
+//            if(it->getNinhoId() == idn){
+//                it = comunidades.erase(it);
+//                return estado;
+//            }
+//            ++it;
+//        }
+//        return estado;
+//    }
     return estado;
 }
 
@@ -360,16 +396,30 @@ bool Mundo::ckif_notconfig() const{
 
 bool Mundo::criaformigas(int quantas, char tipo, int id_n){
     auto it = comunidades.begin();
-    bool teste;
+    bool aux;
     while(it != comunidades.end()){
         if(it->getNinhoId() == id_n){
-            teste=it->criaFormigas(quantas,tipo);
-            return teste;
+            aux=it->criaFormigas(quantas,tipo);
+            return aux;
         }
         it++;
     }
     return false;
 }
+
+bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {
+    auto it = comunidades.begin();
+    bool aux;
+    while(it != comunidades.end()){
+        if(it->getNinhoId() == id_n){
+            aux=it->criaFormigas(quantas,tipo);
+            return aux;
+        }
+        it++;
+    }
+    return false;
+}
+
 
 int Mundo::getLimite() const{
     return limite;

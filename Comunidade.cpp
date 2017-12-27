@@ -120,20 +120,33 @@ void Comunidade::iteracao(){
 int Comunidade::getNFormigas() const{
     return n_formigas;
 }
-void Comunidade::addenergFormiga(int linha, int coluna, int energ){
+bool Comunidade::addenergFormiga(int linha, int coluna, int energ){
     Ponto aux(linha, coluna);
     auto it = formigueiro.begin();
     while(it != formigueiro.end()){
-        if(aux == (*it)->getPonto()){
+        if(aux == (*it)->getPonto())
             (*it)->addenergia(energ);
-            return;
-        }
+            return true;
         ++it;
     }
+    return false;
 }
 Ponto Comunidade::getPontoFormiga(int num) const{
     return formigueiro.at(num)->getPonto();
 }
+//bool Comunidade::mataformiga(int linha, int coluna){
+//    Ponto aux(linha, coluna);
+//    auto it= formigueiro.begin();
+//    while(it != formigueiro.end()){
+//        if((*it)->getPonto() == aux){
+//            delete (*it);
+//            it=formigueiro.erase(it);
+//            return true;
+//        }
+//        ++it;
+//    }
+//    return false;
+//}
 Comunidade::~Comunidade() {
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){
