@@ -52,6 +52,7 @@ int Mundo::tratacmd(string linha,int estado){
         if(ckif_notconfig() == false){
             estado += 1;
             Interface::clrscreen();
+            migalhas_iniciais();
         }
         return estado;
     }
@@ -121,7 +122,7 @@ int Mundo::tratacmd(string linha,int estado){
             ++it;
         }
         auto iter = migalhas.cbegin();
-        oss << "Migalhas:" << endl;
+        oss << "Migalhas(" << migalhas.size() << "):" << endl;
         while(iter != migalhas.cend()){
             oss << iter->getInfo() << endl;
             ++iter;
@@ -203,6 +204,7 @@ int Mundo::tratacmd(string linha,int estado){
                 iter->iteracao();
                 ++iter;
             }
+            novas_migalhas_iter();
         }else{
             int i;
             vector<Comunidade>::iterator it;
@@ -219,6 +221,7 @@ int Mundo::tratacmd(string linha,int estado){
                     iter->iteracao();
                     ++iter;
                 }
+                //novas_migalhas_iter();
             }
         }
         return estado;
@@ -369,6 +372,35 @@ bool Mundo::criaformigas(int quantas, char tipo, int id_n){
 
 int Mundo::getLimite() const{
     return limite;
+}
+
+void Mundo::migalhas_iniciais(){
+    srand (time(NULL));
+    
+    for(int i=0;i<limite;i++){
+        for(int j=0;j<limite;j++){
+            if((rand()%100) < p_init_migalhas){
+                criamigalha(i, j);
+                Ponto p(i, j);
+                Interface::printcaracter(p, 11, 254, limite);
+            }
+        }
+    }
+}
+
+void Mundo::novas_migalhas_iter(){
+    int num, auxx, auxy;
+    srand (time(NULL));
+    
+    num = rand()%(migalhas_iter+1);
+    
+    for(int i=0;i<num;i++){
+        do{
+            auxx = rand()%limite;
+            auxy = rand()%limite;
+        }while(!mckif_space_isempty(auxx, auxy));
+        criamigalha(auxx, auxy);
+    }
 }
 
 void Mundo::updatemap(){
