@@ -6,7 +6,8 @@ class FExploradora : public Formiga{
 public:
     FExploradora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence);
     void consomeEnergia(int mov_efetivo) override;
-    virtual ~FExploradora();
+    int percentage_takes_from_migalha() const override;
+
 
 
 private:

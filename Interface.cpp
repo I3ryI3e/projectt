@@ -73,7 +73,7 @@ void Interface::printborders(int lim){
 }
 
 void Interface::printcaracter(Ponto aux, int i, int car, int lim){
-    Consola::setTextColor(Consola::VERDE+i);
+    Consola::setTextColor(Consola::AZUL+i);
     Consola::gotoxy(aux.getX()+(118-lim), aux.getY()+2);
     cout << (char)car;
     Consola::gotoxy(0,0);

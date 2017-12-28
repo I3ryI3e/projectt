@@ -126,7 +126,7 @@ bool Comunidade::addenergFormiga(int linha, int coluna, int energ){
     while(it != formigueiro.end()){
         if(aux == (*it)->getPonto()){
             (*it)->modifica_energia(energ);
-            return;
+            return true;
         }
         ++it;
     }
@@ -135,19 +135,20 @@ bool Comunidade::addenergFormiga(int linha, int coluna, int energ){
 Ponto Comunidade::getPontoFormiga(int num) const{
     return formigueiro.at(num)->getPonto();
 }
-//bool Comunidade::mataformiga(int linha, int coluna){
-//    Ponto aux(linha, coluna);
-//    auto it= formigueiro.begin();
-//    while(it != formigueiro.end()){
-//        if((*it)->getPonto() == aux){
-//            delete (*it);
-//            it=formigueiro.erase(it);
-//            return true;
-//        }
-//        ++it;
-//    }
-//    return false;
-//}
+bool Comunidade::mataformiga(int linha, int coluna){
+    Ponto aux(linha, coluna);
+    auto it= formigueiro.begin();
+    while(it != formigueiro.end()){
+        if((*it)->getPonto() == aux){
+            delete (*it);
+            it=formigueiro.erase(it);
+            --n_formigas;
+            return true;
+        }
+        ++it;
+    }
+    return false;
+}
 Comunidade::~Comunidade() {
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){

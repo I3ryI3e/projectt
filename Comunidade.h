@@ -28,7 +28,7 @@ public:
     int getNFormigas()const;
     bool addenergFormiga(int linha, int coluna, int energ);
     Ponto getPontoFormiga(int num) const;
-//    bool mataformiga(int linha, int coluna);
+    bool mataformiga(int linha, int coluna);
     virtual ~Comunidade();
 private:
 

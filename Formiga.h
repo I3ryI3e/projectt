@@ -20,6 +20,7 @@ public:
     void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
     virtual void consomeEnergia(int mov_efetivo) = 0;
     int getRaioMovimento();
+    virtual int percentage_takes_from_migalha()const = 0;
     bool moveFormiga(int x,int y,Mundo* mundo);
     void modifica_energia(int energia);
     void addRegra(Regra* nregra);

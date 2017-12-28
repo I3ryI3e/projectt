@@ -10,10 +10,12 @@ void FExploradora::consomeEnergia(int mov_efetivo) {
     modifica_energia(-(1+mov_efetivo));
 }
 
-
-FExploradora::~FExploradora() {
-
+int FExploradora::percentage_takes_from_migalha() const {
+    return 1;
 }
+
+
+
 
 
 

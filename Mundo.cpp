@@ -173,17 +173,17 @@ int Mundo::tratacmd(string linha,int estado){
         }
         return estado;
     }
-    if(aux.compare("cria1") == 0 && (estado == 1 || estado == 3)){
-        int id_n, lin, col;
-        char tipo;
-        bool aux;
-        iss >> tipo >> id_n >> lin >> col;
-        aux=cria1formiga(tipo, id_n, lin, col);
-        if(aux == false){
-            Interface::mostrainfo("Erro na criacao da formiga!");
-        }
-        return estado;
-    }
+//    if(aux.compare("cria1") == 0 && (estado == 1 || estado == 3)){
+//        int id_n, lin, col;
+//        char tipo;
+//        bool aux;
+//        iss >> tipo >> id_n >> lin >> col;
+//        aux=cria1formiga(tipo, id_n, lin, col);
+//        if(aux == false){
+//            Interface::mostrainfo("Erro na criacao da formiga!");
+//        }
+//        return estado;
+//    }
     if(aux.compare("energninho") == 0 && (estado == 1 || estado == 3)){
         int addenerg, numninho;
         iss >> numninho >> addenerg;
@@ -248,17 +248,18 @@ int Mundo::tratacmd(string linha,int estado){
         }
         return estado;
     }
-//    if(aux.compare("mata") == 0 && (estado == 1 || estado == 3)){
-//        int lin, col;
-//        iss >> lin >> col;
-//        auto it = comunidades.begin();
-//        while(it != comunidades.end()){
-//            if(it->mataformiga(lin, col))
-//                return estado;
-//            ++it;
-//        }
-//        return estado;
-//    }
+    if(aux.compare("mata") == 0 && (estado == 1 || estado == 3)){
+        int lin, col;
+        iss >> lin >> col;
+        auto it = comunidades.begin();
+        while(it != comunidades.end()){
+            if(it->mataformiga(lin, col))
+                ;
+            else{
+            ++it;}
+        }
+        return estado;
+    }
 //    if(aux.compare("inseticida") == 0 && (estado == 1 || estado == 3)){
 //        int idn;
 //        iss >> idn;
@@ -345,11 +346,27 @@ bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) 
     }
     return false;
 }
+bool Mundo::ckif_migalha_adjacente(Ponto local_formiga)const{
+    auto it=migalhas.cbegin();
+    while(it != migalhas.end()){
+        if(abs(it->getPonto().getX() - local_formiga.getX()) <= 1 && abs(it->getPonto().getY() - local_formiga.getY()) <= 1)
+            return true;
+    }
+}
+
+int Mundo::try_to_get_energy_from_migalha(Ponto aux, int percentage) {
+    int auxnum;
+    auto it=migalhas.begin();
+    while(it != migalhas.end()){
+        if(it->getPonto()==aux){
+            auxnum=it->loseEnergy(percentage);
+            return auxnum;
+        }
+    }
+}
 
 Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formiga){
-    Ponto aux(0,0);
     const Migalha* maux=nullptr;
-    int distmin,dist,auxx,auxxy;
     auto it = migalhas.cbegin();
     while(it != migalhas.cend()){
         if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao)){
@@ -442,18 +459,18 @@ bool Mundo::criaformigas(int quantas, char tipo, int id_n){
     return false;
 }
 
-bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {
-    auto it = comunidades.begin();
-    bool aux;
-    while(it != comunidades.end()){
-        if(it->getNinhoId() == id_n){
-            aux=it->criaFormigas(quantas,tipo);
-            return aux;
-        }
-        it++;
-    }
-    return false;
-}
+//bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {          // INACABADO
+//    auto it = comunidades.begin();
+//    bool aux;
+//    while(it != comunidades.end()){
+//        if(it->getNinhoId() == id_n){
+//            aux=it->criaFormigas(quantas,tipo);
+//            return aux;
+//        }
+//        it++;
+//    }
+//    return false;
+//}
 
 
 int Mundo::getLimite() const{
@@ -496,14 +513,14 @@ void Mundo::updatemap(){
     for(i=0;i<comunidades.size();i++){
         for(j=0;j<comunidades[i].getNFormigas();j++){
             aux=comunidades[i].getPontoFormiga(j);
-            Interface::printcaracter(aux, i, 190, limite);
+            Interface::printcaracter(aux, comunidades[i].getNinhoId(), 190, limite);
         }
         aux = comunidades[i].getNinhoPonto();
-        Interface::printcaracter(aux, i, 78, limite);
+        Interface::printcaracter(aux, comunidades[i].getNinhoId(), 78, limite);
     }
     for(i=0;i<migalhas.size();i++){
         aux = migalhas[i].getPonto();
-        Interface::printcaracter(aux, 11, 254, limite);
+        Interface::printcaracter(aux, 12, 254, limite);
     }
 }
 

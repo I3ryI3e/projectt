@@ -11,6 +11,7 @@ public:
     Ponto getPonto() const;
     string getInfo()const;
     int getEnergia()const;
+    int loseEnergy(int percentage_of_energy_to_take);
     void iteracao();
     virtual ~Migalha();
 private:
