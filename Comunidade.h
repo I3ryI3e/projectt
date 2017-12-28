@@ -20,10 +20,12 @@ public:
     string ckwhoisthere(const Ponto &aux) const;
     bool ckif_formigas_num_raio_visao(Ponto local_origem,int raio_visao)const;
     int ckif_formiga_num_raio_visao_quadrante(Ponto local_origem,int raio_visao,int formiga_x)const;
+    Ponto local_formiga_com_mais_energia(int raio, Ponto local_formiga);
     int getNinhoId() const;
     Ponto getNinhoPonto() const;
     void setNinhoenerg(int addenerg);
     bool criaFormigas(int quantas, char tipo);
+    bool cria1Formiga(char tipo, int linha, int coluna);
     void iteracao();
     int getNFormigas()const;
     bool addenergFormiga(int linha, int coluna, int energ);

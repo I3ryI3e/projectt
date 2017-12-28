@@ -83,8 +83,22 @@ int Comunidade::ckif_formiga_num_raio_visao_quadrante(Ponto local_origem, int ra
     } else
         return -1;
 }
-
-
+Ponto Comunidade::local_formiga_com_mais_energia(int raio, Ponto local_formiga){
+    const Formiga* maux=nullptr;
+    auto it = formigueiro.cbegin();
+    while(it != formigueiro.cend()){
+        if((abs(local_formiga.getX()-(*it)->getPonto().getX())<=raio) && (abs(local_formiga.getY()-(*it)->getPonto().getY())<=raio)){
+            if(maux==nullptr)
+                maux=(*it);
+            else{
+                if((*it)->getenergia() > maux->getenergia())
+                    maux=(*it);
+            }
+        }
+        ++it;
+    }
+    return maux->getPonto();
+}
 int Comunidade::getNinhoId() const{
     return ninho.getId();
 }
@@ -109,6 +123,13 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
     }
     return false;
 }
+bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
+    if(tipo == 'E'){
+        formigueiro.push_back(new FExploradora(linha, coluna, ++n_formigas, &ninho));
+        return true;
+    }
+    return false;
+}
 void Comunidade::iteracao(){
     ninho.iteracao(this);
     auto it= formigueiro.begin();
@@ -126,7 +147,7 @@ bool Comunidade::addenergFormiga(int linha, int coluna, int energ){
     while(it != formigueiro.end()){
         if(aux == (*it)->getPonto()){
             (*it)->modifica_energia(energ);
-            return;
+            return true;
         }
         ++it;
     }

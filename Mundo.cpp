@@ -347,9 +347,7 @@ bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) 
 }
 
 Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formiga){
-    Ponto aux(0,0);
     const Migalha* maux=nullptr;
-    int distmin,dist,auxx,auxxy;
     auto it = migalhas.cbegin();
     while(it != migalhas.cend()){
         if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao)){
@@ -445,12 +443,14 @@ bool Mundo::criaformigas(int quantas, char tipo, int id_n){
 bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {
     auto it = comunidades.begin();
     bool aux;
-    while(it != comunidades.end()){
-        if(it->getNinhoId() == id_n){
-            aux=it->criaFormigas(quantas,tipo);
-            return aux;
+    if(mckif_noants_nonest(linha, coluna)){
+        while(it != comunidades.end()){
+            if(it->getNinhoId() == id_n){
+                aux=it->cria1Formiga(tipo, linha, coluna);
+                return aux;
+            }
+            it++;
         }
-        it++;
     }
     return false;
 }
