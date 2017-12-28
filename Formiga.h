@@ -15,8 +15,9 @@ class Formiga {
 public:
     Formiga(int linha, int coluna, int energ, int id, int energ_init, int rvis, int rmov, Ninho* ninho_a_que_pertence);
     Ponto getPonto() const;
-    string getInfo()const;
-    int getRaioVisao()const;
+    string getInfo() const;
+    int getRaioVisao() const;
+    int getenergia() const;
     void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
     virtual void consomeEnergia(int mov_efetivo) = 0;
     int getRaioMovimento();

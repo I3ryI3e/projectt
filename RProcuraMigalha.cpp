@@ -10,7 +10,7 @@ bool RProcuraMigalha::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comun
 }
 
 void RProcuraMigalha::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
-    Ponto aux= mundo->local_migalha_com_mais_energia(formiga->getRaioVisao(),formiga->getPonto());
+    Ponto aux = mundo->local_migalha_com_mais_energia(formiga->getRaioVisao(),formiga->getPonto());
     if(abs(formiga->getPonto().getX()-aux.getX()) <= formiga->getRaioMovimento() && abs(formiga->getPonto().getY()-aux.getY()) <= formiga->getRaioMovimento())
         if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX()),(aux.getY()-formiga->getPonto().getY()),mundo)){
             return;

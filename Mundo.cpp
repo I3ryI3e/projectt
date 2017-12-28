@@ -459,18 +459,21 @@ bool Mundo::criaformigas(int quantas, char tipo, int id_n){
     return false;
 }
 
-//bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {          // INACABADO
-//    auto it = comunidades.begin();
-//    bool aux;
-//    while(it != comunidades.end()){
-//        if(it->getNinhoId() == id_n){
-//            aux=it->criaFormigas(quantas,tipo);
-//            return aux;
-//        }
-//        it++;
-//    }
-//    return false;
-//}
+bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {
+    auto it = comunidades.begin();
+    bool aux;
+    if(mckif_noants_nonest(linha, coluna)){
+        while(it != comunidades.end()){
+            if(it->getNinhoId() == id_n){
+                aux=it->cria1Formiga(tipo, linha, coluna);
+                return aux;
+            }
+            it++;
+        }
+    }
+    return false;
+}
+
 
 
 int Mundo::getLimite() const{

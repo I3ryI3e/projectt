@@ -13,9 +13,9 @@ string Formiga::getInfo() const{
 
 Ponto Formiga::getPonto() const{return local_f;}
 
-int Formiga::getRaioVisao() const{
-    return raio_visao;
-}
+int Formiga::getRaioVisao() const{return raio_visao;}
+
+int Formiga::getenergia() const{return energia_f;}
 
 void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
     
