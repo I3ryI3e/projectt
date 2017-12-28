@@ -173,17 +173,17 @@ int Mundo::tratacmd(string linha,int estado){
         }
         return estado;
     }
-//    if(aux.compare("cria1") == 0 && (estado == 1 || estado == 3)){
-//        int id_n, lin, col;
-//        char tipo;
-//        bool aux;
-//        iss >> tipo >> id_n >> lin >> col;
-//        aux=cria1formiga(tipo, id_n, lin, col);
-//        if(aux == false){
-//            Interface::mostrainfo("Erro na criacao da formiga!");
-//        }
-//        return estado;
-//    }
+    if(aux.compare("cria1") == 0 && (estado == 1 || estado == 3)){
+        int id_n, lin, col;
+        char tipo;
+        bool aux;
+        iss >> tipo >> id_n >> lin >> col;
+        aux=cria1formiga(tipo, id_n, lin, col);
+        if(aux == false){
+            Interface::mostrainfo("Erro na criacao da formiga!");
+        }
+        return estado;
+    }
     if(aux.compare("energninho") == 0 && (estado == 1 || estado == 3)){
         int addenerg, numninho;
         iss >> numninho >> addenerg;
@@ -238,7 +238,8 @@ int Mundo::tratacmd(string linha,int estado){
         return estado;
     }
     if(aux.compare("energformiga") == 0 && (estado == 1 || estado == 3)){
-        int lin, col, addenerg;
+        int lin, col;
+        float addenerg;
         iss >> lin >> col >> addenerg;
         auto it = comunidades.begin();
         while(it != comunidades.end()){
@@ -351,10 +352,11 @@ bool Mundo::ckif_migalha_adjacente(Ponto local_formiga)const{
     while(it != migalhas.end()){
         if(abs(it->getPonto().getX() - local_formiga.getX()) <= 1 && abs(it->getPonto().getY() - local_formiga.getY()) <= 1)
             return true;
+        ++it;
     }
 }
 
-int Mundo::try_to_get_energy_from_migalha(Ponto aux, int percentage) {
+float Mundo::try_to_get_energy_from_migalha(Ponto aux, float percentage) {
     int auxnum;
     auto it=migalhas.begin();
     while(it != migalhas.end()){
@@ -362,6 +364,7 @@ int Mundo::try_to_get_energy_from_migalha(Ponto aux, int percentage) {
             auxnum=it->loseEnergy(percentage);
             return auxnum;
         }
+        ++it;
     }
 }
 

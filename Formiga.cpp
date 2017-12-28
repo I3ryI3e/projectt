@@ -2,7 +2,7 @@
 #include "Mundo.h"
 #include <sstream>
 #include <ctime>
-Formiga::Formiga(int linha, int coluna, int energ, int id, int energ_init, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), energia_inicial(energ_init), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence){    
+Formiga::Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), energia_inicial(energ), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence){    
 }
 
 string Formiga::getInfo() const{
@@ -15,7 +15,7 @@ Ponto Formiga::getPonto() const{return local_f;}
 
 int Formiga::getRaioVisao() const{return raio_visao;}
 
-int Formiga::getenergia() const{return energia_f;}
+float Formiga::getenergia() const{return energia_f;}
 
 void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
     
@@ -28,12 +28,6 @@ void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
             it++;
     }
 }
-//void Formiga::consomeEnergia(int energia){
-//    if(energia_f-energia <= 0)
-//        energia_f=0;
-//    else
-//        energia_f-=energia;
-//}
 
 int Formiga::getRaioMovimento(){
     return raio_movimento;
@@ -58,7 +52,7 @@ bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
 void Formiga::addRegra(Regra* nregra){
     comportamento.push_back(nregra);
 }
-void Formiga::modifica_energia(int energia){
+void Formiga::modifica_energia(float energia){
     energia_f += energia;
 }
 Formiga::~Formiga() {

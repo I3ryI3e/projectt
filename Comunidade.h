@@ -13,7 +13,7 @@ class Comunidade {
     Ninho ninho;
     vector <Formiga*> formigueiro;
 public:
-    Comunidade(Mundo* principal, int linha, int coluna, int energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
+    Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
     bool cckif_space_isempty(int linha, int coluna) const;
     string getInfoGeral() const;
     string getInfoNinho() const;
@@ -23,12 +23,12 @@ public:
     Ponto local_formiga_com_mais_energia(int raio, Ponto local_formiga);
     int getNinhoId() const;
     Ponto getNinhoPonto() const;
-    void setNinhoenerg(int addenerg);
+    void setNinhoenerg(float addenerg);
     bool criaFormigas(int quantas, char tipo);
     bool cria1Formiga(char tipo, int linha, int coluna);
     void iteracao();
     int getNFormigas()const;
-    bool addenergFormiga(int linha, int coluna, int energ);
+    bool addenergFormiga(int linha, int coluna, float energ);
     Ponto getPontoFormiga(int num) const;
     bool mataformiga(int linha, int coluna);
     virtual ~Comunidade();

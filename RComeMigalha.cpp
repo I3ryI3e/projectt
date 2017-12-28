@@ -24,7 +24,7 @@ bool RComeMigalha::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunida
 
 void RComeMigalha::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     Ponto aux = mundo->local_migalha_com_mais_energia(1,formiga->getPonto());
-    int valor_ganho = mundo->try_to_get_energy_from_migalha(aux,formiga->percentage_takes_from_migalha());
+    float valor_ganho = mundo->try_to_get_energy_from_migalha(aux,formiga->percentage_takes_from_migalha());
     formiga->modifica_energia(valor_ganho);
 }
 

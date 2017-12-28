@@ -8,7 +8,7 @@
 #include <ctime>
 #include <cstdlib>
 
-Comunidade::Comunidade(Mundo* principal, int linha, int coluna, int energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal),ninho(linha, coluna,
+Comunidade::Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal),ninho(linha, coluna,
         energ_init_ninho, def_p_novaformiga, def_energ_iter),n_formigas(0){}
 
 bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
@@ -105,7 +105,7 @@ int Comunidade::getNinhoId() const{
 Ponto Comunidade::getNinhoPonto() const{
     return ninho.getPonto();
 }
-void Comunidade::setNinhoenerg(int addenerg){
+void Comunidade::setNinhoenerg(float addenerg){
     ninho.setenergia_n(addenerg);
 }
 bool Comunidade::criaFormigas(int quantas, char tipo){
@@ -141,7 +141,7 @@ void Comunidade::iteracao(){
 int Comunidade::getNFormigas() const{
     return n_formigas;
 }
-bool Comunidade::addenergFormiga(int linha, int coluna, int energ){
+bool Comunidade::addenergFormiga(int linha, int coluna, float energ){
     Ponto aux(linha, coluna);
     auto it = formigueiro.begin();
     while(it != formigueiro.end()){

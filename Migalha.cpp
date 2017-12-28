@@ -1,7 +1,7 @@
 #include "Migalha.h"
 #include <sstream>
 
-Migalha::Migalha(int linha, int coluna, int energini): local_m(linha, coluna), energia_m(energini), energia_inicial(energini){
+Migalha::Migalha(int linha, int coluna, float energini): local_m(linha, coluna), energia_m(energini), energia_inicial(energini){
 }
 
 Ponto Migalha::getPonto() const{return local_m;}
@@ -11,20 +11,15 @@ string Migalha::getInfo() const{
     return oss.str();
 }
 
-int Migalha::getEnergia() const{
+float Migalha::getEnergia() const{
     return energia_m;
 }
 
-int Migalha::loseEnergy(int percentage_of_energy_to_take) {
-    int aux;
-    if(energia_m-percentage_of_energy_to_take < 0 ){
-        aux=energia_m;
-        energia_m=0;
-        return aux;     
-    }else{
-        energia_m-=percentage_of_energy_to_take;
-        return percentage_of_energy_to_take;
-    }    
+float Migalha::loseEnergy(float percentage_of_energy_to_take) {
+    int aux=energia_m;
+    energia_m*=(1-percentage_of_energy_to_take);
+    return aux-energia_m;
+    
 }
 
 void Migalha::iteracao(){

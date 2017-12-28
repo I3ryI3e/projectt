@@ -9,21 +9,22 @@ class Mundo;
 
 class Formiga {
     Ponto local_f;
-    int energia_f, id_f,energia_inicial,raio_visao,raio_movimento;
+    int id_f,raio_visao,raio_movimento;
+    float energia_f,energia_inicial;
     Ninho* ninho_f;
     vector <Regra*> comportamento;
 public:
-    Formiga(int linha, int coluna, int energ, int id, int energ_init, int rvis, int rmov, Ninho* ninho_a_que_pertence);
+    Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence);
     Ponto getPonto() const;
     string getInfo() const;
     int getRaioVisao() const;
-    int getenergia() const;
+    float getenergia() const;
     void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
     virtual void consomeEnergia(int mov_efetivo) = 0;
     int getRaioMovimento();
-    virtual int percentage_takes_from_migalha()const = 0;
+    virtual float percentage_takes_from_migalha()const = 0;
     bool moveFormiga(int x,int y,Mundo* mundo);
-    void modifica_energia(int energia);
+    void modifica_energia(float energia);
     void addRegra(Regra* nregra);
     virtual ~Formiga();
 private:
