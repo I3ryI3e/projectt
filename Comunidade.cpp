@@ -156,6 +156,9 @@ bool Comunidade::addenergFormiga(int linha, int coluna, float energ){
 Ponto Comunidade::getPontoFormiga(int num) const{
     return formigueiro.at(num)->getPonto();
 }
+char Comunidade::getTipoFormiga(int num) const{
+    return formigueiro.at(num)->getTipo();
+}
 bool Comunidade::mataformiga(int linha, int coluna){
     Ponto aux(linha, coluna);
     auto it= formigueiro.begin();

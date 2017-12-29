@@ -10,7 +10,7 @@ class Mundo;
 class Formiga {
     Ponto local_f;
     int id_f,raio_visao,raio_movimento;
-    float energia_f,energia_inicial;
+    float energia_f;
     Ninho* ninho_f;
     vector <Regra*> comportamento;
 public:
@@ -26,6 +26,7 @@ public:
     bool moveFormiga(int x,int y,Mundo* mundo);
     void modifica_energia(float energia);
     void addRegra(Regra* nregra);
+    virtual char getTipo() = 0;
     virtual ~Formiga();
 private:
 

@@ -12,7 +12,16 @@ bool RPersegue::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade)
 
 void RPersegue::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     Ponto aux = comunidade->local_formiga_com_mais_energia(formiga->getRaioVisao(),formiga->getPonto());
-    //ACABAR ACABAR
+    if(abs(formiga->getPonto().getX()-aux.getX()) <= formiga->getRaioMovimento() && abs(formiga->getPonto().getY()-aux.getY()) <= formiga->getRaioMovimento())
+        if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX())-1,(aux.getY()-formiga->getPonto().getY()-1),mundo)){
+            return;
+        }
+    for(int i=1;i<=(formiga->getRaioVisao()-formiga->getRaioMovimento());i++){
+        if((abs(formiga->getPonto().getX()-aux.getX())-i) <= formiga->getRaioMovimento() && (abs(formiga->getPonto().getY()-aux.getY())-i) <= formiga->getRaioMovimento()){
+            if(formiga->moveFormiga(((aux.getX()-formiga->getPonto().getX())-i),((aux.getY()-formiga->getPonto().getY())-i),mundo))
+                return;
+        }
+    }
 }
 
 
