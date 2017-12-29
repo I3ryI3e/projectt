@@ -12,7 +12,10 @@ bool RPersegue::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade)
 
 void RPersegue::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     Ponto aux = comunidade->local_formiga_com_mais_energia(formiga->getRaioVisao(),formiga->getPonto());
-    //ACABAR ACABAR
+    
 }
 
+Regra* RPersegue::duplica() const {
+    return new RPersegue(*this);
+}
 

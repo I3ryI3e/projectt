@@ -23,4 +23,7 @@ void RProcuraMigalha::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunida
     }
 }
 
+Regra* RProcuraMigalha::duplica() const {
+    return new RProcuraMigalha(*this);
+}
 

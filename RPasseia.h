@@ -6,6 +6,8 @@ class RPasseia : public Regra {
 public:
     RPasseia();
     void accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) override;
+    Regra* duplica() const override;
+
 private:
 
 };

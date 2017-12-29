@@ -10,6 +10,7 @@ public:
     Regra();
     virtual bool condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade);
     virtual void accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) = 0;
+    virtual Regra* duplica()const = 0;
     virtual ~Regra();
 private:
 

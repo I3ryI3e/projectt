@@ -261,19 +261,19 @@ int Mundo::tratacmd(string linha,int estado){
         }
         return estado;
     }
-//    if(aux.compare("inseticida") == 0 && (estado == 1 || estado == 3)){
-//        int idn;
-//        iss >> idn;
-//        auto it = comunidades.begin();
-//        while(it != comunidades.end()){
-//            if(it->getNinhoId() == idn){
-//                it = comunidades.erase(it);
-//                return estado;
-//            }
-//            ++it;
-//        }
-//        return estado;
-//    }
+    if(aux.compare("inseticida") == 0 && (estado == 1 || estado == 3)){
+        int idn;
+        iss >> idn;
+        auto it = comunidades.begin();
+        while(it != comunidades.end()){
+            if(it->getNinhoId() == idn){
+                it = comunidades.erase(it);
+                return estado;
+            }
+            ++it;
+        }
+        return estado;
+    }
     return estado;
 }
 

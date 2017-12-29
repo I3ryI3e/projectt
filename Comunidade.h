@@ -14,6 +14,9 @@ class Comunidade {
     vector <Formiga*> formigueiro;
 public:
     Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
+    Comunidade(const Comunidade& outro);
+    Comunidade& operator=(Comunidade outro);
+    void swap(Comunidade& outro);
     bool cckif_space_isempty(int linha, int coluna) const;
     string getInfoGeral() const;
     string getInfoNinho() const;

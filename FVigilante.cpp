@@ -7,6 +7,14 @@ void FVigilante::consomeEnergia(int mov_efetivo) {
     modifica_energia(-(1+mov_efetivo));
 }
 
+Formiga* FVigilante::duplica() const {
+    return new FVigilante(*this);
+}
+
+float FVigilante::percentage_takes_from_migalha() const {
+
+}
+
 
 FVigilante::~FVigilante() {
 

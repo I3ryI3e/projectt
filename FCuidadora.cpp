@@ -7,6 +7,15 @@ void FCuidadora::consomeEnergia(int mov_efetivo) {
     modifica_energia(-(1+mov_efetivo));
 }
 
+float FCuidadora::percentage_takes_from_migalha() const {
+
+}
+
+
+Formiga* FCuidadora::duplica() const {
+    return new FCuidadora(*this);
+}
+
 FCuidadora::~FCuidadora() {
 
 }

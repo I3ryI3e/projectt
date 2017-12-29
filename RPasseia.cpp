@@ -34,3 +34,6 @@ void RPasseia::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
         }while(!formiga->moveFormiga(x,y,mundo));
 }
 
+Regra* RPasseia::duplica() const {
+    return new RPasseia(*this);
+}

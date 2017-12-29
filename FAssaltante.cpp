@@ -8,6 +8,14 @@ void FAssaltante::consomeEnergia(int mov_efetivo) {
     modifica_energia(-((mov_efetivo*2)+1));
 }
 
+Formiga* FAssaltante::duplica() const {
+    return new FAssaltante(*this);
+}
+
+float FAssaltante::percentage_takes_from_migalha() const {
+
+}
+
 
 FAssaltante::~FAssaltante() {
 

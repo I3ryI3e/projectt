@@ -9,8 +9,25 @@
 #include <cstdlib>
 
 Comunidade::Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal),ninho(linha, coluna,
-        energ_init_ninho, def_p_novaformiga, def_energ_iter),n_formigas(0){}
+        energ_init_ninho, def_p_novaformiga, def_energ_iter),n_formigas(0){
+}
 
+Comunidade::Comunidade(const Comunidade& outro): ninho(outro.ninho),p_mundo(outro.p_mundo),n_formigas(outro.n_formigas){
+    for(int i=0;i<outro.n_formigas;i++){
+        formigueiro.push_back(outro.formigueiro[i]->duplica());
+    }
+}
+
+Comunidade& Comunidade::operator =(Comunidade outro){
+    swap(outro);
+    return *this;
+}
+void Comunidade::swap(Comunidade& outro){
+    formigueiro.swap(outro.formigueiro);
+    std::swap(p_mundo,outro.p_mundo);
+    std::swap(ninho,outro.ninho);
+    std::swap(n_formigas,outro.n_formigas);
+}
 bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
     Ponto aux(linha, coluna);
     if(aux == ninho.getPonto()){

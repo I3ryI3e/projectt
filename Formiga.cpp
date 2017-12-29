@@ -2,7 +2,27 @@
 #include "Mundo.h"
 #include <sstream>
 #include <ctime>
-Formiga::Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), energia_inicial(energ), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence){    
+Formiga::Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence){    
+}
+Formiga::Formiga(const Formiga& outro): local_f(outro.local_f),energia_f(outro.energia_f), id_f(outro.id_f), raio_visao(outro.raio_visao), raio_movimento(outro.raio_movimento), ninho_f(outro.ninho_f){
+    for(int i=0; i<outro.comportamento.size();i++){
+        comportamento.push_back(outro.comportamento[i]->duplica());
+    }
+}
+
+Formiga& Formiga::operator =(Formiga& outro){
+    swap(outro);
+    return *this;
+}
+
+void Formiga::swap(Formiga& outro){
+    comportamento.swap(outro.comportamento);
+    std::swap(local_f,outro.local_f);
+    std::swap(energia_f,outro.energia_f);
+    std::swap(raio_visao,outro.raio_visao);
+    std::swap(raio_movimento,outro.raio_movimento);
+    std::swap(ninho_f,outro.ninho_f);
+    std::swap(id_f,outro.id_f);
 }
 
 string Formiga::getInfo() const{
@@ -33,6 +53,8 @@ int Formiga::getRaioMovimento(){
     return raio_movimento;
 }
 bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
+    if((local_f.getX()+x >= mundo->getLimite() && local_f.getY()+y >= mundo->getLimite()) || (local_f.getX()+x<0 && local_f.getY()+y<0))
+        return false;
     if((((local_f.getX()+x) == ninho_f->getPonto().getX()) && ((local_f.getY()+y) == ninho_f->getPonto().getY())) || (x==0 && y==0)){
         local_f.setX(local_f.getX()+x);
         local_f.setY(local_f.getY()+y);

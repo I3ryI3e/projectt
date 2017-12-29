@@ -11,6 +11,9 @@ void RProtege::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
 
 }
 
+Regra* RProtege::duplica() const {
+    return new RProtege(*this);
+}
 
 
 

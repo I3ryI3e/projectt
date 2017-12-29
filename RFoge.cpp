@@ -37,4 +37,8 @@ void RFoge::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     }while(!formiga->moveFormiga(x,y,mundo));
 }
 
+Regra* RFoge::duplica() const {
+    return new RFoge(*this);
+}
+
 

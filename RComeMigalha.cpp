@@ -28,5 +28,10 @@ void RComeMigalha::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade)
     formiga->modifica_energia(valor_ganho);
 }
 
+Regra* RComeMigalha::duplica() const {
+    return new RComeMigalha(*this);
+}
+
+
 
 
