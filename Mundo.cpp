@@ -385,6 +385,20 @@ Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formi
     return maux->getPonto();
 }
 
+Ponto Mundo::local_formiga_enemy(int raio_de_visao, Ponto local_formiga, Comunidade* comunidade) {
+    auto it= comunidades.cbegin();
+    while(it != comunidades.cend()){
+        if(comunidade->getNinhoId() == it->getNinhoId())
+            ++it;
+        else{
+            if(it->ckif_formigas_num_raio_visao(local_formiga,raio_de_visao))
+                return it->local_formiga_com_mais_energia(raio_de_visao,local_formiga);
+        }
+        ++it;
+    }
+}
+
+
 int Mundo::best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga) {
     srand(time(NULL));
     bool quadrantes_livres[4] = {true,true,true,true};
