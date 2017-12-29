@@ -1,5 +1,6 @@
 #include "Formiga.h"
 #include "Mundo.h"
+#include "FAssaltante.h"
 #include <sstream>
 #include <ctime>
 Formiga::Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence){    

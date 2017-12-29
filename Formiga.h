@@ -30,6 +30,7 @@ public:
     bool moveFormiga(int x,int y,Mundo* mundo);
     void modifica_energia(float energia);
     void addRegra(Regra* nregra);
+    virtual char getTipo() = 0;
     virtual ~Formiga();
 private:
 

@@ -519,7 +519,7 @@ void Mundo::updatemap(){
     for(i=0;i<comunidades.size();i++){
         for(j=0;j<comunidades[i].getNFormigas();j++){
             aux=comunidades[i].getPontoFormiga(j);
-            Interface::printcaracter(aux, comunidades[i].getNinhoId(), 190, limite);
+            Interface::printcaracter(aux, comunidades[i].getNinhoId(), comunidades[i].getTipoFormiga(j), limite);
         }
         aux = comunidades[i].getNinhoPonto();
         Interface::printcaracter(aux, comunidades[i].getNinhoId(), 78, limite);
