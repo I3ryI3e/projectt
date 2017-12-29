@@ -16,6 +16,13 @@ Formiga* FCuidadora::duplica() const {
     return new FCuidadora(*this);
 }
 
+char FCuidadora::getTipo() const {
+    if(getenergia() < 50)
+        return 'c';
+    return 'C';
+}
+
+
 FCuidadora::~FCuidadora() {
 
 }

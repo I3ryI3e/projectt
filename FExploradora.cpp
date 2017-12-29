@@ -1,9 +1,9 @@
 #include "FExploradora.h"
 #include "RPasseia.h"
-#include "RProcuraMigalha.h"
+#include "RPersegue.h"
 
 FExploradora::FExploradora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): Formiga(linha,coluna,200,id,10,8,ninho_a_que_pertence) {
-   addRegra(new RProcuraMigalha());
+   addRegra(new RPersegue());
 }
 
 void FExploradora::consomeEnergia(int mov_efetivo) {
@@ -15,7 +15,7 @@ Formiga* FExploradora::duplica() const {
     return new FExploradora(*this);
 }
 
-char FExploradora::getTipo(){
+char FExploradora::getTipo()const{
     if(getenergia() < 100)
         return 'e';
     return 'E';

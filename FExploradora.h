@@ -8,7 +8,7 @@ public:
     void consomeEnergia(int mov_efetivo) override;
     Formiga* duplica() const override;
     float percentage_takes_from_migalha() const override;
-    char getTipo() override;
+    char getTipo()const override;
 
 
 private:

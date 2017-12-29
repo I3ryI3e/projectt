@@ -16,6 +16,12 @@ float FAssaltante::percentage_takes_from_migalha() const {
 
 }
 
+char FAssaltante::getTipo() const {
+    if(getenergia() < 40)
+            return 'a';
+        return 'A';
+}
+
 
 FAssaltante::~FAssaltante() {
 

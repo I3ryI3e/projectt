@@ -54,7 +54,7 @@ int Formiga::getRaioMovimento(){
     return raio_movimento;
 }
 bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
-    if((local_f.getX()+x >= mundo->getLimite() && local_f.getY()+y >= mundo->getLimite()) || (local_f.getX()+x<0 && local_f.getY()+y<0))
+    if(local_f.getX()+x >= mundo->getLimite() || local_f.getY()+y >= mundo->getLimite() || local_f.getX()+x<0 || local_f.getY()+y<0)
         return false;
     if((((local_f.getX()+x) == ninho_f->getPonto().getX()) && ((local_f.getY()+y) == ninho_f->getPonto().getY())) || (x==0 && y==0)){
         local_f.setX(local_f.getX()+x);

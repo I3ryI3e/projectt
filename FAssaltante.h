@@ -8,6 +8,7 @@ public:
     void consomeEnergia(int mov_efetivo) override;
     float percentage_takes_from_migalha() const override;
     Formiga* duplica() const override;
+    char getTipo() const override;
     virtual ~FAssaltante();
 
 private:

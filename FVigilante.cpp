@@ -15,6 +15,12 @@ float FVigilante::percentage_takes_from_migalha() const {
 
 }
 
+char FVigilante::getTipo() const {
+    if(getenergia() < 75)
+        return 'v';
+    return 'V';
+}
+
 
 FVigilante::~FVigilante() {
 
