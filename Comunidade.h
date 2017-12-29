@@ -24,7 +24,7 @@ public:
     bool ckif_formigas_num_raio_visao(Ponto local_origem,int raio_visao)const;
     bool ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_origem,int raio_visao,Formiga* formiga) const;
     int ckif_formiga_num_raio_visao_quadrante(Ponto local_origem,int raio_visao,int formiga_x)const;
-    Ponto local_formiga_com_mais_energia(int raio, Ponto local_formiga);
+    Ponto local_formiga_com_mais_energia(int raio, Ponto local_formiga) const;
     Ponto local_formiga_a_proteger(int raio,Ponto local_formiga,Formiga* formiga);
     int getNinhoId() const;
     Ponto getNinhoPonto() const;

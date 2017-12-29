@@ -50,13 +50,19 @@ void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
     }
 }
 
-int Formiga::getRaioMovimento(){
+int Formiga::getRaioMovimento() const{
     return raio_movimento;
 }
 bool Formiga::moveFormiga(int x, int y,Mundo* mundo){
     if(local_f.getX()+x >= mundo->getLimite() || local_f.getY()+y >= mundo->getLimite() || local_f.getX()+x<0 || local_f.getY()+y<0)
         return false;
-    if((((local_f.getX()+x) == ninho_f->getPonto().getX()) && ((local_f.getY()+y) == ninho_f->getPonto().getY())) || (x==0 && y==0)){
+    if(abs(x) > raio_movimento || abs(y) > raio_movimento)
+        return false;
+    if(x==0 && y==0){
+        consomeEnergia(0);
+        return true;
+    }
+    if((((local_f.getX()+x) == ninho_f->getPonto().getX()) && ((local_f.getY()+y) == ninho_f->getPonto().getY()))){
         local_f.setX(local_f.getX()+x);
         local_f.setY(local_f.getY()+y);
         consomeEnergia((abs(x)+abs(y)));

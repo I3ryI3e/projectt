@@ -393,8 +393,8 @@ Ponto Mundo::local_formiga_enemy(int raio_de_visao, Ponto local_formiga, Comunid
         else{
             if(it->ckif_formigas_num_raio_visao(local_formiga,raio_de_visao))
                 return it->local_formiga_com_mais_energia(raio_de_visao,local_formiga);
+            ++it;
         }
-        ++it;
     }
 }
 
