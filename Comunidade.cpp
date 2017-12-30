@@ -81,10 +81,10 @@ bool Comunidade::ckif_formigas_no_raio(Ponto local_origem, int raio) const {
     return false;
 }
 
-bool Comunidade::ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_origem, int raio_visao, Formiga* formiga) const {
+bool Comunidade::ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_origem, int raio_visao) const {
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
-        if(formiga->getPonto() == (*it)->getPonto())
+        if(local_origem == (*it)->getPonto())
             ++it;
         else{
             if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio_visao) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio_visao))
@@ -93,12 +93,13 @@ bool Comunidade::ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_ori
         }
 
     }
+    return false;
 }
 
-Ponto Comunidade::local_formiga_a_proteger(int raio, Ponto local_formiga, Formiga* formiga) {
+Ponto Comunidade::local_formiga_a_proteger(int raio, Ponto local_formiga) const{
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
-        if(formiga->getPonto() == (*it)->getPonto())
+        if(local_formiga == (*it)->getPonto())
             ++it;
         else{
             if((abs(local_formiga.getX()-(*it)->getPonto().getX()) <= raio) && (abs(local_formiga.getY()-(*it)->getPonto().getY()) <= raio) )

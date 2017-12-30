@@ -323,7 +323,7 @@ bool Mundo::mckif_noants_nonest(int linha,int coluna)const{
     return true;
 }
 
-bool Mundo::ckif_formigas_no_raio(Comunidade* comunidade, int raio, Ponto local_formiga){
+bool Mundo::ckif_formigas_no_raio(Comunidade* comunidade, int raio, Ponto local_formiga) const{
     auto it = comunidades.cbegin();
     while(it != comunidades.cend()){
         if( it->getNinhoId() == comunidade->getNinhoId()){
@@ -337,7 +337,7 @@ bool Mundo::ckif_formigas_no_raio(Comunidade* comunidade, int raio, Ponto local_
     return false;
 }
 
-bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) {
+bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) const{
     auto it = migalhas.cbegin();
     while(it != migalhas.cend()){
         if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao)){

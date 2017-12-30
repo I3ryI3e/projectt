@@ -46,7 +46,13 @@ void RAssalta::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
             }
         }
     }    
-    i = j = 1;
+    if(abs(aux.getX()-formiga->getPonto().getX()) >= abs(aux.getY()-formiga->getPonto().getY())){
+        i=1;
+        j=0;
+    }else{
+        i=0;
+        j=1;
+    }
     do{
         if(aux.getX() > formiga->getPonto().getX())
             if(aux.getY() > formiga->getPonto().getY()){
