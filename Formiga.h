@@ -24,13 +24,13 @@ public:
     float getenergia() const;
     void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
     virtual void consomeEnergia(int mov_efetivo) = 0;
-    virtual Formiga* duplica()const = 0;
+    virtual Formiga* duplica() const = 0;
     int getRaioMovimento() const;
-    virtual float percentage_takes_from_migalha()const = 0;
-    bool moveFormiga(int x,int y,Mundo* mundo);
+    virtual float percentage_takes_from_migalha() const = 0;
+    bool moveFormiga(int x, int y, Mundo* mundo);
     void modifica_energia(float energia);
     void addRegra(Regra* nregra);
-    virtual char getTipo()const = 0;
+    virtual char getTipo() const = 0;
     virtual ~Formiga();
 private:
 

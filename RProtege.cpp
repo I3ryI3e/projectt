@@ -6,7 +6,7 @@ RProtege::RProtege() {
 }
 
 bool RProtege::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
-    if((mundo->ckif_formigas_no_raio_visao(comunidade,formiga->getRaioVisao(),formiga->getPonto())) && (comunidade->ckif_formiga_da_mesma_comunidade_num_raio_visao(formiga->getPonto(),formiga->getRaioVisao(),formiga)))
+    if((mundo->ckif_formigas_no_raio(comunidade,formiga->getRaioVisao(),formiga->getPonto())) && (comunidade->ckif_formiga_da_mesma_comunidade_num_raio_visao(formiga->getPonto(),formiga->getRaioVisao(),formiga)))
         return true;
     return false;
 }

@@ -71,10 +71,10 @@ string Comunidade::ckwhoisthere(const Ponto& aux) const{
     return oss.str();
 }
 
-bool Comunidade::ckif_formigas_num_raio_visao(Ponto local_origem, int raio_visao) const {
+bool Comunidade::ckif_formigas_no_raio(Ponto local_origem, int raio) const {
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
-        if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio_visao) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio_visao) )
+        if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio) )
             return true;
         ++it;
     }
@@ -204,6 +204,20 @@ Ponto Comunidade::getPontoFormiga(int num) const{
 char Comunidade::getTipoFormiga(int num) const{
     return formigueiro.at(num)->getTipo();
 }
+
+float Comunidade::try_totake_EnergiaFormiga(Ponto aux){
+    auto it= formigueiro.begin();
+    while(it != formigueiro.end()){
+        if((*it)->getPonto() == aux){
+            float auxf = ((*it)->getenergia()/2);
+            (*it)->modifica_energia(-auxf);
+            return (auxf);
+        }
+        ++it;
+    }
+    return -1;
+}
+
 bool Comunidade::mataformiga(int linha, int coluna){
     Ponto aux(linha, coluna);
     auto it= formigueiro.begin();

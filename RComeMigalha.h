@@ -1,4 +1,3 @@
-
 #ifndef RCOMEMIGALHA_H
 #define RCOMEMIGALHA_H
 #include "Regra.h"

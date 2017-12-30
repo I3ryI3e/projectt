@@ -1,9 +1,10 @@
 #include "FExploradora.h"
-#include "RPasseia.h"
-#include "RPersegue.h"
+#include "RAssalta.h"
+
+
 
 FExploradora::FExploradora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): Formiga(linha,coluna,200,id,10,8,ninho_a_que_pertence) {
-   addRegra(new RPersegue());
+   addRegra(new RAssalta());
 }
 
 void FExploradora::consomeEnergia(int mov_efetivo) {

@@ -215,7 +215,7 @@ int Mundo::tratacmd(string linha,int estado){
                 iter->iteracao();
                 ++iter;
             }
-            novas_migalhas_iter();
+            //novas_migalhas_iter();
         }else{
             int i;
             vector<Comunidade>::iterator it;
@@ -323,13 +323,13 @@ bool Mundo::mckif_noants_nonest(int linha,int coluna)const{
     return true;
 }
 
-bool Mundo::ckif_formigas_no_raio_visao(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga){
+bool Mundo::ckif_formigas_no_raio(Comunidade* comunidade, int raio, Ponto local_formiga){
     auto it = comunidades.cbegin();
     while(it != comunidades.cend()){
         if( it->getNinhoId() == comunidade->getNinhoId()){
             ++it;
         }else{
-            if(it->ckif_formigas_num_raio_visao(local_formiga,raio_de_visao))
+            if(it->ckif_formigas_no_raio(local_formiga,raio))
                 return true;
             ++it;
         }
@@ -366,6 +366,18 @@ float Mundo::try_to_get_energy_from_migalha(Ponto aux, float percentage) {
         }
         ++it;
     }
+    return 0;
+}
+
+float Mundo::try_to_get_energy_from_formiga(Ponto aux){
+    float auxf;
+    auto it = comunidades.begin();
+    while(it != comunidades.end()){
+        if((auxf = it->try_totake_EnergiaFormiga(aux)) != -1)
+            return auxf;
+        ++it;
+    }
+    return -1;
 }
 
 Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formiga){
@@ -385,14 +397,14 @@ Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formi
     return maux->getPonto();
 }
 
-Ponto Mundo::local_formiga_enemy(int raio_de_visao, Ponto local_formiga, Comunidade* comunidade) {
+Ponto Mundo::local_formiga_enemy(int raio, Ponto local_formiga, Comunidade* comunidade) {
     auto it= comunidades.cbegin();
     while(it != comunidades.cend()){
         if(comunidade->getNinhoId() == it->getNinhoId())
             ++it;
         else{
-            if(it->ckif_formigas_num_raio_visao(local_formiga,raio_de_visao))
-                return it->local_formiga_com_mais_energia(raio_de_visao,local_formiga);
+            if(it->ckif_formigas_no_raio(local_formiga,raio))
+                return it->local_formiga_com_mais_energia(raio,local_formiga);
             ++it;
         }
     }
