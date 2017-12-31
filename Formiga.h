@@ -9,7 +9,7 @@ class Mundo;
 
 class Formiga {
     Ponto local_f;
-    int id_f,raio_visao,raio_movimento;
+    int id_f,raio_visao,raio_movimento,n_iteracoes_sem_ir_ao_ninho;
     float energia_f;
     Ninho* ninho_f;
     vector <Regra*> comportamento;
@@ -17,10 +17,13 @@ public:
     Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence);
     Formiga(const Formiga& outro);
     Formiga& operator=(Formiga& outro);
-    void swap(Formiga &outro);
     Ponto getPonto() const;
     string getInfo() const;
     int getRaioVisao() const;
+    int getNIteracoesSemNinho()const;
+    void resetNIteracoesSemNinho();
+    virtual bool ckif_is_to_move_to_ninho() const = 0;
+    bool ckif_ninho_in_raio_visao();
     float getenergia() const;
     void iteracao(Mundo* mundo_atual, Comunidade* comunidade);
     virtual void consomeEnergia(int mov_efetivo) = 0;

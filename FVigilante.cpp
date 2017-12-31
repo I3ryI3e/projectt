@@ -20,7 +20,10 @@ char FVigilante::getTipo() const {
         return 'v';
     return 'V';
 }
-
+bool FVigilante::ckif_is_to_move_to_ninho() const {
+    if(getenergia() > 150 || getenergia()<75)
+        return true;
+}
 
 FVigilante::~FVigilante() {
 

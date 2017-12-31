@@ -9,6 +9,7 @@ public:
     float percentage_takes_from_migalha() const override;
     Formiga* duplica() const override;
     char getTipo() const override;
+    bool ckif_is_to_move_to_ninho() const override;
     virtual ~FAssaltante();
 
 private:

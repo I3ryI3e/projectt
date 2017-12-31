@@ -21,7 +21,10 @@ char FAssaltante::getTipo() const {
             return 'a';
         return 'A';
 }
-
+bool FAssaltante::ckif_is_to_move_to_ninho() const {
+    if(getenergia() > 80 || getenergia()<40)
+        return true;
+}
 
 FAssaltante::~FAssaltante() {
 

@@ -3,7 +3,7 @@
 #include "FAssaltante.h"
 #include <sstream>
 #include <ctime>
-Formiga::Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence){    
+Formiga::Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna), energia_f(energ),id_f(id), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence), n_iteracoes_sem_ir_ao_ninho(0){    
 }
 Formiga::Formiga(const Formiga& outro): local_f(outro.local_f),energia_f(outro.energia_f), id_f(outro.id_f), raio_visao(outro.raio_visao), raio_movimento(outro.raio_movimento), ninho_f(outro.ninho_f){
     for(int i=0; i<outro.comportamento.size();i++){
@@ -12,19 +12,25 @@ Formiga::Formiga(const Formiga& outro): local_f(outro.local_f),energia_f(outro.e
 }
 
 Formiga& Formiga::operator =(Formiga& outro){
-    swap(outro);
-    return *this;
+    local_f=outro.local_f;
+    energia_f=outro.energia_f;
+    raio_movimento=outro.raio_movimento;
+    raio_visao=outro.raio_visao;
+    ninho_f=outro.ninho_f;
+    id_f=outro.id_f;
+    auto it = comportamento.begin();
+    while(it != comportamento.end()){
+        delete (*it);
+        ++it;
+    }
+    comportamento.clear();
+    auto iter=outro.comportamento.cbegin();
+    while(iter != outro.comportamento.cend()){
+        comportamento.push_back((*iter)->duplica());
+        ++iter;
+    }
 }
 
-void Formiga::swap(Formiga& outro){
-    comportamento.swap(outro.comportamento);
-    std::swap(local_f,outro.local_f);
-    std::swap(energia_f,outro.energia_f);
-    std::swap(raio_visao,outro.raio_visao);
-    std::swap(raio_movimento,outro.raio_movimento);
-    std::swap(ninho_f,outro.ninho_f);
-    std::swap(id_f,outro.id_f);
-}
 
 string Formiga::getInfo() const{
     ostringstream oss;
@@ -32,11 +38,24 @@ string Formiga::getInfo() const{
     return oss.str();
 }
 
+int Formiga::getNIteracoesSemNinho() const { return n_iteracoes_sem_ir_ao_ninho;}
+
 Ponto Formiga::getPonto() const{return local_f;}
 
 int Formiga::getRaioVisao() const{return raio_visao;}
 
-float Formiga::getenergia() const{return energia_f;}
+float Formiga::getenergia() const{return energia_f;
+}
+
+void Formiga::resetNIteracoesSemNinho() {n_iteracoes_sem_ir_ao_ninho=0;
+}
+
+bool Formiga::ckif_ninho_in_raio_visao() {
+    if((abs(ninho_f->getPonto().getX()-local_f.getX()) <= raio_visao) && (abs(ninho_f->getPonto().getY()-local_f.getY()) <= raio_visao))
+        return true;
+    return false;
+}
+
 
 void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
     
@@ -46,8 +65,9 @@ void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
             (*it)->accao(this, mundo_atual, comunidade);
             it=comportamento.end();
         }else
-            it++;
+            ++it;
     }
+    ++n_iteracoes_sem_ir_ao_ninho;
 }
 
 int Formiga::getRaioMovimento() const{
