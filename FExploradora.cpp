@@ -1,9 +1,9 @@
 #include "FExploradora.h"
-#include "RVaiParaNinho.h"
 #include "RPasseia.h"
+#include "RComeMigalha.h"
 
 FExploradora::FExploradora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): Formiga(linha,coluna,200,id,10,8,ninho_a_que_pertence) {
-   addRegra(new RVaiParaNinho());
+   addRegra(new RComeMigalha);
    addRegra(new RPasseia());
 }
 

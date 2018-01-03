@@ -3,6 +3,9 @@
 #include "Formiga.h"
 #include "Mundo.h"
 #include "FExploradora.h"
+#include "FVigilante.h"
+#include "FAssaltante.h"
+#include "FCuidadora.h"
 #include <sstream>
 #include <random>
 #include <ctime>
@@ -156,23 +159,64 @@ void Comunidade::setNinhoenerg(float addenerg){
 }
 bool Comunidade::criaFormigas(int quantas, char tipo){
     srand (time(NULL));
-    if(tipo == 'E'){
-        for(int i=0;i<quantas;i++){
-            int r_linha, r_coluna;
-            do{
-                r_linha= rand() % p_mundo->getLimite();
-                r_coluna= rand() % p_mundo->getLimite();
-            }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
-                formigueiro.push_back(new FExploradora(r_linha,r_coluna,++n_formigas,&ninho));
-        }
-        return true;
+    switch(tipo){
+        case 'E' : 
+            for(int i=0;i<quantas;i++){
+                int r_linha, r_coluna;
+                do{
+                    r_linha= rand() % p_mundo->getLimite();
+                    r_coluna= rand() % p_mundo->getLimite();
+                }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
+                    formigueiro.push_back(new FExploradora(r_linha,r_coluna,++n_formigas,&ninho));
+            }
+            return true;
+        case 'C' :
+            for(int i=0;i<quantas;i++){
+                int r_linha, r_coluna;
+                do{
+                    r_linha= rand() % p_mundo->getLimite();
+                    r_coluna= rand() % p_mundo->getLimite();
+                }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
+                    formigueiro.push_back(new FCuidadora(r_linha,r_coluna,++n_formigas,&ninho));
+            }
+            return true;
+        case 'V' :
+            for(int i=0;i<quantas;i++){
+                int r_linha, r_coluna;
+                do{
+                    r_linha= rand() % p_mundo->getLimite();
+                    r_coluna= rand() % p_mundo->getLimite();
+                }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
+                    formigueiro.push_back(new FVigilante(r_linha,r_coluna,++n_formigas,&ninho));
+            }
+            return true;
+        case 'A' :
+            for(int i=0;i<quantas;i++){
+                int r_linha, r_coluna;
+                do{
+                    r_linha= rand() % p_mundo->getLimite();
+                    r_coluna= rand() % p_mundo->getLimite();
+                }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
+                    formigueiro.push_back(new FAssaltante(r_linha,r_coluna,++n_formigas,&ninho));
+            }
+            return true;
     }
     return false;
 }
 bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
-    if(tipo == 'E'){
-        formigueiro.push_back(new FExploradora(linha, coluna, ++n_formigas, &ninho));
-        return true;
+    switch(tipo){
+        case 'E':
+            formigueiro.push_back(new FExploradora(linha, coluna, ++n_formigas, &ninho));
+            return true;  
+        case 'C' :
+            formigueiro.push_back(new FCuidadora(linha, coluna, ++n_formigas, &ninho));
+            return true;
+        case 'V' :
+            formigueiro.push_back(new FVigilante(linha, coluna, ++n_formigas, &ninho));
+            return true;
+        case 'A' : 
+            formigueiro.push_back(new FAssaltante(linha, coluna, ++n_formigas, &ninho));
+            return true;    
     }
     return false;
 }
