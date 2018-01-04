@@ -11,7 +11,7 @@ public:
     Interface() = delete;
     static void initial_screen();
     static void screen_config_stage();
-    static void printborders(int lim);
+    static void printborders(int lim, Ponto foca);
     static void printcaracter(Ponto aux, int i, int car, int lim);
     static string getlinha();
     static void mostrainfo(string aux);

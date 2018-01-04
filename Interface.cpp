@@ -15,8 +15,14 @@ void Interface::screen_config_stage(){
     cout << "Comando: ";
 }
 
-void Interface::printborders(int lim){
-    int i, j, l=0, c=0, k=-3;
+void Interface::printborders(int lim, Ponto foca){
+    int i, j, l=foca.getX(), c=foca.getY(), k=-3;
+    while(l>10){
+        l -= 10;
+    }
+    while(c>10){
+        c -= 10;
+    }
     for(i=-2;i<=lim;i++){
         for(j=119;j>=(117-lim);j--, k+=2){
             Consola::setTextColor(Consola::BRANCO_CLARO);
@@ -70,6 +76,9 @@ void Interface::printborders(int lim){
         }
         cout << endl;
     }
+    Consola::gotoxy(80, 28);
+    cout << "Canto superior direito -> " << foca.obtemXY() << endl;
+    Consola::gotoxy(0,0);
 }
 
 void Interface::printcaracter(Ponto aux, int i, int car, int lim){
