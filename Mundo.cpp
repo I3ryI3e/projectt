@@ -221,7 +221,7 @@ int Mundo::tratacmd(string linha,int estado){
                 iter->iteracao();
                 ++iter;
             }
-            //novas_migalhas_iter();
+            novas_migalhas_iter();
         }else{
             int i;
             vector<Comunidade>::iterator it;
@@ -238,7 +238,7 @@ int Mundo::tratacmd(string linha,int estado){
                     iter->iteracao();
                     ++iter;
                 }
-                //novas_migalhas_iter();
+                novas_migalhas_iter();
             }
         }
         return estado;
