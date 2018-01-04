@@ -592,6 +592,7 @@ void Mundo::updatemap(){
             Interface::printcaracter(aux, 12, 254, janela);
         }
     }
+    Interface::gotox0y0();
 }
 
 Mundo::~Mundo() {

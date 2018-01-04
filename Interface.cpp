@@ -78,14 +78,12 @@ void Interface::printborders(int lim, Ponto foca){
     }
     Consola::gotoxy(80, 28);
     cout << "Canto superior direito -> " << foca.obtemXY() << endl;
-    Consola::gotoxy(0,0);
 }
 
 void Interface::printcaracter(Ponto aux, int i, int car, int lim){
     Consola::setTextColor(Consola::AZUL+i);
     Consola::gotoxy(aux.getX()+(118-lim), aux.getY()+2);
     cout << (char)car;
-    Consola::gotoxy(0,0);
 }
 
 string Interface::getlinha(){
@@ -103,4 +101,8 @@ void Interface::mostrainfo(string aux){
 
 void Interface::clrscreen(){
     Consola::clrscr();
+}
+
+void Interface::gotox0y0(){
+    Consola::gotoxy(0,0);
 }

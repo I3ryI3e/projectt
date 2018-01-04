@@ -16,6 +16,7 @@ public:
     static string getlinha();
     static void mostrainfo(string aux);
     static void clrscreen();
+    static void gotox0y0();
 private:
 
 };
