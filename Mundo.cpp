@@ -5,8 +5,9 @@
 #include <ctime>
 #include "Interface.h"
 
-Mundo::Mundo(string nnome):nome(nnome),limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
-            p_init_migalhas(-1),energ_init_migalhas(-1),migalhas_iter(-1){
+
+Mundo::Mundo(string nnome): nome(nnome), pfoca(0,0), limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
+            p_init_migalhas(-1),energ_init_migalhas(-1),migalhas_iter(-1),janela(25){
 }
 
 //void Mundo::configuracao(){
@@ -61,7 +62,9 @@ int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
     if(aux.compare("defmundo") == 0 && (estado == 0 || estado == 2)){
         int nlim;
         iss >> nlim;
-        if(nlim >= 10 && nlim < 50)
+        if(nlim >= 10 && nlim < 100)
+            if(nlim < 25)
+                janela=nlim;
             limite=nlim;
         return estado;
     }
@@ -179,6 +182,8 @@ int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
         char tipo;
         bool aux;
         iss >> tipo >> id_n >> lin >> col;
+        if(lin < 0 || col < 0 || lin >= limite || col >= limite)
+            return estado;
         aux=cria1formiga(tipo, id_n, lin, col);
         if(aux == false){
             user_interface.mostrainfo("Erro na criacao da formiga!");
@@ -201,6 +206,8 @@ int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
     if(aux.compare("migalha") == 0 && (estado == 1 || estado == 3)){
         int lin, col;
         iss >> lin >> col;
+        if(lin < 0 || col < 0 || lin >= limite || col >= limite)
+            return estado;
         criamigalha(lin, col);
         return estado;
     }
@@ -275,6 +282,29 @@ int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
         }
         return estado;
     }
+    if(aux.compare("foca") == 0 && (estado == 1 || estado == 3)){
+        int lin, col;
+        iss >> lin >> col;
+        if(lin < 0 || col < 0 || lin >= limite || col >= limite)
+            return estado;
+        if(lin-(janela/2) > 0)
+            if(lin+(janela/2) < limite)
+                lin-=(janela/2);
+            else
+                lin=limite-(janela);
+        else
+            lin=0;
+        if(col-(janela/2) > 0)
+            if(col+(janela/2) < limite)
+                col-=(janela/2);
+            else
+                col=limite-(janela);
+        else
+            col=0;
+        pfoca.setX(lin);
+        pfoca.setY(col);
+        return estado;
+    }
     return estado;
 }
 
@@ -314,6 +344,7 @@ bool Mundo::mckif_space_isempty(int linha, int coluna) const{
     }
     return true;
 }
+
 bool Mundo::mckif_noants_nonest(int linha,int coluna)const{
     auto it = comunidades.cbegin();
     while(it != comunidades.cend()){
@@ -348,6 +379,7 @@ bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) 
     }
     return false;
 }
+
 bool Mundo::ckif_migalha_adjacente(Ponto local_formiga)const{
     auto it=migalhas.cbegin();
     while(it != migalhas.end()){
@@ -411,7 +443,6 @@ Ponto Mundo::local_formiga_enemy(int raio, Ponto local_formiga, Comunidade* comu
         }
     }
 }
-
 
 int Mundo::best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga) {
     srand(time(NULL));
@@ -505,8 +536,6 @@ bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {
     return false;
 }
 
-
-
 int Mundo::getLimite() const{
     return limite;
 }
@@ -518,8 +547,6 @@ void Mundo::migalhas_iniciais(){
         for(int j=0;j<limite;j++){
             if((rand()%100) < p_init_migalhas){
                 criamigalha(i, j);
-                Ponto p(i, j);
-                Interface::printcaracter(p, 11, 254, limite);
             }
         }
     }
@@ -543,22 +570,32 @@ void Mundo::novas_migalhas_iter(){
 void Mundo::updatemap(Interface& user_interface){
     int i, j;
     Ponto aux(0,0);
-    user_interface.printborders(limite);
+    user_interface.printborders(janela, pfoca);
     for(i=0;i<comunidades.size();i++){
         for(j=0;j<comunidades[i].getNFormigas();j++){
             aux=comunidades[i].getPontoFormiga(j);
-            user_interface.printcaracter(aux, comunidades[i].getNinhoId(), comunidades[i].getTipoFormiga(j), limite);
+            if(aux.getX() >= pfoca.getX() && aux.getX() < (pfoca.getX()+25) && aux.getY() >= pfoca.getY() && aux.getY() < (pfoca.getY()+25)){
+                aux.setX(aux.getX()-pfoca.getX());
+                aux.setY(aux.getY()-pfoca.getY());
+                user_interface.printcaracter(aux, comunidades[i].getNinhoId(), comunidades[i].getTipoFormiga(j), janela);
+            }
         }
         aux = comunidades[i].getNinhoPonto();
-        user_interface.printcaracter(aux, comunidades[i].getNinhoId(), 78, limite);
+        if(aux.getX() >= pfoca.getX() && aux.getX() < (pfoca.getX()+25) && aux.getY() >= pfoca.getY() && aux.getY() < (pfoca.getY()+25)){
+            aux.setX(aux.getX()-pfoca.getX());
+            aux.setY(aux.getY()-pfoca.getY());
+            user_interface.printcaracter(aux, comunidades[i].getNinhoId(), 78, janela);
+        }
     }
     for(i=0;i<migalhas.size();i++){
         aux = migalhas[i].getPonto();
-        user_interface.printcaracter(aux, 12, 254, limite);
+        if(aux.getX() >= pfoca.getX() && aux.getX() < (pfoca.getX()+25) && aux.getY() >= pfoca.getY() && aux.getY() < (pfoca.getY()+25)){
+            aux.setX(aux.getX()-pfoca.getX());
+            aux.setY(aux.getY()-pfoca.getY());
+            user_interface.printcaracter(aux, 12, 254, janela);
+        }
     }
-}
-
-Mundo::Mundo(const Mundo& orig) {
+    user_interface.gotox0y0();
 }
 
 Mundo::~Mundo() {

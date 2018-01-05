@@ -34,7 +34,7 @@ Formiga& Formiga::operator =(Formiga& outro){
 
 string Formiga::getInfo() const{
     ostringstream oss;
-    oss << "Formiga " << id_f << "->" << "\tLocal: " << local_f.obtemXY() << "\tEnergia: " << energia_f;
+    oss << "Formiga " << id_f << "->" << "\tLocal: " << local_f.obtemXY() << "\tEnergia: " << energia_f << "\tTipo: " << getTipo();
     return oss.str();
 }
 

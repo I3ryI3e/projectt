@@ -11,8 +11,9 @@ class Mundo {
     vector <Comunidade> comunidades;
     vector <Migalha> migalhas;
     string nome;
+    Ponto pfoca;
     int limite,def_p_novaformiga,def_energ_iter;
-    int p_init_migalhas,migalhas_iter;
+    int p_init_migalhas,migalhas_iter, janela;
     float energ_init_ninho,energ_init_migalhas;
 public:
     Mundo(string nnome);
@@ -37,7 +38,6 @@ public:
     void updatemap(Interface& user_interface);
     float try_to_get_energy_from_migalha(Ponto aux, float percentage);
     float try_to_get_energy_from_formiga(Ponto aux);
-    Mundo(const Mundo& orig);
     virtual ~Mundo();
 private:
 
