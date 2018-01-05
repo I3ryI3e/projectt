@@ -51,7 +51,7 @@ int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
     ostringstream oss;
     string aux;
     if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
-        if(ckif_notconfig() == false){
+        if(ckif_notconfig(user_interface) == false){
             estado += 1;
             user_interface.clrscreen();
             migalhas_iniciais();

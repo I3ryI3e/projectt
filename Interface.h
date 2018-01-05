@@ -5,6 +5,8 @@
 #include "Ponto.h"
 #include "vector"
 #include "Mundo.h"
+#include <fstream>
+
 
 using namespace std;
 
@@ -20,12 +22,12 @@ public:
     void inicia();
     void initial_screen();
     void screen_config_stage();
-    void printborders(int lim);
+    void printborders(int lim, Ponto foca);
     void printcaracter(Ponto aux, int i, int car, int lim);
     string getlinha();
     void mostrainfo(string aux);
     void clrscreen();
-    static void gotox0y0();
+    void gotox0y0();
 private:
 
 };

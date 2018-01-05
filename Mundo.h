@@ -6,6 +6,7 @@
 #include "Migalha.h"
 
 using namespace std;
+class Interface;
 
 class Mundo {
     vector <Comunidade> comunidades;

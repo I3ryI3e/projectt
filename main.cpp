@@ -1,13 +1,13 @@
 #include <cstdlib>
 #include "Mundo.h"
+#include "Interface.h"
 
 using namespace std;
 
 
 int main() {
-
-    Mundo a;
-    a.configuracao();
+    Interface user_interface;
+    user_interface.inicia();
     return 0;
 }
 

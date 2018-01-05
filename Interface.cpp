@@ -1,5 +1,6 @@
 #include "Interface.h"
 #include <iostream>
+#include <sstream>
 
 Interface::Interface(): file(nullptr), estado(0){
     mundos.push_back(Mundo("default"));
@@ -116,8 +117,8 @@ void Interface::printborders(int lim, Ponto foca){
         }
         cout << endl;
     }
-    Consola::gotoxy(80, 28);
-    cout << "Canto superior direito -> " << foca.obtemXY() << endl;
+    Consola::gotoxy(79, 28);
+    cout << "Canto superior esquerdo -> " << foca.obtemXY() << endl;
 }
 
 void Interface::printcaracter(Ponto aux, int i, int car, int lim){
