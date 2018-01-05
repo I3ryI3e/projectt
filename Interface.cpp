@@ -1,6 +1,46 @@
 #include "Interface.h"
 #include <iostream>
 
+Interface::Interface(): file(nullptr), estado(0){
+    mundos.push_back(Mundo("default"));
+    iterador=mundos.begin();
+}
+
+void Interface::inicia() {
+    string linha, aux;
+    initial_screen();
+    do{
+        if(estado == 1 || estado == 3){
+            iterador->updatemap(*this);
+        }else{
+            screen_config_stage();        //AS MENSAGENS DE ERRO TAO MAL AGORA
+        }
+        if(estado == 0 || estado == 1){
+            linha = Interface::getlinha();
+        }else if(file.is_open()){
+                getline(file,linha);
+                if(file.eof()){
+                    file.close();
+                    estado -= 2;
+                }
+            }else{
+                istringstream iss(linha);
+                iss >> aux >> aux;
+                file.open(aux);
+                if(file.fail()){
+                    mostrainfo("\n\t\t    Erro a abrir o ficheiro.");  //MUDAR
+                    estado -= 2;
+                    continue;
+                }
+                getline(file,linha);
+            }
+        if(linha.compare("sair") != 0)
+            estado=iterador->tratacmd(linha,estado,*this);       
+        
+    }while(linha.compare("sair") != 0);
+}
+
+
 void Interface::initial_screen(){
     Consola::setScreenSize(30, 120);
     Consola::setTextColor(Consola::VERDE_CLARO);

@@ -3,19 +3,28 @@
 
 #include "Consola.h"
 #include "Ponto.h"
+#include "vector"
+#include "Mundo.h"
 
 using namespace std;
 
 class Interface {
+    vector<Mundo> mundos;
+    fstream file;
+    int estado;
+    vector<Mundo>::iterator iterador;
 public:
-    Interface() = delete;
-    static void initial_screen();
-    static void screen_config_stage();
-    static void printborders(int lim);
-    static void printcaracter(Ponto aux, int i, int car, int lim);
-    static string getlinha();
-    static void mostrainfo(string aux);
-    static void clrscreen();
+    Interface();
+    Interface(const Interface& outro) = delete;
+    Interface& operator=(const Interface& outro) = delete;
+    void inicia();
+    void initial_screen();
+    void screen_config_stage();
+    void printborders(int lim);
+    void printcaracter(Ponto aux, int i, int car, int lim);
+    string getlinha();
+    void mostrainfo(string aux);
+    void clrscreen();
 private:
 
 };

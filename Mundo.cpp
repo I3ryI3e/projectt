@@ -3,55 +3,56 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include "Interface.h"
 
-Mundo::Mundo():limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
+Mundo::Mundo(string nnome):nome(nnome),limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
             p_init_migalhas(-1),energ_init_migalhas(-1),migalhas_iter(-1){
 }
 
-void Mundo::configuracao(){
-    string linha, aux;
-    fstream file;
-    int estado=0;
-    Interface::initial_screen();
-    do{
-        if(estado == 1 || estado == 3){
-            updatemap();
-        }else{
-            Interface::screen_config_stage();        //AS MENSAGENS DE ERRO TAO MAL AGORA
-        }
-        if(estado == 0 || estado == 1){
-            linha = Interface::getlinha();
-        }else if(file.is_open()){
-                getline(file,linha);
-                if(file.eof()){
-                    file.close();
-                    estado -= 2;
-                }
-            }else{
-                istringstream iss(linha);
-                iss >> aux >> aux;
-                file.open(aux);
-                if(file.fail()){
-                    Interface::mostrainfo("\n\t\t    Erro a abrir o ficheiro.");  //MUDAR
-                    estado -= 2;
-                    continue;
-                }
-                getline(file,linha);
-            }
-        if(linha.compare("sair") != 0)
-            estado=tratacmd(linha,estado);       
-        
-    }while(linha.compare("sair") != 0);
-}
+//void Mundo::configuracao(){
+//    string linha, aux;
+//    fstream file;
+//    int estado=0;
+//    Interface::initial_screen();
+//    do{
+//        if(estado == 1 || estado == 3){
+//            updatemap();
+//        }else{
+//            Interface::screen_config_stage();        //AS MENSAGENS DE ERRO TAO MAL AGORA
+//        }
+//        if(estado == 0 || estado == 1){
+//            linha = Interface::getlinha();
+//        }else if(file.is_open()){
+//                getline(file,linha);
+//                if(file.eof()){
+//                    file.close();
+//                    estado -= 2;
+//                }
+//            }else{
+//                istringstream iss(linha);
+//                iss >> aux >> aux;
+//                file.open(aux);
+//                if(file.fail()){
+//                    Interface::mostrainfo("\n\t\t    Erro a abrir o ficheiro.");  //MUDAR
+//                    estado -= 2;
+//                    continue;
+//                }
+//                getline(file,linha);
+//            }
+//        if(linha.compare("sair") != 0)
+//            estado=tratacmd(linha,estado);       
+//        
+//    }while(linha.compare("sair") != 0);
+//}
 
-int Mundo::tratacmd(string linha,int estado){
+int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
     istringstream iss(linha);
     ostringstream oss;
     string aux;
     if(linha.compare("inicio") == 0 && (estado == 0 || estado == 2)){
         if(ckif_notconfig() == false){
             estado += 1;
-            Interface::clrscreen();
+            user_interface.clrscreen();
             migalhas_iniciais();
         }
         return estado;
@@ -127,7 +128,7 @@ int Mundo::tratacmd(string linha,int estado){
             oss << iter->getInfo() << endl;
             ++iter;
         }
-        Interface::mostrainfo(oss.str());
+        user_interface.mostrainfo(oss.str());
         return estado;
     }
     if(aux.compare("listaninho") == 0 && (estado == 1 || estado == 3)){
@@ -141,7 +142,7 @@ int Mundo::tratacmd(string linha,int estado){
             }else
                 ++it;
         }
-        Interface::mostrainfo(oss.str());
+        user_interface.mostrainfo(oss.str());
         return estado;
     }
     if(aux.compare("listaposicao") == 0 && (estado == 1 || estado == 3)){
@@ -159,7 +160,7 @@ int Mundo::tratacmd(string linha,int estado){
                 oss << iter->getInfo();
             ++iter;
         }
-        Interface::mostrainfo(oss.str());
+        user_interface.mostrainfo(oss.str());
         return estado;
     }
     if(aux.compare("criaf") == 0 && (estado == 1 || estado == 3)){
@@ -169,7 +170,7 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> num >> tipo >> id_n;
         aux=criaformigas(num, tipo, id_n);
         if(aux == false){
-            Interface::mostrainfo("Erro na criacao das formigas!");
+            user_interface.mostrainfo("Erro na criacao das formigas!");
         }
         return estado;
     }
@@ -180,7 +181,7 @@ int Mundo::tratacmd(string linha,int estado){
         iss >> tipo >> id_n >> lin >> col;
         aux=cria1formiga(tipo, id_n, lin, col);
         if(aux == false){
-            Interface::mostrainfo("Erro na criacao da formiga!");
+            user_interface.mostrainfo("Erro na criacao da formiga!");
         }
         return estado;
     }
@@ -340,7 +341,7 @@ bool Mundo::ckif_formigas_no_raio(Comunidade* comunidade, int raio, Ponto local_
 bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) const{
     auto it = migalhas.cbegin();
     while(it != migalhas.cend()){
-        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao)){
+        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao) && it->getEnergia()>0){
             return true;
         }
         ++it;
@@ -350,10 +351,11 @@ bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) 
 bool Mundo::ckif_migalha_adjacente(Ponto local_formiga)const{
     auto it=migalhas.cbegin();
     while(it != migalhas.end()){
-        if(abs(it->getPonto().getX() - local_formiga.getX()) <= 1 && abs(it->getPonto().getY() - local_formiga.getY()) <= 1)
+        if(abs(it->getPonto().getX() - local_formiga.getX()) <= 1 && abs(it->getPonto().getY() - local_formiga.getY()) <= 1 && it->getEnergia()>0)
             return true;
         ++it;
     }
+    return false;
 }
 
 float Mundo::try_to_get_energy_from_migalha(Ponto aux, float percentage) {
@@ -384,7 +386,7 @@ Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formi
     const Migalha* maux=nullptr;
     auto it = migalhas.cbegin();
     while(it != migalhas.cend()){
-        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao)){
+        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao) && it->getEnergia()>0){
             if(maux==nullptr)
                 maux= &(*it);
             else{
@@ -394,7 +396,7 @@ Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formi
         }
         ++it;
     }
-    return maux->getPonto();
+    return maux->getPonto();                                                    // BUG mesmo problema que está na outra função, caso não encontre uma migalha o maux vai estar a nullptr e não tem o getPonto
 }
 
 Ponto Mundo::local_formiga_enemy(int raio, Ponto local_formiga, Comunidade* comunidade) {
@@ -451,7 +453,7 @@ int Mundo::best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, 
     return (rand() % 4);
 }
 
-bool Mundo::ckif_notconfig() const{
+bool Mundo::ckif_notconfig(Interface& user_interface) const{
     ostringstream oss;
     oss << "Os comandos: ";
     if(limite == -1)
@@ -470,7 +472,7 @@ bool Mundo::ckif_notconfig() const{
        return false;
     else{
         oss << "nao foram corretamente inicializados.";
-        Interface::mostrainfo(oss.str());
+        user_interface.mostrainfo(oss.str());
         return true;
     }
 }
@@ -538,21 +540,21 @@ void Mundo::novas_migalhas_iter(){
     }
 }
 
-void Mundo::updatemap(){
+void Mundo::updatemap(Interface& user_interface){
     int i, j;
     Ponto aux(0,0);
-    Interface::printborders(limite);
+    user_interface.printborders(limite);
     for(i=0;i<comunidades.size();i++){
         for(j=0;j<comunidades[i].getNFormigas();j++){
             aux=comunidades[i].getPontoFormiga(j);
-            Interface::printcaracter(aux, comunidades[i].getNinhoId(), comunidades[i].getTipoFormiga(j), limite);
+            user_interface.printcaracter(aux, comunidades[i].getNinhoId(), comunidades[i].getTipoFormiga(j), limite);
         }
         aux = comunidades[i].getNinhoPonto();
-        Interface::printcaracter(aux, comunidades[i].getNinhoId(), 78, limite);
+        user_interface.printcaracter(aux, comunidades[i].getNinhoId(), 78, limite);
     }
     for(i=0;i<migalhas.size();i++){
         aux = migalhas[i].getPonto();
-        Interface::printcaracter(aux, 12, 254, limite);
+        user_interface.printcaracter(aux, 12, 254, limite);
     }
 }
 
