@@ -1,5 +1,6 @@
 #ifndef FCUIDADORA_H
 #define FCUIDADORA_H
+
 #include "Formiga.h"
 
 class FCuidadora : public Formiga {
@@ -12,7 +13,6 @@ public:
     bool ckif_is_to_move_to_ninho() const override;
     virtual ~FCuidadora();
 private:
-
 };
 
 #endif /* FCUIDADORA_H */

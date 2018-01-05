@@ -2,8 +2,7 @@
 #include "Formiga.h"
 #include "Comunidade.h"
 
-RVaiParaNinho::RVaiParaNinho() {
-}
+RVaiParaNinho::RVaiParaNinho() {}
 
 bool RVaiParaNinho::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     if(formiga->ckif_is_to_move_to_ninho() && (formiga->getNIteracoesSemNinho()>=10) && formiga->ckif_ninho_in_raio_visao())
@@ -95,7 +94,4 @@ void RVaiParaNinho::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade
     }while(((abs(aux.getX()-formiga->getPonto().getX())-i) > 0) || ((abs(aux.getY()-formiga->getPonto().getY()))-j > 0));
 }
 
-
-Regra* RVaiParaNinho::duplica() const {
-    return new RVaiParaNinho(*this);
-}
+Regra* RVaiParaNinho::duplica() const {return new RVaiParaNinho(*this);}

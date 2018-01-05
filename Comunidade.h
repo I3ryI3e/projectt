@@ -40,7 +40,6 @@ public:
     bool mataformiga(int linha, int coluna);
     virtual ~Comunidade();
 private:
-
 };
 
 #endif /* COMUNIDADE_H */

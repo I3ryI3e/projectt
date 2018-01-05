@@ -5,48 +5,10 @@
 #include <ctime>
 #include "Interface.h"
 
+Mundo::Mundo(string nnome): nome(nnome), pfoca(0,0), limite(-1), energ_init_ninho(-1), def_p_novaformiga(-1),
+        def_energ_iter(1), p_init_migalhas(-1), energ_init_migalhas(-1), migalhas_iter(-1), janela(25){}
 
-Mundo::Mundo(string nnome): nome(nnome), pfoca(0,0), limite(-1),energ_init_ninho(-1),def_p_novaformiga(-1),def_energ_iter(1),
-            p_init_migalhas(-1),energ_init_migalhas(-1),migalhas_iter(-1),janela(25){
-}
-
-//void Mundo::configuracao(){
-//    string linha, aux;
-//    fstream file;
-//    int estado=0;
-//    Interface::initial_screen();
-//    do{
-//        if(estado == 1 || estado == 3){
-//            updatemap();
-//        }else{
-//            Interface::screen_config_stage();        //AS MENSAGENS DE ERRO TAO MAL AGORA
-//        }
-//        if(estado == 0 || estado == 1){
-//            linha = Interface::getlinha();
-//        }else if(file.is_open()){
-//                getline(file,linha);
-//                if(file.eof()){
-//                    file.close();
-//                    estado -= 2;
-//                }
-//            }else{
-//                istringstream iss(linha);
-//                iss >> aux >> aux;
-//                file.open(aux);
-//                if(file.fail()){
-//                    Interface::mostrainfo("\n\t\t    Erro a abrir o ficheiro.");  //MUDAR
-//                    estado -= 2;
-//                    continue;
-//                }
-//                getline(file,linha);
-//            }
-//        if(linha.compare("sair") != 0)
-//            estado=tratacmd(linha,estado);       
-//        
-//    }while(linha.compare("sair") != 0);
-//}
-
-int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
+int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
     istringstream iss(linha);
     ostringstream oss;
     string aux;
@@ -345,7 +307,7 @@ bool Mundo::mckif_space_isempty(int linha, int coluna) const{
     return true;
 }
 
-bool Mundo::mckif_noants_nonest(int linha,int coluna)const{
+bool Mundo::mckif_noants_nonest(int linha, int coluna) const{
     auto it = comunidades.cbegin();
     while(it != comunidades.cend()){
         if(it->cckif_space_isempty(linha, coluna) == false)
@@ -380,7 +342,7 @@ bool Mundo::ckif_migalhas_no_raio_visao(int raio_de_visao, Ponto local_formiga) 
     return false;
 }
 
-bool Mundo::ckif_migalha_adjacente(Ponto local_formiga)const{
+bool Mundo::ckif_migalha_adjacente(Ponto local_formiga) const{
     auto it=migalhas.cbegin();
     while(it != migalhas.end()){
         if(abs(it->getPonto().getX() - local_formiga.getX()) <= 1 && abs(it->getPonto().getY() - local_formiga.getY()) <= 1 && it->getEnergia()>0)
@@ -536,9 +498,7 @@ bool Mundo::cria1formiga(char tipo, int id_n, int linha, int coluna) {
     return false;
 }
 
-int Mundo::getLimite() const{
-    return limite;
-}
+int Mundo::getLimite() const{return limite;}
 
 void Mundo::migalhas_iniciais(){
     srand (time(NULL));
@@ -567,7 +527,7 @@ void Mundo::novas_migalhas_iter(){
     }
 }
 
-void Mundo::updatemap(Interface& user_interface){
+void Mundo::updatemap(Interface& user_interface) const{
     int i, j;
     Ponto aux(0,0);
     user_interface.printborders(janela, pfoca);
@@ -598,6 +558,5 @@ void Mundo::updatemap(Interface& user_interface){
     user_interface.gotox0y0();
 }
 
-Mundo::~Mundo() {
-}
+Mundo::~Mundo() {}
 

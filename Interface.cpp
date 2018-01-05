@@ -35,12 +35,16 @@ void Interface::inicia() {
                 }
                 getline(file,linha);
             }
+        if(linha.compare("guarda") == 0 || linha.compare("muda") == 0 || linha.compare("apaga") == 0)
+            guarda_muda_apaga(linha);
         if(linha.compare("sair") != 0)
-            estado=iterador->tratacmd(linha,estado,*this);       
-        
+            estado=iterador->tratacmd(linha, estado, *this);       
     }while(linha.compare("sair") != 0);
 }
 
+void Interface::guarda_muda_apaga(string linha){
+        //ACABAR
+}
 
 void Interface::initial_screen(){
     Consola::setScreenSize(30, 120);
@@ -136,14 +140,8 @@ string Interface::getlinha(){
     return lin;
 }
 
-void Interface::mostrainfo(string aux){
-    cout << aux;
-}
+void Interface::mostrainfo(string aux){cout << aux;}
 
-void Interface::clrscreen(){
-    Consola::clrscr();
-}
+void Interface::clrscreen(){Consola::clrscr();}
 
-void Interface::gotox0y0(){
-    Consola::gotoxy(0,0);
-}
+void Interface::gotox0y0(){Consola::gotoxy(0,0);}

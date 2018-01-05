@@ -11,17 +11,11 @@ FVigilante::FVigilante(int linha, int coluna, int id, Ninho* ninho_a_que_pertenc
     addRegra(new RPasseia);
 }
 
-void FVigilante::consomeEnergia(int mov_efetivo) {
-    modifica_energia(-(1+mov_efetivo));
-}
+void FVigilante::consomeEnergia(int mov_efetivo) {modifica_energia(-(1+mov_efetivo));}
 
-Formiga* FVigilante::duplica() const {
-    return new FVigilante(*this);
-}
+Formiga* FVigilante::duplica() const {return new FVigilante(*this);}
 
-float FVigilante::percentage_takes_from_migalha() const {
-    return 0.75;
-}
+float FVigilante::percentage_takes_from_migalha() const {return 0.75;}
 
 char FVigilante::getTipo() const {
     if(getenergia() < 75)
@@ -33,9 +27,4 @@ bool FVigilante::ckif_is_to_move_to_ninho() const {
         return true;
 }
 
-FVigilante::~FVigilante() {
-
-}
-
-
-
+FVigilante::~FVigilante() {}

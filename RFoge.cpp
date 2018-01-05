@@ -2,8 +2,7 @@
 #include "Mundo.h"
 #include "Formiga.h"
 
-RFoge::RFoge() {
-}
+RFoge::RFoge() {}
 
 bool RFoge::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     return mundo->ckif_formigas_no_raio(comunidade, formiga->getRaioVisao(), formiga->getPonto());
@@ -37,8 +36,6 @@ void RFoge::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     }while(!formiga->moveFormiga(x,y,mundo));
 }
 
-Regra* RFoge::duplica() const {
-    return new RFoge(*this);
-}
+Regra* RFoge::duplica() const {return new RFoge(*this);}
 
 

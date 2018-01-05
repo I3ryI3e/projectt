@@ -17,6 +17,5 @@ bool Ponto::operator ==(const Ponto p) const{
     else
         return false;
 }
-Ponto::~Ponto() {
-}
+Ponto::~Ponto() {}
 

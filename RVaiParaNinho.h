@@ -1,5 +1,6 @@
 #ifndef RVAIPARANINHO_H
 #define RVAIPARANINHO_H
+
 #include "Regra.h"
 
 class RVaiParaNinho : public Regra{
@@ -8,10 +9,7 @@ public:
     bool condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) override;
     void accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) override;
     Regra* duplica() const override;
-
-
 private:
-
 };
 
 #endif /* RVAIPARANINHO_H */

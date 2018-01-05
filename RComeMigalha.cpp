@@ -2,8 +2,7 @@
 #include "Mundo.h"
 #include "Formiga.h"
 
-RComeMigalha::RComeMigalha() {
-}
+RComeMigalha::RComeMigalha() {}
 
 bool RComeMigalha::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     return mundo->ckif_migalha_adjacente(formiga->getPonto());
@@ -15,9 +14,7 @@ void RComeMigalha::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade)
     formiga->modifica_energia(valor_ganho);
 }
 
-Regra* RComeMigalha::duplica() const {
-    return new RComeMigalha(*this);
-}
+Regra* RComeMigalha::duplica() const {return new RComeMigalha(*this);}
 
 
 

@@ -1,10 +1,10 @@
 #ifndef MUNDO_H
 #define MUNDO_H
+
 #include <vector>
 #include <iostream>
 #include "Comunidade.h"
 #include "Migalha.h"
-
 using namespace std;
 class Interface;
 
@@ -13,12 +13,11 @@ class Mundo {
     vector <Migalha> migalhas;
     string nome;
     Ponto pfoca;
-    int limite,def_p_novaformiga,def_energ_iter;
-    int p_init_migalhas,migalhas_iter, janela;
-    float energ_init_ninho,energ_init_migalhas;
+    int limite, def_p_novaformiga, def_energ_iter;
+    int p_init_migalhas, migalhas_iter, janela;
+    float energ_init_ninho, energ_init_migalhas;
 public:
     Mundo(string nnome);
-//    void configuracao();
     int getLimite() const;
     int tratacmd(string linha, int estado, Interface& user_interface);
     void crianinho(int linha, int coluna);
@@ -36,12 +35,11 @@ public:
     int  best_quadrante_to_runaway(Comunidade* comunidade, int raio_de_visao, Ponto local_formiga);
     void migalhas_iniciais();
     void novas_migalhas_iter();
-    void updatemap(Interface& user_interface);
+    void updatemap(Interface& user_interface) const;
     float try_to_get_energy_from_migalha(Ponto aux, float percentage);
     float try_to_get_energy_from_formiga(Ponto aux);
     virtual ~Mundo();
 private:
-
 };
 
 #endif /* MUNDO_H */

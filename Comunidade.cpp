@@ -11,11 +11,11 @@
 #include <ctime>
 #include <cstdlib>
 
-Comunidade::Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal),ninho(linha, coluna,
+Comunidade::Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal), ninho(linha, coluna,
         energ_init_ninho, def_p_novaformiga, def_energ_iter),n_formigas(0){
 }
 
-Comunidade::Comunidade(const Comunidade& outro): ninho(outro.ninho),p_mundo(outro.p_mundo),n_formigas(outro.n_formigas){
+Comunidade::Comunidade(const Comunidade& outro): ninho(outro.ninho), p_mundo(outro.p_mundo), n_formigas(outro.n_formigas){
     for(int i=0;i<outro.n_formigas;i++){
         formigueiro.push_back(outro.formigueiro[i]->duplica());
     }
@@ -25,12 +25,14 @@ Comunidade& Comunidade::operator =(Comunidade outro){
     swap(outro);
     return *this;
 }
+
 void Comunidade::swap(Comunidade& outro){
     formigueiro.swap(outro.formigueiro);
     std::swap(p_mundo,outro.p_mundo);
     std::swap(ninho,outro.ninho);
     std::swap(n_formigas,outro.n_formigas);
 }
+
 bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
     Ponto aux(linha, coluna);
     if(aux == ninho.getPonto()){
@@ -45,11 +47,13 @@ bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
     }
     return true;
 }
+
 string Comunidade::getInfoGeral() const{
     ostringstream oss;
     oss << "Comunidade" << endl << ninho.getInfo() << "Numero de Formigas:" << formigueiro.size() << endl;
     return oss.str();
 }
+
 string Comunidade::getInfoNinho() const{
     ostringstream oss;
     oss << ninho.getInfo() << endl;
@@ -60,6 +64,7 @@ string Comunidade::getInfoNinho() const{
     }
     return oss.str();
 }
+
 string Comunidade::ckwhoisthere(const Ponto& aux) const{
     ostringstream oss;
     if(aux == ninho.getPonto())
@@ -112,7 +117,6 @@ Ponto Comunidade::local_formiga_a_proteger(int raio, Ponto local_formiga) const{
     }
 }
 
-
 int Comunidade::ckif_formiga_num_raio_visao_quadrante(Ponto local_origem, int raio_visao, int formiga_x) const {
     int auxx,auxy;
     if((abs(local_origem.getX()-(formigueiro.at(formiga_x)->getPonto().getX())) <= raio_visao) && (abs(local_origem.getY()-(formigueiro.at(formiga_x)->getPonto().getY()))<=raio_visao) && formigueiro.at(formiga_x)->getenergia()>0){
@@ -132,6 +136,7 @@ int Comunidade::ckif_formiga_num_raio_visao_quadrante(Ponto local_origem, int ra
     } else
         return -1;
 }
+
 Ponto Comunidade::local_formiga_com_mais_energia(int raio, Ponto local_formiga) const{
     const Formiga* maux=nullptr;
     auto it = formigueiro.cbegin();
@@ -148,15 +153,13 @@ Ponto Comunidade::local_formiga_com_mais_energia(int raio, Ponto local_formiga) 
     }
     return maux->getPonto();                                                    // BUG!! CASO NÃO ENCONTRE UMA FORMIGA O MAUX VAI ESTAR A NULLPTR...
 }
-int Comunidade::getNinhoId() const{
-    return ninho.getId();
-}
-Ponto Comunidade::getNinhoPonto() const{
-    return ninho.getPonto();
-}
-void Comunidade::setNinhoenerg(float addenerg){
-    ninho.setenergia_n(addenerg);
-}
+
+int Comunidade::getNinhoId() const{return ninho.getId();}
+
+Ponto Comunidade::getNinhoPonto() const{return ninho.getPonto();}
+
+void Comunidade::setNinhoenerg(float addenerg){ninho.setenergia_n(addenerg);}
+
 bool Comunidade::criaFormigas(int quantas, char tipo){
     srand (time(NULL));
     switch(tipo){
@@ -203,6 +206,7 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
     }
     return false;
 }
+
 bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
     switch(tipo){
         case 'E':
@@ -220,6 +224,7 @@ bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
     }
     return false;
 }
+
 void Comunidade::iteracao(){
     ninho.iteracao(this);
     auto it= formigueiro.begin();
@@ -228,9 +233,9 @@ void Comunidade::iteracao(){
         ++it;
     }
 }
-int Comunidade::getNFormigas() const{
-    return n_formigas;
-}
+
+int Comunidade::getNFormigas() const{return n_formigas;}
+
 bool Comunidade::addenergFormiga(int linha, int coluna, float energ){
     Ponto aux(linha, coluna);
     auto it = formigueiro.begin();
@@ -243,12 +248,10 @@ bool Comunidade::addenergFormiga(int linha, int coluna, float energ){
     }
     return false;
 }
-Ponto Comunidade::getPontoFormiga(int num) const{
-    return formigueiro.at(num)->getPonto();
-}
-char Comunidade::getTipoFormiga(int num) const{
-    return formigueiro.at(num)->getTipo();
-}
+
+Ponto Comunidade::getPontoFormiga(int num) const{return formigueiro.at(num)->getPonto();}
+
+char Comunidade::getTipoFormiga(int num) const{return formigueiro.at(num)->getTipo();}
 
 float Comunidade::try_totake_EnergiaFormiga(Ponto aux){
     auto it= formigueiro.begin();
@@ -277,6 +280,7 @@ bool Comunidade::mataformiga(int linha, int coluna){
     }
     return false;
 }
+
 Comunidade::~Comunidade() {
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){

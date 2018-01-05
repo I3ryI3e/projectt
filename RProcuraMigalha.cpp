@@ -2,8 +2,7 @@
 #include "Mundo.h"
 #include "Formiga.h"
 
-RProcuraMigalha::RProcuraMigalha() {
-}
+RProcuraMigalha::RProcuraMigalha() {}
 
 bool RProcuraMigalha::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     return mundo->ckif_migalhas_no_raio_visao(formiga->getRaioVisao(),formiga->getPonto());
@@ -67,7 +66,5 @@ void RProcuraMigalha::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunida
     }while(((abs(aux.getX()-formiga->getPonto().getX())-i) > 0) || ((abs(aux.getY()-formiga->getPonto().getY()))-j > 0));
 }
 
-Regra* RProcuraMigalha::duplica() const {
-    return new RProcuraMigalha(*this);
-}
+Regra* RProcuraMigalha::duplica() const {return new RProcuraMigalha(*this);}
 

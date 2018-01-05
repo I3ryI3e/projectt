@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 int main() {
     Interface user_interface;
     user_interface.inicia();

@@ -3,8 +3,7 @@
 #include "Mundo.h"
 #include "Formiga.h"
 
-RPersegue::RPersegue() {
-}
+RPersegue::RPersegue() {}
 
 bool RPersegue::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     return mundo->ckif_formigas_no_raio(comunidade, formiga->getRaioVisao(), formiga->getPonto());
@@ -74,7 +73,5 @@ void RPersegue::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     }while(((abs(aux.getX()-formiga->getPonto().getX())-i) > 0) || ((abs(aux.getY()-formiga->getPonto().getY()))-j > 0));
 }
 
-Regra* RPersegue::duplica() const {
-    return new RPersegue(*this);
-}
+Regra* RPersegue::duplica() const {return new RPersegue(*this);}
 
