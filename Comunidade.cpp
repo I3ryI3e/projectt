@@ -53,6 +53,18 @@ Ninho* Comunidade::getNinho() {
     return &ninho;
 }
 
+void Comunidade::remove_Dead_Formigas() {
+    auto it=formigueiro.begin();
+    while(it != formigueiro.end()){
+        if((*it)->getenergia() <= 0){
+            delete (*it);
+            it=formigueiro.erase(it);
+        }else
+            ++it;
+    }
+}
+
+
 void Comunidade::setMundo(Mundo* mundo) {
     p_mundo=mundo;
 }

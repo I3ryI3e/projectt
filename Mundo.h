@@ -42,6 +42,8 @@ public:
     void updatemap(Interface& user_interface) const;
     float try_to_get_energy_from_migalha(Ponto aux, float percentage);
     float try_to_get_energy_from_formiga(Ponto aux);
+    void remove_Dead_Formigas();
+    void remove_Dead_Migalhas();
     virtual ~Mundo();
 private:
 };

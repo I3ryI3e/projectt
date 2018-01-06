@@ -41,6 +41,7 @@ public:
     char getTipoFormiga(int num) const;
     float try_totake_EnergiaFormiga(Ponto aux);
     bool mataformiga(int linha, int coluna);
+    void remove_Dead_Formigas();
     virtual ~Comunidade();
 private:
 };

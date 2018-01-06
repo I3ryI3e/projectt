@@ -201,6 +201,8 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
                 iter->iteracao();
                 ++iter;
             }
+            remove_Dead_Formigas();
+            remove_Dead_Migalhas();
             novas_migalhas_iter();
         }else{
             int i;
@@ -218,6 +220,8 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
                     iter->iteracao();
                     ++iter;
                 }
+                remove_Dead_Formigas();
+                remove_Dead_Migalhas();
                 novas_migalhas_iter();
             }
         }
@@ -292,6 +296,24 @@ string Mundo::getNome() const {
 
 void Mundo::setNome(string nnome) {
     nome=nnome;
+}
+
+void Mundo::remove_Dead_Formigas() {
+    auto it = comunidades.begin();
+    while(it != comunidades.end()){
+        it->remove_Dead_Formigas();
+        ++it;
+    }
+}
+
+void Mundo::remove_Dead_Migalhas() {
+    auto it= migalhas.begin();
+    while(it != migalhas.end()){
+        if(it->getEnergia() <= (energ_init_migalhas*0.1)){
+            it=migalhas.erase(it);
+        }else
+            ++it;
+    }
 }
 
 
@@ -405,7 +427,7 @@ Ponto Mundo::local_migalha_com_mais_energia(int raio_de_visao, Ponto local_formi
     const Migalha* maux=nullptr;
     auto it = migalhas.cbegin();
     while(it != migalhas.cend()){
-        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao) && it->getEnergia()>0){
+        if((abs(local_formiga.getX()-it->getPonto().getX())<=raio_de_visao) && (abs(local_formiga.getY()-it->getPonto().getY())<=raio_de_visao) && it->getEnergia()> (energ_init_migalhas*0.1)){
             if(maux==nullptr)
                 maux= &(*it);
             else{
