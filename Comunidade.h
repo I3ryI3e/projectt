@@ -20,6 +20,7 @@ public:
     bool cckif_space_isempty(int linha, int coluna) const;
     string getInfoGeral() const;
     string getInfoNinho() const;
+    Ninho* getNinho();
     string ckwhoisthere(const Ponto &aux) const;
     bool ckif_formigas_no_raio(Ponto local_origem, int raio) const;
     bool ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_origem, int raio_visao) const;
@@ -29,6 +30,7 @@ public:
     int getNinhoId() const;
     Ponto getNinhoPonto() const;
     void setNinhoenerg(float addenerg);
+    void setMundo(Mundo* mundo);
     bool criaFormigas(int quantas, char tipo);
     bool cria1Formiga(char tipo, int linha, int coluna);
     void iteracao();

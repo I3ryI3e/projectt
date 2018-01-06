@@ -18,9 +18,11 @@ class Mundo {
     float energ_init_ninho, energ_init_migalhas;
 public:
     Mundo(string nnome);
+    Mundo(const Mundo& outro);
     int getLimite() const;
     string getNome() const;
     void setNome(string nnome);
+    void trata_Reset();
     int tratacmd(string linha, int estado, Interface& user_interface);
     void crianinho(int linha, int coluna);
     void criamigalha(int linha, int coluna);

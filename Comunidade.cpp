@@ -48,6 +48,14 @@ bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
     return true;
 }
 
+Ninho* Comunidade::getNinho() {
+    return &ninho;
+}
+
+void Comunidade::setMundo(Mundo* mundo) {
+    p_mundo=mundo;
+}
+
 string Comunidade::getInfoGeral() const{
     ostringstream oss;
     oss << "Comunidade" << endl << ninho.getInfo() << "Numero de Formigas:" << formigueiro.size() << endl;

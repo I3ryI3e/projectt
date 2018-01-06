@@ -37,15 +37,15 @@ void Interface::inicia() {
             }
         istringstream iss(linha);
         iss >> aux;
-        if(linha.compare("sair") != 0 || aux.compare("guarda") !=0 || aux.compare("apaga") !=0 || aux.compare("muda") !=0)
+        if(linha.compare("sair") != 0 && aux.compare("guarda") !=0 && aux.compare("apaga") !=0 && aux.compare("muda") !=0){
             estado=iterador->tratacmd(linha,estado,*this);
-        else if(aux.compare("sair") !=0 )
-            if(aux.compare("guarda") == 0)
-                guardaMundos(linha);
-            else if(aux.compare("apaga") == 0)
-                apagaMundos(linha);
-            else
-                mudaMundo(linha);
+        }else if(aux.compare("sair") !=0 ){
+                if(aux.compare("guarda") == 0)
+                    guardaMundos(linha);
+                else if(aux.compare("apaga") == 0)
+                    apagaMundos(linha);
+                else
+                    mudaMundo(linha);}
         
     }while(linha.compare("sair") != 0);
 }
@@ -54,29 +54,66 @@ void Interface::apagaMundos(string linha) {
     istringstream iss(linha);
     string aux,nome_Mundo_Atual;
     iss >> aux >> aux;
+    if(aux == "default"){
+        iterador->trata_Reset();
+        mundos.clear();
+        mundos.push_back(Mundo("default"));
+        iterador=mundos.begin();
+        if(estado == 3)
+            estado=2;
+        else
+            estado=0;
+        return;
+    }
     auto it = mundos.begin();
     nome_Mundo_Atual=iterador->getNome();
     while(it != mundos.end()){
         if(it->getNome() == aux){
-            if(it == iterador)
-                iterador=it= mundos.erase(it);
-            else
+            if(it == iterador){
+                it= mundos.erase(it);
+                iterador=mundos.begin();
+                return;
+            }else
                 it=mundos.erase(it);
         }else
             ++it;  
     }
+    it= mundos.begin();
+    while(it != mundos.end()){
+        if(it->getNome() == nome_Mundo_Atual){
+            iterador=it;
+            return;
+        }
+        it++;
+    }
 }
 
 void Interface::guardaMundos(string linha) {
-
+    istringstream iss(linha);
+    string aux,nome_Mundo_Atual;
+    nome_Mundo_Atual=iterador->getNome();
+    iss >> aux >> aux;
+    if(aux == "default")
+        return;
+    Mundo a(*iterador);
+    a.setNome(aux);
+    mundos.push_back(a);
+    auto it=mundos.begin();
+    while(it != mundos.end()){
+        if( it->getNome() == nome_Mundo_Atual){
+            iterador=it;
+            return;
+        }
+        ++it;
+    }
 }
 
 void Interface::mudaMundo(string linha) {
     istringstream iss(linha);
     string aux;
     iss >> aux >> aux;
-    auto it=mundos.cbegin();
-    while(it != mundos.cend()){
+    auto it=mundos.begin();
+    while(it != mundos.end()){
         if(it->getNome() == aux){
             iterador=it;
             return;

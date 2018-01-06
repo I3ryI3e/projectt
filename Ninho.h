@@ -13,6 +13,7 @@ public:
     Ninho(int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
     Ponto getPonto() const;
     string getInfo() const;
+    void resetN_Ninhos();
     int getId() const;
     bool setenergia_n(float addenerg);
     void iteracao(Comunidade* sua_comunidade);
