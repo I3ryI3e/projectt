@@ -3,6 +3,8 @@
 
 #include "Ponto.h"
 class Comunidade;
+class Formiga;
+class Mundo;
 
 class Ninho {
     Ponto local_n;
@@ -14,8 +16,11 @@ public:
     Ponto getPonto() const;
     string getInfo() const;
     void resetN_Ninhos();
+    float getEnergy()const;
     int getId() const;
     bool setenergia_n(float addenerg);
+    float get_energy_from_formiga();
+    float give_energy_to_formiga();
     void iteracao(Comunidade* sua_comunidade);
     int getEnerg_Iter() const;
     virtual ~Ninho();

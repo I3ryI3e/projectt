@@ -4,7 +4,7 @@
 #include <sstream>
 #include <ctime>
 Formiga::Formiga(int linha, int coluna, float energ, int id, int rvis, int rmov, Ninho* ninho_a_que_pertence): local_f(linha, coluna),
-        energia_f(energ),id_f(id), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence), n_iteracoes_sem_ir_ao_ninho(0){}
+        energia_f(energ),energia_init(energ),id_f(id), raio_visao(rvis), raio_movimento(rmov), ninho_f(ninho_a_que_pertence), n_iteracoes_sem_ir_ao_ninho(0){}
 
 Formiga::Formiga(const Formiga& outro): local_f(outro.local_f), energia_f(outro.energia_f), id_f(outro.id_f), raio_visao(outro.raio_visao), raio_movimento(outro.raio_movimento), ninho_f(outro.ninho_f){
     for(int i=0; i<outro.comportamento.size();i++){
@@ -55,6 +55,22 @@ bool Formiga::ckif_ninho_in_raio_visao() {
 }
 
 void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
+    int aux;
+    if(local_f == ninho_f->getPonto()){
+        if((energia_f >= energia_init*0.5) && (energia_f<=energia_init)){
+            get_out_of_ninho(mundo_atual);
+        }else if(energia_f > energia_init){
+            aux=comunidade->formiga_gives_energy_to_ninho();
+            energia_f-=aux;
+        }else{
+            if((aux=comunidade->formiga_try_to_take_energy_from_ninho()) ==0 ){
+                get_out_of_ninho(mundo_atual);
+            }else
+                energia_f+=aux;     
+        }
+        n_iteracoes_sem_ir_ao_ninho=0;
+        return;
+    }
     auto it =comportamento.begin();
     while(it != comportamento.end()){
         if((*it)->condicao(this, mundo_atual, comunidade)){
@@ -65,6 +81,20 @@ void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
     }
     ++n_iteracoes_sem_ir_ao_ninho;
 }
+
+void Formiga::get_out_of_ninho(Mundo* mundo) {
+    for(int k=0;k<10;k++){
+        for(int i=-1-k;i<2+k;i++){
+            for(int j=-1-k;j<2+k;j++){
+                if(mundo->mckif_noants_nonest(local_f.getX()+i, local_f.getY()+j)){
+                    local_f.setX(local_f.getX()+i);
+                    local_f.setY(local_f.getY()+j);
+                }
+            }
+        }
+    }
+}
+
 
 int Formiga::getRaioMovimento() const{return raio_movimento;}
 
