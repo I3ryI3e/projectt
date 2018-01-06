@@ -97,6 +97,11 @@ void Formiga::addRegra(Regra* nregra){comportamento.push_back(nregra);}
 
 void Formiga::modifica_energia(float energia){energia_f += energia;}
 
+void Formiga::mov_SuperFormiga(int linha, int coluna){
+    local_f.setX(linha);
+    local_f.setY(coluna);
+}
+
 Formiga::~Formiga() {
     auto it = comportamento.begin();
     while(it != comportamento.end()){

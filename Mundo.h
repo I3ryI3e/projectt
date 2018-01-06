@@ -25,7 +25,7 @@ public:
     void crianinho(int linha, int coluna);
     void criamigalha(int linha, int coluna);
     bool mckif_space_isempty(int linha, int coluna) const;
-    bool mckif_noants_nonest(int linha,int coluna) const;
+    bool mckif_noants_nonest(int linha, int coluna) const;
     bool ckif_notconfig(Interface& user_interface) const;
     bool criaformigas(int quantas, char tipo, int id_n);
     bool cria1formiga(char tipo, int id_n, int linha, int coluna);

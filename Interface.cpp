@@ -37,7 +37,7 @@ void Interface::inicia() {
             }
         istringstream iss(linha);
         iss >> aux;
-        if(linha.compare("sair") != 0 || aux.compare("guarda") !=0 || aux.compare("apaga") !=0 || aux.compare("muda") !=0)
+        if(linha.compare("sair") != 0 && aux.compare("guarda") !=0 && aux.compare("apaga") !=0 && aux.compare("muda") !=0)
             estado=iterador->tratacmd(linha,estado,*this);
         else if(aux.compare("sair") !=0 )
             if(aux.compare("guarda") == 0)
@@ -75,8 +75,8 @@ void Interface::mudaMundo(string linha) {
     istringstream iss(linha);
     string aux;
     iss >> aux >> aux;
-    auto it=mundos.cbegin();
-    while(it != mundos.cend()){
+    auto it=mundos.begin();
+    while(it != mundos.end()){
         if(it->getNome() == aux){
             iterador=it;
             return;

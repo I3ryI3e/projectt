@@ -34,6 +34,7 @@ public:
     void modifica_energia(float energia);
     void addRegra(Regra* nregra);
     virtual char getTipo() const = 0;
+    void mov_SuperFormiga(int linha, int coluna);
     virtual ~Formiga();
 private:
 };

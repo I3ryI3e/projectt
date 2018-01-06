@@ -6,6 +6,7 @@
 #include "FVigilante.h"
 #include "FAssaltante.h"
 #include "FCuidadora.h"
+#include "FSuperman.h"
 #include <sstream>
 #include <random>
 #include <ctime>
@@ -102,6 +103,29 @@ bool Comunidade::ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_ori
 
     }
     return false;
+}
+
+Ponto Comunidade::local_formiga_mesma_comunidade_com_menos_energia(Ponto local_formiga) const{
+    Ponto aux(-1,-1);
+    float energaux=0;
+    auto it = formigueiro.cbegin();
+    while(it != formigueiro.cend()){
+        if(local_formiga == (*it)->getPonto())
+            ++it;
+        else{
+            if(energaux == 0){
+                energaux = (*it)->getenergia();
+                aux = (*it)->getPonto();
+            }else{
+                if(energaux < (*it)->getenergia()){
+                    energaux = (*it)->getenergia();
+                    aux = (*it)->getPonto();
+                }
+            }
+            ++it;
+        }
+    }
+    return aux;
 }
 
 Ponto Comunidade::local_formiga_a_proteger(int raio, Ponto local_formiga) const{
@@ -203,6 +227,16 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                     formigueiro.push_back(new FAssaltante(r_linha,r_coluna,++n_formigas,&ninho));
             }
             return true;
+        case 'S' :
+            for(int i=0;i<quantas;i++){
+                int r_linha, r_coluna;
+                do{
+                    r_linha= rand() % p_mundo->getLimite();
+                    r_coluna= rand() % p_mundo->getLimite();
+                }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
+                    formigueiro.push_back(new FSuperman(r_linha,r_coluna,++n_formigas,&ninho));
+            }
+            return true;
     }
     return false;
 }
@@ -220,7 +254,10 @@ bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
             return true;
         case 'A' : 
             formigueiro.push_back(new FAssaltante(linha, coluna, ++n_formigas, &ninho));
-            return true;    
+            return true;
+        case 'S' :
+            formigueiro.push_back(new FSuperman(linha, coluna, ++n_formigas, &ninho));
+            return true;
     }
     return false;
 }
