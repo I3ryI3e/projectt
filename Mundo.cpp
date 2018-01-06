@@ -203,7 +203,7 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
             }
             remove_Dead_Formigas();
             remove_Dead_Migalhas();
-            novas_migalhas_iter();
+            //novas_migalhas_iter();
         }else{
             int i;
             vector<Comunidade>::iterator it;
@@ -222,7 +222,7 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
                 }
                 remove_Dead_Formigas();
                 remove_Dead_Migalhas();
-                novas_migalhas_iter();
+                //novas_migalhas_iter();
             }
         }
         return estado;

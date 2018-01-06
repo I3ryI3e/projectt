@@ -59,6 +59,7 @@ void Comunidade::remove_Dead_Formigas() {
         if((*it)->getenergia() <= 0){
             delete (*it);
             it=formigueiro.erase(it);
+            --n_formigas;
         }else
             ++it;
     }
