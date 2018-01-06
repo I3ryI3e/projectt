@@ -308,6 +308,15 @@ int Mundo::tratacmd(string linha,int estado, Interface& user_interface){
     return estado;
 }
 
+string Mundo::getNome() const {
+    return nome;
+}
+
+void Mundo::setNome(string nnome) {
+    nome=nnome;
+}
+
+
 void Mundo::criamigalha(int linha, int coluna){
     if(linha < 0 || linha >= limite || coluna < 0 || coluna >= limite){
         return;

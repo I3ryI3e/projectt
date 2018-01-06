@@ -22,6 +22,9 @@ public:
     void inicia();
     void initial_screen();
     void screen_config_stage();
+    void apagaMundos(string linha);
+    void guardaMundos(string linha);
+    void mudaMundo(string linha);
     void printborders(int lim, Ponto foca);
     void printcaracter(Ponto aux, int i, int car, int lim);
     string getlinha();

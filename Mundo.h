@@ -20,6 +20,8 @@ public:
     Mundo(string nnome);
 //    void configuracao();
     int getLimite() const;
+    string getNome() const;
+    void setNome(string nnome);
     int tratacmd(string linha, int estado, Interface& user_interface);
     void crianinho(int linha, int coluna);
     void criamigalha(int linha, int coluna);
