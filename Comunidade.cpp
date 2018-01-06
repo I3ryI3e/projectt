@@ -188,6 +188,16 @@ int Comunidade::ckif_formiga_num_raio_visao_quadrante(Ponto local_origem, int ra
         return -1;
 }
 
+bool Comunidade::ckif_formigas_no_ninho() const {
+    auto it=formigueiro.cbegin();
+    while(it != formigueiro.cend()){
+        if((*it)->getPonto() == ninho.getPonto())
+            return true;
+        ++it;
+    }
+    return false;
+}
+
 Ponto Comunidade::local_formiga_com_mais_energia(int raio, Ponto local_formiga) const{
     Ponto aux(-1,-1);
     float energaux=0;
@@ -272,6 +282,32 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
     return false;
 }
 
+float Comunidade::born_new_formiga_in_ninho() {
+    int i=rand()%5;
+    switch(i){
+        case 0:
+            if(ninho.getEnergy()>201)
+                cria1Formiga('E',ninho.getPonto().getX(),ninho.getPonto().getY());
+            return 200;
+        case 1:
+            if(ninho.getEnergy()>101)
+                cria1Formiga('C',ninho.getPonto().getX(),ninho.getPonto().getY());
+            return 100;
+        case 2:
+            if(ninho.getEnergy()>151)
+                cria1Formiga('V',ninho.getPonto().getX(),ninho.getPonto().getY());
+            return 150;
+        case 3:
+            if(ninho.getEnergy()>81)
+                cria1Formiga('A',ninho.getPonto().getX(),ninho.getPonto().getY());
+            return 80;
+        case 4:
+            if(ninho.getEnergy()>201)
+                cria1Formiga('S',ninho.getPonto().getX(),ninho.getPonto().getY());
+            return 200;
+    }
+}
+
 bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
     switch(tipo){
         case 'E':
@@ -294,12 +330,12 @@ bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
 }
 
 void Comunidade::iteracao(){
-    ninho.iteracao(this);
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){
         (*it)->iteracao(p_mundo, this);
         ++it;
     }
+    ninho.iteracao(this);
 }
 
 int Comunidade::getNFormigas() const{return n_formigas;}
@@ -316,6 +352,15 @@ bool Comunidade::addenergFormiga(int linha, int coluna, float energ){
     }
     return false;
 }
+
+float Comunidade::formiga_gives_energy_to_ninho() {
+    return ninho.get_energy_from_formiga();
+}
+
+float Comunidade::formiga_try_to_take_energy_from_ninho() {
+    return ninho.give_energy_to_formiga();
+}
+
 
 Ponto Comunidade::getPontoFormiga(int num) const{return formigueiro.at(num)->getPonto();}
 

@@ -10,7 +10,7 @@ class Mundo;
 class Formiga {
     Ponto local_f;
     int id_f, raio_visao, raio_movimento, n_iteracoes_sem_ir_ao_ninho;
-    float energia_f;
+    float energia_f,energia_init;
     Ninho* ninho_f;
     vector <Regra*> comportamento;
 public:
@@ -22,6 +22,7 @@ public:
     int getRaioVisao() const;
     int getNIteracoesSemNinho() const;
     void resetNIteracoesSemNinho();
+    void get_out_of_ninho(Mundo* mundo);
     virtual bool ckif_is_to_move_to_ninho() const = 0;
     bool ckif_ninho_in_raio_visao();
     float getenergia() const;
