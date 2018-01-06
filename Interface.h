@@ -6,8 +6,6 @@
 #include "vector"
 #include "Mundo.h"
 #include <fstream>
-
-
 using namespace std;
 
 class Interface {
@@ -20,6 +18,7 @@ public:
     Interface(const Interface& outro) = delete;
     Interface& operator=(const Interface& outro) = delete;
     void inicia();
+    void guarda_muda_apaga(string linha);
     void initial_screen();
     void screen_config_stage();
     void apagaMundos(string linha);
@@ -32,7 +31,6 @@ public:
     void clrscreen();
     void gotox0y0();
 private:
-
 };
 
 #endif /* INTERFACE_H */

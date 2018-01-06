@@ -14,9 +14,9 @@ string Ninho::getInfo() const{
     oss << "Ninho " << id_n << "->\t" << "Local: " << local_n.obtemXY() << "\tEnergia: " << energia_n << endl;
     return oss.str();
 }
-int Ninho::getId() const{
-    return id_n;
-}
+
+int Ninho::getId() const{return id_n;}
+
 bool Ninho::setenergia_n(float addenerg){
     if(energia_n + addenerg > 0){
         energia_n += addenerg;
@@ -24,15 +24,14 @@ bool Ninho::setenergia_n(float addenerg){
     }
     return false;
 }
-int Ninho::getEnerg_Iter() const{
-    return energ_iter;
-}
+
+int Ninho::getEnerg_Iter() const{return energ_iter;}
 
 void Ninho::iteracao(Comunidade* sua_Comunidade){
     if(energia_n >= energia_inicial+(energia_inicial*((float)p_novaformiga/100))){
         sua_Comunidade->criaFormigas(1,'E');                                     // TEM QUE SER MUDADO   
     }
 }
-Ninho::~Ninho() {
-}
+
+Ninho::~Ninho() {}
 

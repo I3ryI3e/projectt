@@ -2,8 +2,7 @@
 #include "Mundo.h"
 #include "Formiga.h"
 
-RAssalta::RAssalta() {
-}
+RAssalta::RAssalta() {}
 
 bool RAssalta::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     return mundo->ckif_formigas_no_raio(comunidade, formiga->getRaioMovimento(), formiga->getPonto());
@@ -98,9 +97,7 @@ void RAssalta::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     }while(((abs(aux.getX()-formiga->getPonto().getX())-i) > 0) || ((abs(aux.getY()-formiga->getPonto().getY()))-j > 0));
 }
 
-Regra* RAssalta::duplica() const {
-    return new RAssalta(*this);
-}
+Regra* RAssalta::duplica() const {return new RAssalta(*this);}
 
 
 

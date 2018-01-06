@@ -1,5 +1,6 @@
 #ifndef FVIGILANTE_H
 #define FVIGILANTE_H
+
 #include "Formiga.h"
 
 class FVigilante : public Formiga {
@@ -11,9 +12,7 @@ public:
     char getTipo() const override;
     bool ckif_is_to_move_to_ninho() const override;
     virtual ~FVigilante();
-
 private:
-
 };
 
 #endif /* FVIGILANTE_H */

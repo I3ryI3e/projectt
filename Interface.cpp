@@ -86,9 +86,6 @@ void Interface::mudaMundo(string linha) {
     return;
 }
 
-
-
-
 void Interface::initial_screen(){
     Consola::setScreenSize(30, 120);
     Consola::setTextColor(Consola::VERDE_CLARO);
@@ -183,14 +180,8 @@ string Interface::getlinha(){
     return lin;
 }
 
-void Interface::mostrainfo(string aux){
-    cout << aux;
-}
+void Interface::mostrainfo(string aux){cout << aux;}
 
-void Interface::clrscreen(){
-    Consola::clrscr();
-}
+void Interface::clrscreen(){Consola::clrscr();}
 
-void Interface::gotox0y0(){
-    Consola::gotoxy(0,0);
-}
+void Interface::gotox0y0(){Consola::gotoxy(0,0);}

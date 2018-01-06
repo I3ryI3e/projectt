@@ -2,9 +2,7 @@
 #include "Formiga.h"
 #include <cstdlib>
 
-
-RPasseia::RPasseia() {
-}
+RPasseia::RPasseia() {}
 
 void RPasseia::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     int mov,auxx,auxy,x,y;
@@ -34,6 +32,4 @@ void RPasseia::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
         }while(!formiga->moveFormiga(x,y,mundo));
 }
 
-Regra* RPasseia::duplica() const {
-    return new RPasseia(*this);
-}
+Regra* RPasseia::duplica() const {return new RPasseia(*this);}

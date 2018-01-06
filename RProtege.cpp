@@ -2,8 +2,7 @@
 #include "Mundo.h"
 #include "Formiga.h"
 
-RProtege::RProtege() {
-}
+RProtege::RProtege() {}
 
 bool RProtege::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     if((mundo->ckif_formigas_no_raio(comunidade,formiga->getRaioVisao(),formiga->getPonto())) && (comunidade->ckif_formiga_da_mesma_comunidade_num_raio_visao(formiga->getPonto(),formiga->getRaioVisao())))
@@ -82,9 +81,7 @@ void RProtege::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     }while(((abs(aux.getX()-formiga->getPonto().getX())-i) > 0) || ((abs(aux.getY()-formiga->getPonto().getY()))-j > 0));
 }
 
-Regra* RProtege::duplica() const {
-    return new RProtege(*this);
-}
+Regra* RProtege::duplica() const {return new RProtege(*this);}
 
 
 

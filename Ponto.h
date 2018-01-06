@@ -16,7 +16,6 @@ public:
     bool operator== (const Ponto p) const;
     virtual ~Ponto();
 private:
-
 };
 
 #endif /* PONTO_H */
