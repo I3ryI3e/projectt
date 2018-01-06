@@ -37,6 +37,7 @@ void Interface::inicia() {
             }
         istringstream iss(linha);
         iss >> aux;
+
         if(linha.compare("sair") != 0 && aux.compare("guarda") !=0 && aux.compare("apaga") !=0 && aux.compare("muda") !=0){
             estado=iterador->tratacmd(linha,estado,*this);
         }else if(aux.compare("sair") !=0 ){

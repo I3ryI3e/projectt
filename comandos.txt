@@ -1,8 +1,8 @@
-defmundo 60
+defmundo 25
 defen 100
 defpc 50
 defvt 1
-defmi 0
+defmi 1
 defme 100
 defnm 1
 inicio
@@ -11,4 +11,7 @@ ninho 0 0
 migalha 9 9
 migalha 19 19
 cria1 V 1 10 10
-cria1 A 2 15 15
+cria1 E 1 7 7
+cria1 S 1 1 1
+cria1 E 2 15 15
+cria1 C 2 16 16

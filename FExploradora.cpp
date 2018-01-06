@@ -4,7 +4,7 @@
 
 FExploradora::FExploradora(int linha, int coluna, int id, Ninho* ninho_a_que_pertence): Formiga(linha,coluna,200,id,10,8,ninho_a_que_pertence) {
    addRegra(new RComeMigalha);
-   addRegra(new RPasseia());
+   addRegra(new RPasseia);
 }
 
 void FExploradora::consomeEnergia(int mov_efetivo) {modifica_energia(-(1+mov_efetivo));}
