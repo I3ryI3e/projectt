@@ -10,6 +10,8 @@ bool RAssalta::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) 
 
 void RAssalta::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     Ponto aux = mundo->local_formiga_enemy(formiga->getRaioMovimento(), formiga->getPonto(), comunidade);
+    if(aux.getX() == -1)
+        return;
     int i, j;
     float auxf;
     if(aux.getX() == formiga->getPonto().getX()){

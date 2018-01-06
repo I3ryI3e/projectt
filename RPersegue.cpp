@@ -11,6 +11,8 @@ bool RPersegue::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade)
 
 void RPersegue::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     Ponto aux = mundo->local_formiga_enemy(formiga->getRaioVisao(), formiga->getPonto(), comunidade);
+    if(aux.getX() == -1)
+        return;
     int i, j;
     if(aux.getX() == formiga->getPonto().getX()){
         for(i=1;(abs(aux.getY()-formiga->getPonto().getY())-i) > 0;i++){

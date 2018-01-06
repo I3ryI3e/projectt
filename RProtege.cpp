@@ -13,7 +13,11 @@ bool RProtege::condicao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) 
 void RProtege::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     int ponto_central_x, ponto_central_y;
     Ponto enemy(mundo->local_formiga_enemy(formiga->getRaioVisao(),formiga->getPonto(),comunidade));
+    if(enemy.getX() == -1)
+        return;
     Ponto ally(comunidade->local_formiga_a_proteger(formiga->getRaioVisao(),formiga->getPonto()));
+    if(ally.getX() == -1)
+        return;
     ponto_central_x = (enemy.getX()+ally.getX())/2;
     ponto_central_y = (enemy.getY()+ally.getY())/2;
     if(formiga->moveFormiga(ponto_central_x-formiga->getPonto().getX(),ponto_central_y-formiga->getPonto().getY(),mundo))

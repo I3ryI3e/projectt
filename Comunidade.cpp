@@ -103,8 +103,11 @@ string Comunidade::ckwhoisthere(const Ponto& aux) const{
 bool Comunidade::ckif_formigas_no_raio(Ponto local_origem, int raio) const {
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
-        if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio) && (*it)->getenergia()>0 )
-            return true;
+        if((*it)->getPonto() == ninho.getPonto())
+            ++it;
+        else
+            if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio) && (*it)->getenergia()>0 )
+                return true;
         ++it;
     }
     return false;
@@ -113,7 +116,7 @@ bool Comunidade::ckif_formigas_no_raio(Ponto local_origem, int raio) const {
 bool Comunidade::ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_origem, int raio_visao) const {
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
-        if(local_origem == (*it)->getPonto())
+        if(local_origem == (*it)->getPonto() || ninho.getPonto() == (*it)->getPonto())
             ++it;
         else{
             if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio_visao) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio_visao) && (*it)->getenergia()>0)
@@ -130,7 +133,7 @@ Ponto Comunidade::local_formiga_mesma_comunidade_com_menos_energia(Ponto local_f
     float energaux=0;
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
-        if(local_formiga == (*it)->getPonto())
+        if(local_formiga == (*it)->getPonto() || ninho.getPonto() == (*it)->getPonto())
             ++it;
         else{
             if(energaux == 0){
@@ -149,9 +152,10 @@ Ponto Comunidade::local_formiga_mesma_comunidade_com_menos_energia(Ponto local_f
 }
 
 Ponto Comunidade::local_formiga_a_proteger(int raio, Ponto local_formiga) const{
+    Ponto aux(-1,-1);
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
-        if(local_formiga == (*it)->getPonto())
+        if(local_formiga == (*it)->getPonto() || ninho.getPonto() == (*it)->getPonto())
             ++it;
         else{
             if((abs(local_formiga.getX()-(*it)->getPonto().getX()) <= raio) && (abs(local_formiga.getY()-(*it)->getPonto().getY()) <= raio) && (*it)->getenergia()>0 )
@@ -159,10 +163,13 @@ Ponto Comunidade::local_formiga_a_proteger(int raio, Ponto local_formiga) const{
             ++it;
         }
     }
+    return aux;
 }
 
 int Comunidade::ckif_formiga_num_raio_visao_quadrante(Ponto local_origem, int raio_visao, int formiga_x) const {
     int auxx,auxy;
+    if(ninho.getPonto() == formigueiro.at(formiga_x)->getPonto())
+        return -1;
     if((abs(local_origem.getX()-(formigueiro.at(formiga_x)->getPonto().getX())) <= raio_visao) && (abs(local_origem.getY()-(formigueiro.at(formiga_x)->getPonto().getY()))<=raio_visao) && formigueiro.at(formiga_x)->getenergia()>0){
         auxx=local_origem.getX()-formigueiro.at(formiga_x)->getPonto().getX();
         auxy=local_origem.getY()-formigueiro.at(formiga_x)->getPonto().getY();
@@ -182,20 +189,24 @@ int Comunidade::ckif_formiga_num_raio_visao_quadrante(Ponto local_origem, int ra
 }
 
 Ponto Comunidade::local_formiga_com_mais_energia(int raio, Ponto local_formiga) const{
-    const Formiga* maux=nullptr;
+    Ponto aux(-1,-1);
+    float energaux=0;
     auto it = formigueiro.cbegin();
     while(it != formigueiro.cend()){
         if((abs(local_formiga.getX()-(*it)->getPonto().getX())<=raio) && (abs(local_formiga.getY()-(*it)->getPonto().getY())<=raio) && (*it)->getenergia()>0){
-            if(maux==nullptr)
-                maux=(*it);
-            else{
-                if((*it)->getenergia() > maux->getenergia())
-                    maux=(*it);
+            if(energaux == 0){
+                energaux = (*it)->getenergia();
+                aux = (*it)->getPonto();
+            }else{
+                if(energaux < (*it)->getenergia()){
+                    energaux = (*it)->getenergia();
+                    aux = (*it)->getPonto();
+                }
             }
         }
         ++it;
     }
-    return maux->getPonto();                                                    // BUG!! CASO NÃO ENCONTRE UMA FORMIGA O MAUX VAI ESTAR A NULLPTR...
+    return aux;
 }
 
 int Comunidade::getNinhoId() const{return ninho.getId();}
