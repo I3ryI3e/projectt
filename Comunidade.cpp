@@ -13,10 +13,10 @@
 #include <cstdlib>
 
 Comunidade::Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal), ninho(linha, coluna,
-        energ_init_ninho, def_p_novaformiga, def_energ_iter),n_formigas(0){
+        energ_init_ninho, def_p_novaformiga, def_energ_iter), n_formigas(0), contador_formigas(0){
 }
 
-Comunidade::Comunidade(const Comunidade& outro): ninho(outro.ninho), p_mundo(outro.p_mundo), n_formigas(outro.n_formigas){
+Comunidade::Comunidade(const Comunidade& outro): ninho(outro.ninho), p_mundo(outro.p_mundo), n_formigas(outro.n_formigas), contador_formigas(outro.contador_formigas){
     for(int i=0;i<outro.n_formigas;i++){
         formigueiro.push_back(outro.formigueiro[i]->duplica());
     }
@@ -32,6 +32,7 @@ void Comunidade::swap(Comunidade& outro){
     std::swap(p_mundo,outro.p_mundo);
     std::swap(ninho,outro.ninho);
     std::swap(n_formigas,outro.n_formigas);
+    std::swap(contador_formigas, outro.contador_formigas);
 }
 
 bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
@@ -141,7 +142,7 @@ Ponto Comunidade::local_formiga_mesma_comunidade_com_menos_energia(Ponto local_f
                 energaux = (*it)->getenergia();
                 aux = (*it)->getPonto();
             }else{
-                if(energaux < (*it)->getenergia()){
+                if(energaux > (*it)->getenergia()){
                     energaux = (*it)->getenergia();
                     aux = (*it)->getPonto();
                 }
@@ -236,7 +237,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
-                    formigueiro.push_back(new FExploradora(r_linha,r_coluna,++n_formigas,&ninho));
+                formigueiro.push_back(new FExploradora(r_linha,r_coluna,++contador_formigas,&ninho));
+                ++n_formigas;
             }
             return true;
         case 'C' :
@@ -246,7 +248,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
-                    formigueiro.push_back(new FCuidadora(r_linha,r_coluna,++n_formigas,&ninho));
+                formigueiro.push_back(new FCuidadora(r_linha,r_coluna,++contador_formigas,&ninho));
+                ++n_formigas;
             }
             return true;
         case 'V' :
@@ -256,7 +259,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
-                    formigueiro.push_back(new FVigilante(r_linha,r_coluna,++n_formigas,&ninho));
+                formigueiro.push_back(new FVigilante(r_linha,r_coluna,++contador_formigas,&ninho));
+                ++n_formigas;
             }
             return true;
         case 'A' :
@@ -266,7 +270,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
-                    formigueiro.push_back(new FAssaltante(r_linha,r_coluna,++n_formigas,&ninho));
+                formigueiro.push_back(new FAssaltante(r_linha,r_coluna,++contador_formigas,&ninho));
+                ++n_formigas;
             }
             return true;
         case 'S' :
@@ -276,7 +281,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
-                    formigueiro.push_back(new FSuperman(r_linha,r_coluna,++n_formigas,&ninho));
+                formigueiro.push_back(new FSuperman(r_linha,r_coluna,++contador_formigas,&ninho));
+                ++n_formigas;
             }
             return true;
     }
@@ -312,19 +318,24 @@ float Comunidade::born_new_formiga_in_ninho() {
 bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
     switch(tipo){
         case 'E':
-            formigueiro.push_back(new FExploradora(linha, coluna, ++n_formigas, &ninho));
+            formigueiro.push_back(new FExploradora(linha, coluna, ++contador_formigas, &ninho));
+            ++n_formigas;
             return true;  
         case 'C' :
-            formigueiro.push_back(new FCuidadora(linha, coluna, ++n_formigas, &ninho));
+            formigueiro.push_back(new FCuidadora(linha, coluna, ++contador_formigas, &ninho));
+            ++n_formigas;
             return true;
         case 'V' :
-            formigueiro.push_back(new FVigilante(linha, coluna, ++n_formigas, &ninho));
+            formigueiro.push_back(new FVigilante(linha, coluna, ++contador_formigas, &ninho));
+            ++n_formigas;
             return true;
         case 'A' : 
-            formigueiro.push_back(new FAssaltante(linha, coluna, ++n_formigas, &ninho));
+            formigueiro.push_back(new FAssaltante(linha, coluna, ++contador_formigas, &ninho));
+            ++n_formigas;
             return true;
         case 'S' :
-            formigueiro.push_back(new FSuperman(linha, coluna, ++n_formigas, &ninho));
+            formigueiro.push_back(new FSuperman(linha, coluna, ++contador_formigas, &ninho));
+            ++n_formigas;
             return true;
     }
     return false;
@@ -394,6 +405,10 @@ bool Comunidade::mataformiga(int linha, int coluna){
     }
     return false;
 }
+
+void Comunidade::ninho_set_def_energ_iter(int novo_valor) {ninho.set_def_energ_iter(novo_valor);}
+
+void Comunidade::ninho_set_def_p_novaformiga(int novo_valor) {ninho.set_def_p_novaformiga(novo_valor);}
 
 Comunidade::~Comunidade() {
     auto it= formigueiro.begin();

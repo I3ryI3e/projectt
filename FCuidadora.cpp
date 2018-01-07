@@ -28,6 +28,7 @@ char FCuidadora::getTipo() const {
 bool FCuidadora::ckif_is_to_move_to_ninho() const {
     if(getenergia() > 100 || getenergia()<50)
         return true;
+    return false;
 }
 
 FCuidadora::~FCuidadora() {}

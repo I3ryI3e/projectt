@@ -36,11 +36,11 @@ float Ninho::get_energy_from_formiga() {
 }
 
 float Ninho::give_energy_to_formiga() {
-    int aux;
+    float aux;
     if(energia_n<=1)
         return 0;
     else if(energia_n-energ_iter <1){
-        aux = energia_n-(energia_n-1);
+        aux = energia_n-1;
         energia_n=1;
         return aux;
     }else{
@@ -64,6 +64,9 @@ void Ninho::iteracao(Comunidade* sua_Comunidade){
     }
 }
 
+void Ninho::set_def_energ_iter(int novo_valor) {energ_iter = novo_valor;}
+
+void Ninho::set_def_p_novaformiga(int novo_valor) {p_novaformiga = novo_valor;}
 
 Ninho::~Ninho() {}
 

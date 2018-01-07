@@ -21,12 +21,10 @@ void RVaiParaNinho::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade
         for(i=1;(abs(aux.getY()-formiga->getPonto().getY())-i) > 0;i++){
             if(aux.getY() > formiga->getPonto().getY()){
                 if(formiga->moveFormiga(0, (aux.getY()-formiga->getPonto().getY())-i, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
             }else{
                 if(formiga->moveFormiga(0, (aux.getY()-formiga->getPonto().getY())+i, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
             }
@@ -36,11 +34,9 @@ void RVaiParaNinho::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade
         for(i=1;(abs(aux.getX()-formiga->getPonto().getX())-i) > 0;i++){
             if(aux.getX() > formiga->getPonto().getX()){
                 if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX())-i, 0, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
                 if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX())+i, 0, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
             }
@@ -57,24 +53,20 @@ void RVaiParaNinho::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade
         if(aux.getX() > formiga->getPonto().getX())
             if(aux.getY() > formiga->getPonto().getY()){
                 if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX())-i, (aux.getY()-formiga->getPonto().getY())-j, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
             }else{
                 if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX())-i, (aux.getY()-formiga->getPonto().getY())+j, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
             }
         else
             if(aux.getY() > formiga->getPonto().getY()){
                 if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX())+i, (aux.getY()-formiga->getPonto().getY())-j, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
             }else{
                 if(formiga->moveFormiga((aux.getX()-formiga->getPonto().getX())+i, (aux.getY()-formiga->getPonto().getY())+j, mundo)){
-                    formiga->resetNIteracoesSemNinho();
                     return;
                 }
             }
