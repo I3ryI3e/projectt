@@ -21,7 +21,7 @@ Mundo::Mundo(const Mundo& outro): nome(outro.nome), pfoca(outro.pfoca), limite(o
 }
 
 void Mundo::trata_Reset() {
-    comunidades[0].getNinho()->resetN_Ninhos();
+    comunidades[0].trataResetNNinhos();
 }
 
 int Mundo::tratacmd(string linha, int estado, Interface& user_interface){

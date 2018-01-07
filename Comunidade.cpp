@@ -49,9 +49,10 @@ bool Comunidade::cckif_space_isempty(int linha, int coluna) const{
     return true;
 }
 
-Ninho* Comunidade::getNinho() {
-    return &ninho;
+void Comunidade::trataResetNNinhos() {
+    ninho.resetN_Ninhos();
 }
+
 
 void Comunidade::remove_Dead_Formigas() {
     auto it=formigueiro.begin();

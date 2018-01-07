@@ -20,7 +20,7 @@ public:
     bool cckif_space_isempty(int linha, int coluna) const;
     string getInfoGeral() const;
     string getInfoNinho() const;
-    Ninho* getNinho();
+    void trataResetNNinhos();
     string ckwhoisthere(const Ponto &aux) const;
     bool ckif_formigas_no_raio(Ponto local_origem, int raio) const;
     bool ckif_formiga_da_mesma_comunidade_num_raio_visao(Ponto local_origem, int raio_visao) const;
