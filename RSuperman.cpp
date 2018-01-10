@@ -16,7 +16,6 @@ void RSuperman::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     Ponto aux = comunidade->local_formiga_mesma_comunidade_com_menos_energia(formiga->getPonto());
     if(aux.getX() == -1)
         return;
-    float energia;
     for(int i=-1;i<2;i++){
         for(int j=-1;j<2;j++){
             if(mundo->mckif_noants_nonest(aux.getX()+i, aux.getY()+j)){

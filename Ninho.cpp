@@ -1,8 +1,6 @@
 #include "Ninho.h"
 #include "Comunidade.h"
 #include "Formiga.h"
-#include <sstream>
-#include <ctime>
 
 int Ninho::n_ninhos = 0;
 
@@ -55,7 +53,6 @@ float Ninho::getEnergy() const { return energia_n;}
 
 
 void Ninho::iteracao(Comunidade* sua_Comunidade){
-    srand(time(NULL));
     if(sua_Comunidade->ckif_formigas_no_ninho())
         return;
     if(energia_n >= energia_inicial+(energia_inicial*((float)p_novaformiga/100))){

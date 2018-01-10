@@ -1,7 +1,6 @@
 #ifndef REGRA_H
 #define REGRA_H
 
-#include <ctime>
 class Formiga;
 class Mundo;
 class Comunidade;

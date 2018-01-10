@@ -2,9 +2,9 @@
 #define NINHO_H
 
 #include "Ponto.h"
+#include <sstream>
 class Comunidade;
 class Formiga;
-class Mundo;
 
 class Ninho {
     Ponto local_n;

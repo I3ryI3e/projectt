@@ -3,9 +3,9 @@
 
 #include "Ponto.h"
 #include "Ninho.h"
+#include "Regra.h"
 #include <vector>
 class Mundo;
-#include "Regra.h"
 
 class Formiga {
     Ponto local_f;
