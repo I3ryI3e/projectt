@@ -12,11 +12,11 @@
 #include <ctime>
 #include <cstdlib>
 
-Comunidade::Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter): p_mundo(principal), ninho(linha, coluna,
+Comunidade::Comunidade(int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter): ninho(linha, coluna,
         energ_init_ninho, def_p_novaformiga, def_energ_iter), n_formigas(0), contador_formigas(0){
 }
 
-Comunidade::Comunidade(const Comunidade& outro): ninho(outro.ninho), p_mundo(outro.p_mundo), n_formigas(outro.n_formigas), contador_formigas(outro.contador_formigas){
+Comunidade::Comunidade(const Comunidade& outro): ninho(outro.ninho),n_formigas(outro.n_formigas), contador_formigas(outro.contador_formigas){
     for(int i=0;i<outro.n_formigas;i++){
         formigueiro.push_back(outro.formigueiro[i]->duplica());
     }
@@ -29,7 +29,6 @@ Comunidade& Comunidade::operator =(Comunidade outro){
 
 void Comunidade::swap(Comunidade& outro){
     formigueiro.swap(outro.formigueiro);
-    std::swap(p_mundo,outro.p_mundo);
     std::swap(ninho,outro.ninho);
     std::swap(n_formigas,outro.n_formigas);
     std::swap(contador_formigas, outro.contador_formigas);
@@ -68,10 +67,6 @@ void Comunidade::remove_Dead_Formigas() {
 }
 
 
-void Comunidade::setMundo(Mundo* mundo) {
-    p_mundo=mundo;
-}
-
 string Comunidade::getInfoGeral() const{
     ostringstream oss;
     oss << "Comunidade" << endl << ninho.getInfo() << "Numero de Formigas:" << formigueiro.size() << endl;
@@ -108,10 +103,11 @@ bool Comunidade::ckif_formigas_no_raio(Ponto local_origem, int raio) const {
     while(it != formigueiro.cend()){
         if((*it)->getPonto() == ninho.getPonto())
             ++it;
-        else
+        else{
             if((abs(local_origem.getX()-(*it)->getPonto().getX()) <= raio) && (abs(local_origem.getY()-(*it)->getPonto().getY()) <= raio) && (*it)->getenergia()>0 )
                 return true;
-        ++it;
+            ++it;
+        }
     }
     return false;
 }
@@ -228,13 +224,16 @@ Ponto Comunidade::getNinhoPonto() const{return ninho.getPonto();}
 
 void Comunidade::setNinhoenerg(float addenerg){ninho.setenergia_n(addenerg);}
 
-bool Comunidade::criaFormigas(int quantas, char tipo){
+bool Comunidade::criaFormigas(int quantas, char tipo, Mundo* p_mundo){
     srand (time(NULL));
+    int contador=0;
     switch(tipo){
         case 'E' : 
             for(int i=0;i<quantas;i++){
                 int r_linha, r_coluna;
                 do{
+                    if(++contador > 10000)
+                        return false;
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
@@ -246,6 +245,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
             for(int i=0;i<quantas;i++){
                 int r_linha, r_coluna;
                 do{
+                    if(++contador > 10000)
+                        return false;
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
@@ -257,6 +258,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
             for(int i=0;i<quantas;i++){
                 int r_linha, r_coluna;
                 do{
+                    if(++contador > 10000)
+                        return false;
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
@@ -268,6 +271,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
             for(int i=0;i<quantas;i++){
                 int r_linha, r_coluna;
                 do{
+                    if(++contador > 10000)
+                        return false;
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
@@ -279,6 +284,8 @@ bool Comunidade::criaFormigas(int quantas, char tipo){
             for(int i=0;i<quantas;i++){
                 int r_linha, r_coluna;
                 do{
+                    if(++contador > 10000)
+                        return false;
                     r_linha= rand() % p_mundo->getLimite();
                     r_coluna= rand() % p_mundo->getLimite();
                 }while(p_mundo->mckif_space_isempty(r_linha,r_coluna) == false);
@@ -294,25 +301,35 @@ float Comunidade::born_new_formiga_in_ninho() {
     int i=rand()%5;
     switch(i){
         case 0:
-            if(ninho.getEnergy()>201)
+            if(ninho.getEnergy()>201){
                 cria1Formiga('E',ninho.getPonto().getX(),ninho.getPonto().getY());
-            return 200;
+                return 200;
+            }
+            return 0;
         case 1:
-            if(ninho.getEnergy()>101)
+            if(ninho.getEnergy()>101){
                 cria1Formiga('C',ninho.getPonto().getX(),ninho.getPonto().getY());
-            return 100;
+                return 100;
+            }
+            return 0;
         case 2:
-            if(ninho.getEnergy()>151)
+            if(ninho.getEnergy()>151){
                 cria1Formiga('V',ninho.getPonto().getX(),ninho.getPonto().getY());
-            return 150;
+                return 150;
+            }
+            return 0;
         case 3:
-            if(ninho.getEnergy()>81)
+            if(ninho.getEnergy()>81){
                 cria1Formiga('A',ninho.getPonto().getX(),ninho.getPonto().getY());
-            return 80;
+                return 80;
+            }
+            return 0;
         case 4:
-            if(ninho.getEnergy()>201)
+            if(ninho.getEnergy()>201){
                 cria1Formiga('S',ninho.getPonto().getX(),ninho.getPonto().getY());
-            return 200;
+                return 200;
+            }
+            return 0;
     }
 }
 
@@ -342,7 +359,7 @@ bool Comunidade::cria1Formiga(char tipo, int linha, int coluna){
     return false;
 }
 
-void Comunidade::iteracao(){
+void Comunidade::iteracao(Mundo* p_mundo){
     auto it= formigueiro.begin();
     while(it != formigueiro.end()){
         (*it)->iteracao(p_mundo, this);

@@ -8,12 +8,11 @@ class Formiga;
 class Mundo;
 
 class Comunidade {
-    Mundo* p_mundo;
     int n_formigas, contador_formigas;
     Ninho ninho;
     vector <Formiga*> formigueiro;
 public:
-    Comunidade(Mundo* principal, int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
+    Comunidade(int linha, int coluna, float energ_init_ninho, int def_p_novaformiga, int def_energ_iter);
     Comunidade(const Comunidade& outro);
     Comunidade& operator=(Comunidade outro);
     void swap(Comunidade& outro);
@@ -32,11 +31,10 @@ public:
     int getNinhoId() const;
     Ponto getNinhoPonto() const;
     void setNinhoenerg(float addenerg);
-    void setMundo(Mundo* mundo);
-    bool criaFormigas(int quantas, char tipo);
+    bool criaFormigas(int quantas, char tipo,Mundo* p_mundo);
     bool cria1Formiga(char tipo, int linha, int coluna);
     float born_new_formiga_in_ninho();
-    void iteracao();
+    void iteracao(Mundo* p_mundo);
     int getNFormigas() const;
     bool addenergFormiga(int linha, int coluna, float energ);
     Ponto getPontoFormiga(int num) const;

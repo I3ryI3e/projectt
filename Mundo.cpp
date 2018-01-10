@@ -12,12 +12,6 @@ Mundo::Mundo(const Mundo& outro): nome(outro.nome), pfoca(outro.pfoca), limite(o
         def_energ_iter(outro.def_energ_iter), p_init_migalhas(outro.p_init_migalhas), migalhas_iter(outro.migalhas_iter), janela(outro.janela){
     comunidades=outro.comunidades;
     migalhas=outro.migalhas;
-    auto it= comunidades.begin();
-    while(it != comunidades.end()){
-        it->setMundo(this);
-        ++it;
-    }
-    
 }
 
 void Mundo::trata_Reset() {
@@ -203,7 +197,7 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
         if(iss.eof()){
             auto it=comunidades.begin();
             while(it != comunidades.end()){
-                it->iteracao();
+                it->iteracao(this);
                 ++it;
             }
             auto iter=migalhas.begin();
@@ -213,7 +207,8 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
             }
             remove_Dead_Formigas();
             remove_Dead_Migalhas();
-            novas_migalhas_iter();
+            if((limite*limite)*0.5 > migalhas.size())
+                novas_migalhas_iter();
         }else{
             int i;
             vector<Comunidade>::iterator it;
@@ -222,7 +217,7 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
             for(;i>0;i--){
                 it=comunidades.begin();
                 while(it != comunidades.end()){
-                    it->iteracao();
+                    it->iteracao(this);
                     ++it;
                 }
                 iter=migalhas.begin();
@@ -232,7 +227,8 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
                 }
                 remove_Dead_Formigas();
                 remove_Dead_Migalhas();
-                novas_migalhas_iter();
+                if((limite*limite)*0.5 > migalhas.size())
+                    novas_migalhas_iter();
             }
         }
         return estado;
@@ -346,7 +342,7 @@ void Mundo::crianinho(int linha, int coluna){
     if(mckif_space_isempty(linha, coluna) == false){
         return;
     }
-    Comunidade novac(this, linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
+    Comunidade novac(linha, coluna, energ_init_ninho, def_p_novaformiga, def_energ_iter);
     comunidades.push_back(novac);
 }
 
@@ -537,7 +533,7 @@ bool Mundo::criaformigas(int quantas, char tipo, int id_n){
     bool aux;
     while(it != comunidades.end()){
         if(it->getNinhoId() == id_n){
-            aux=it->criaFormigas(quantas,tipo);
+            aux=it->criaFormigas(quantas,tipo,this);
             return aux;
         }
         it++;
