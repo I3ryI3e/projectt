@@ -9,7 +9,7 @@ class Mundo;
 
 class Comunidade {
     Mundo* p_mundo;
-    int n_formigas;
+    int n_formigas, contador_formigas;
     Ninho ninho;
     vector <Formiga*> formigueiro;
 public:
@@ -46,6 +46,8 @@ public:
     float formiga_try_to_take_energy_from_ninho();
     bool mataformiga(int linha, int coluna);
     void remove_Dead_Formigas();
+    void ninho_set_def_p_novaformiga(int novo_valor);
+    void ninho_set_def_energ_iter(int novo_valor);
     virtual ~Comunidade();
 private:
 };

@@ -46,7 +46,7 @@ int Formiga::getRaioVisao() const{return raio_visao;}
 
 float Formiga::getenergia() const{return energia_f;}
 
-void Formiga::resetNIteracoesSemNinho() {n_iteracoes_sem_ir_ao_ninho=0;}
+void Formiga::resetNIteracoesSemNinho() {n_iteracoes_sem_ir_ao_ninho=-1;}
 
 bool Formiga::ckif_ninho_in_raio_visao() {
     if((abs(ninho_f->getPonto().getX()-local_f.getX()) <= raio_visao) && (abs(ninho_f->getPonto().getY()-local_f.getY()) <= raio_visao))
@@ -55,7 +55,7 @@ bool Formiga::ckif_ninho_in_raio_visao() {
 }
 
 void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
-    int aux;
+    float aux;
     if(local_f == ninho_f->getPonto()){
         if((energia_f >= energia_init*0.5) && (energia_f<=energia_init)){
             get_out_of_ninho(mundo_atual);
@@ -63,7 +63,7 @@ void Formiga::iteracao(Mundo* mundo_atual, Comunidade* comunidade){
             aux=comunidade->formiga_gives_energy_to_ninho();
             energia_f-=aux;
         }else{
-            if((aux=comunidade->formiga_try_to_take_energy_from_ninho()) ==0 ){
+            if((aux=comunidade->formiga_try_to_take_energy_from_ninho()) == 0){
                 get_out_of_ninho(mundo_atual);
             }else
                 energia_f+=aux;     
@@ -89,6 +89,7 @@ void Formiga::get_out_of_ninho(Mundo* mundo) {
                 if(mundo->mckif_noants_nonest(local_f.getX()+i, local_f.getY()+j)){
                     local_f.setX(local_f.getX()+i);
                     local_f.setY(local_f.getY()+j);
+                    return;
                 }
             }
         }
@@ -127,9 +128,12 @@ void Formiga::addRegra(Regra* nregra){comportamento.push_back(nregra);}
 
 void Formiga::modifica_energia(float energia){energia_f += energia;}
 
-void Formiga::mov_SuperFormiga(int linha, int coluna){
+bool Formiga::mov_SuperFormiga(int linha, int coluna, Mundo* mundo){
+    if(linha >= mundo->getLimite() || coluna >= mundo->getLimite() || linha<0 || coluna<0)
+        return false;
     local_f.setX(linha);
     local_f.setY(coluna);
+    return true;
 }
 
 Formiga::~Formiga() {

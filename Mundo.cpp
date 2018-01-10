@@ -58,6 +58,11 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
         iss >> npc;
         if(npc >= 0 && npc <= 100)
             def_p_novaformiga=npc;
+        auto it = comunidades.begin();
+        while(it != comunidades.end()){
+            it->ninho_set_def_p_novaformiga(def_p_novaformiga);
+            ++it;
+        }
         return estado;
     }
     if(aux.compare("defvt") == 0){
@@ -65,6 +70,11 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
         iss >> nvt;
         if(nvt > 0 && nvt <= 100)
             def_energ_iter=nvt;
+        auto it = comunidades.begin();
+        while(it != comunidades.end()){
+            it->ninho_set_def_energ_iter(def_energ_iter);
+            ++it;
+        }
         return estado;
     }
     if(aux.compare("defmi") == 0){
@@ -247,7 +257,8 @@ int Mundo::tratacmd(string linha, int estado, Interface& user_interface){
             if(it->mataformiga(lin, col))
                 ;
             else{
-            ++it;}
+                ++it;
+            }
         }
         return estado;
     }
@@ -553,7 +564,6 @@ int Mundo::getLimite() const{return limite;}
 
 void Mundo::migalhas_iniciais(){
     srand (time(NULL));
-    
     for(int i=0;i<limite;i++){
         for(int j=0;j<limite;j++){
             if((rand()%100) < p_init_migalhas){

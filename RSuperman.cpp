@@ -20,15 +20,15 @@ void RSuperman::accao(Formiga* formiga, Mundo* mundo, Comunidade* comunidade) {
     for(int i=-1;i<2;i++){
         for(int j=-1;j<2;j++){
             if(mundo->mckif_noants_nonest(aux.getX()+i, aux.getY()+j)){
-                formiga->mov_SuperFormiga(aux.getX()+i, aux.getY()+j);
-                comunidade->addenergFormiga(aux.getX(), aux.getY(), (formiga->getenergia()*0.75));
-                formiga->modifica_energia(-(formiga->getenergia()*0.75));
-                formiga->resetNIteracoesSemNinho();
-                return;
+                if(formiga->mov_SuperFormiga(aux.getX()+i, aux.getY()+j, mundo)){
+                    comunidade->addenergFormiga(aux.getX(), aux.getY(), (formiga->getenergia()*0.75));
+                    formiga->modifica_energia(-(formiga->getenergia()*0.75));
+                    formiga->resetNIteracoesSemNinho();
+                    return;
+                }
             }
         }
     }
-    formiga->resetNIteracoesSemNinho();
 }
 
 Regra* RSuperman::duplica() const {return new RSuperman(*this);}

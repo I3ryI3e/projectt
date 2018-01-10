@@ -14,7 +14,7 @@ void Interface::inicia() {
         if(estado == 1 || estado == 3){
             iterador->updatemap(*this);
         }else{
-            screen_config_stage();        //AS MENSAGENS DE ERRO TAO MAL AGORA
+            screen_config_stage();
         }
         if(estado == 0 || estado == 1){
             linha = getlinha();
@@ -29,7 +29,8 @@ void Interface::inicia() {
                 iss >> aux >> aux;
                 file.open(aux);
                 if(file.fail()){
-                    mostrainfo("\n\t\t    Erro a abrir o ficheiro.");  //MUDAR
+                    Consola::gotoxy(0,1);
+                    mostrainfo("\tErro a abrir o ficheiro.");
                     estado -= 2;
                     continue;
                 }
