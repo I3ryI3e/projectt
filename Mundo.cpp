@@ -7,11 +7,6 @@
 Mundo::Mundo(string nnome): nome(nnome), pfoca(0,0), limite(-1), energ_init_ninho(-1), def_p_novaformiga(-1),
         def_energ_iter(1), p_init_migalhas(-1), energ_init_migalhas(-1), migalhas_iter(-1), janela(25){}
 
-Mundo::Mundo(const Mundo& outro): nome(outro.nome), pfoca(outro.pfoca), limite(outro.limite), energ_init_ninho(outro.energ_init_ninho), def_p_novaformiga(outro.def_p_novaformiga),
-        def_energ_iter(outro.def_energ_iter), p_init_migalhas(outro.p_init_migalhas), migalhas_iter(outro.migalhas_iter), janela(outro.janela){
-    comunidades=outro.comunidades;
-    migalhas=outro.migalhas;
-}
 
 void Mundo::trata_Reset() {
     comunidades[0].trataResetNNinhos();
