@@ -18,7 +18,6 @@ class Mundo {
     float energ_init_ninho, energ_init_migalhas;
 public:
     Mundo(string nnome);
-    Mundo(const Mundo& outro);
     int getLimite() const;
     string getNome() const;
     void setNome(string nnome);
